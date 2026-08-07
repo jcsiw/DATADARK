@@ -177,8 +177,8 @@ const el = id => document.getElementById(id);
         el("currentTime").textContent = `Agora: ${s.now.formatted}`;
 
         if (s.open) {
-          el("title").textContent = "Atendimento disponível";
-          el("lead").textContent = "Estamos dentro do horário de expediente. Você será encaminhado com segurança para o Portal DATADARK.";
+          el("title").textContent = "Atendimento Disponível";
+          el("lead").textContent = "Estamos dentro do horário de expediente.";
           el("statusMessage").className = "message open";
           el("statusMessage").textContent = `${s.reason} Clique no botão abaixo para acessar o Portal DATADARK.`;
           el("statusIcon").className = "icon open";
