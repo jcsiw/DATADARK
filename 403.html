@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>403 | DATADARK Tecnologia</title>
+
+<meta name="robots" content="noindex">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    height:100%;
+}
+
+body{
+
+    background:
+        radial-gradient(circle at top,#420000 0%,#111111 45%,#050505 100%);
+
+    color:#fff;
+
+    overflow:hidden;
+
+    font-family:"Segoe UI",sans-serif;
+
+}
+
+/* Grid tecnológica */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        linear-gradient(rgba(255,0,0,.05) 1px,transparent 1px),
+
+        linear-gradient(90deg,rgba(255,0,0,.05) 1px,transparent 1px);
+
+    background-size:40px 40px;
+
+    animation:gridMove 25s linear infinite;
+
+    opacity:.5;
+
+}
+
+/* Glow */
+
+body::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:700px;
+
+    height:700px;
+
+    left:50%;
+
+    top:45%;
+
+    transform:translate(-50%,-50%);
+
+    background:
+
+        radial-gradient(circle,#ff000022 0%,transparent 70%);
+
+    filter:blur(25px);
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(40px);
+
+    }
+
+}
+
+.main{
+
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100%;
+
+}
+
+.card403{
+
+    max-width:760px;
+
+    text-align:center;
+
+    padding:60px;
+
+    border-radius:20px;
+
+    background:rgba(20,20,20,.75);
+
+    backdrop-filter:blur(14px);
+
+    border:1px solid rgba(255,0,0,.20);
+
+    box-shadow:
+
+        0 0 40px rgba(255,0,0,.12);
+
+}
+
+.logo{
+
+    width:260px;
+
+    max-width:90%;
+
+    margin-bottom:35px;
+
+    filter:
+
+        drop-shadow(0 0 10px rgba(255,70,70,.40))
+
+        drop-shadow(0 0 25px rgba(255,70,70,.15));
+
+    animation:logoGlow 5s ease-in-out infinite;
+
+}
+
+@keyframes logoGlow{
+
+0%,100%{
+
+filter:
+
+drop-shadow(0 0 8px rgba(255,70,70,.35))
+
+drop-shadow(0 0 20px rgba(255,70,70,.20));
+
+}
+
+50%{
+
+filter:
+
+drop-shadow(0 0 18px rgba(255,70,70,.60))
+
+drop-shadow(0 0 40px rgba(255,70,70,.30));
+
+}
+
+}
+
+.error{
+
+    font-size:110px;
+
+    font-weight:800;
+
+    color:#ff4b4b;
+
+    text-shadow:
+
+        0 0 15px #ff3b3b,
+
+        0 0 35px rgba(255,0,0,.35);
+
+}
+
+.title{
+
+    font-size:34px;
+
+    font-weight:600;
+
+    margin-bottom:15px;
+
+}
+
+.desc{
+
+    font-size:18px;
+
+    color:#d7d7d7;
+
+    line-height:1.8;
+
+}
+
+.slogan{
+
+    margin-top:25px;
+
+    color:#ff8888;
+
+    font-size:17px;
+
+}
+
+.btn-home{
+
+    margin-top:35px;
+
+    padding:14px 34px;
+
+    border:none;
+
+    border-radius:40px;
+
+    background:linear-gradient(90deg,#b30000,#ff4040);
+
+    color:#fff;
+
+    transition:.3s;
+
+}
+
+.btn-home:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+        0 0 25px #ff3b3b,
+
+        0 0 45px rgba(255,0,0,.35);
+
+}
+
+.footer{
+
+    margin-top:40px;
+
+    color:#9d9d9d;
+
+    font-size:.9rem;
+
+}
+
+@media(max-width:768px){
+
+.card403{
+
+margin:20px;
+
+padding:35px 25px;
+
+}
+
+.logo{
+
+width:190px;
+
+}
+
+.error{
+
+font-size:70px;
+
+}
+
+.title{
+
+font-size:26px;
+
+}
+
+.desc{
+
+font-size:16px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="card403">
+
+<img
+src="assets/img/logo.png"
+class="logo"
+alt="DATADARK Tecnologia">
+
+<div class="error">
+
+403
+
+</div>
+
+<h1 class="title">
+
+Acesso Negado
+
+</h1>
+
+<p class="desc">
+
+Você não possui permissão para acessar esta área.<br>
+
+Caso acredite que isso seja um erro, entre em contato com a equipe da DATADARK Tecnologia.
+
+</p>
+
+<div class="slogan">
+
+<i class="bi bi-shield-lock-fill"></i>
+
+Protegendo sua infraestrutura e seus dados.
+
+</div>
+
+<a href="/"
+
+class="btn btn-home">
+
+<i class="bi bi-house-door-fill"></i>
+
+Ir para a Página Inicial
+
+</a>
+
+<div class="footer">
+
+<strong>DATADARK Tecnologia</strong><br>
+
+Infraestrutura • Cloud • Segurança • Suporte Corporativo
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
