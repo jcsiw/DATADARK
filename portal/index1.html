@@ -113,7 +113,9 @@
     (() => {
       const PORTAL_URL = "https://portal.datadark.com.br:8443";
       const TIME_ZONE = "America/Sao_Paulo";
-const el = id => document.getElementById(id);
+      const REDIRECT_DELAY = 4;
+
+      const el = id => document.getElementById(id);
 
       function nowParts() {
         const fmt = new Intl.DateTimeFormat("pt-BR", {
@@ -180,10 +182,11 @@ const el = id => document.getElementById(id);
           el("title").textContent = "Atendimento disponível";
           el("lead").textContent = "Estamos dentro do horário de expediente. Você será encaminhado com segurança para o Portal DATADARK.";
           el("statusMessage").className = "message open";
-          el("statusMessage").textContent = `${s.reason} Clique no botão abaixo para acessar o Portal DATADARK.`;
+          el("statusMessage").textContent = `${s.reason} Redirecionamento automático em ${REDIRECT_DELAY} segundos.`;
           el("statusIcon").className = "icon open";
           el("statusIcon").textContent = "✓";
           el("portalButton").hidden = false;
+          setTimeout(() => location.replace(PORTAL_URL), REDIRECT_DELAY * 1000);
         } else {
           el("title").textContent = "Atendimento fora do expediente";
           el("lead").textContent = "No momento, o Portal DATADARK não está sendo liberado automaticamente. Nosso atendimento segue os horários informados abaixo.";
