@@ -134,8 +134,6 @@ h1{margin:0;font-size:clamp(31px,6vw,52px);line-height:1.06;letter-spacing:-.04e
   "use strict";
 
   const PORTAL_URL = "https://portal.datadark.com.br:8443";
-  const HEALTH_URL = "https://portal.datadark.com.br:8443/health";
-  const HEALTH_EXPECTED = "ONLINE";
   const TIME_ZONE = "America/Sao_Paulo";
   const CHECK_TIMEOUT_MS = 7000;
   const RECHECK_INTERVAL_MS = 60000;
@@ -244,18 +242,18 @@ h1{margin:0;font-size:clamp(31px,6vw,52px);line-height:1.06;letter-spacing:-.04e
     notice.textContent = "A validação é automática e pode levar alguns segundos.";
     portalButton.hidden = true;
     retryButton.hidden = true;
-    serverState.textContent = "Portal: verificando /health...";
+    serverState.textContent = "Servidor: verificando...";
   }
 
   function showAvailable(s) {
     orb("available","✓");
     title.textContent = "Atendimento disponível";
-    lead.textContent = "O endpoint oficial de disponibilidade respondeu HTTP 200 com o estado ONLINE. O Portal DATADARK está operacional.";
+    lead.textContent = "O servidor respondeu à verificação e o Portal DATADARK está disponível para atendimento.";
     notice.className = "notice available";
     notice.textContent = `${s.period} Clique no botão abaixo para acessar o portal com segurança.`;
     portalButton.hidden = false;
     retryButton.hidden = true;
-    serverState.textContent = "Portal: ONLINE";
+    serverState.textContent = "Servidor: disponível";
   }
 
   function showMaintenance() {
@@ -266,7 +264,7 @@ h1{margin:0;font-size:clamp(31px,6vw,52px);line-height:1.06;letter-spacing:-.04e
     notice.innerHTML = "<strong>Manutenção ou melhorias em andamento.</strong> Nossa infraestrutura pode estar passando por uma intervenção técnica programada, atualização de segurança ou melhoria de serviços. Trabalhamos para restabelecer o acesso com a maior brevidade possível, preservando a estabilidade e a segurança do ambiente.";
     portalButton.hidden = true;
     retryButton.hidden = false;
-    serverState.textContent = "Portal: indisponível ou em manutenção";
+    serverState.textContent = "Servidor: indisponível ou em manutenção";
   }
 
   async function probePortal() {
@@ -274,25 +272,18 @@ h1{margin:0;font-size:clamp(31px,6vw,52px);line-height:1.06;letter-spacing:-.04e
     const timer = setTimeout(() => controller.abort(), CHECK_TIMEOUT_MS);
 
     try {
-      const response = await fetch(`${HEALTH_URL}?t=${Date.now()}`, {
+      await fetch(`${PORTAL_URL}/?availability_check=${Date.now()}`, {
         method: "GET",
-        mode: "cors",
+        mode: "no-cors",
         cache: "no-store",
-        credentials: "omit",
+        redirect: "follow",
         signal: controller.signal
       });
-
-      const body = (await response.text()).trim();
-
-      return (
-        response.ok &&
-        response.status === 200 &&
-        body === HEALTH_EXPECTED
-      );
-    } catch (e) {
-      return false;
-    } finally {
       clearTimeout(timer);
+      return true;
+    } catch (e) {
+      clearTimeout(timer);
+      return false;
     }
   }
 
