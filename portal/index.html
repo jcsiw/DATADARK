@@ -223,46 +223,90 @@ h1{max-width:760px;margin:0;font-size:clamp(2.4rem,5.3vw,4.8rem);line-height:.98
 
 .downloads{
   margin:0;
-  padding:clamp(2.2rem,5vw,4.5rem);
+  padding:clamp(2.5rem,5vw,4.8rem);
   border:0;
   border-radius:0;
-  background:#f8fafc;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(4,87,226,.08),transparent 28%),
+    linear-gradient(180deg,#fbfdff 0%,#f3f7fc 100%);
   color:var(--dd-text);
-  text-align:left
+  text-align:left;
+  border-top:1px solid rgba(4,87,226,.06)
 }
-.downloads-head{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;margin-bottom:1.5rem}
-.downloads-kicker{margin:0 0 .45rem;color:var(--dd-blue);font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.17em}
-.downloads-title{margin:0;font-size:clamp(1.65rem,3vw,2.45rem);line-height:1.08;letter-spacing:-.035em}
-.downloads-description{max-width:780px;margin:.8rem 0 0;color:var(--dd-muted);font-size:.93rem;line-height:1.65}
+.downloads-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;
+  max-width:1120px;margin:0 auto 1.8rem
+}
+.downloads-heading{max-width:760px}
+.downloads-kicker{
+  display:inline-flex;align-items:center;gap:.55rem;margin:0 0 .55rem;color:var(--dd-blue);
+  font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.17em
+}
+.downloads-kicker:before{content:"";width:28px;height:2px;border-radius:999px;background:linear-gradient(90deg,var(--dd-blue),var(--dd-cyan))}
+.downloads-title{margin:0;font-size:clamp(1.85rem,3.2vw,2.75rem);line-height:1.06;letter-spacing:-.04em}
+.downloads-description{max-width:760px;margin:.9rem 0 0;color:var(--dd-muted);font-size:.96rem;line-height:1.68}
 .always-badge{
-  flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:.58rem .8rem;border-radius:999px;
-  border:1px solid rgba(50,201,139,.19);background:rgba(50,201,139,.08);color:#13744f;
-  font-size:10px;font-weight:850;letter-spacing:.08em;text-transform:uppercase
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:.65rem .9rem;border-radius:999px;
+  border:1px solid rgba(50,201,139,.22);background:#fff;color:#116b49;
+  box-shadow:0 10px 24px rgba(8,30,72,.06);font-size:10px;font-weight:850;letter-spacing:.08em;text-transform:uppercase
 }
-.always-dot{width:7px;height:7px;border-radius:50%;background:var(--dd-green);box-shadow:0 0 12px rgba(50,201,139,.5)}
+.always-dot{width:8px;height:8px;border-radius:50%;background:var(--dd-green);box-shadow:0 0 0 5px rgba(50,201,139,.10),0 0 14px rgba(50,201,139,.48)}
+.remote-support-shell{
+  max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.55fr);
+  gap:1rem;align-items:stretch
+}
+.remote-support-intro{
+  position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;
+  min-height:100%;padding:1.55rem;border-radius:24px;color:#fff;
+  border:1px solid rgba(94,171,255,.18);
+  background:
+    radial-gradient(circle at 85% 15%,rgba(55,200,251,.18),transparent 28%),
+    linear-gradient(145deg,#071c38 0%,#0a2e5d 100%);
+  box-shadow:0 18px 42px rgba(8,30,72,.12)
+}
+.remote-support-intro:after{
+  content:"";position:absolute;inset:auto -60px -75px auto;width:210px;height:210px;border-radius:50%;
+  border:1px solid rgba(55,200,251,.14);box-shadow:0 0 0 28px rgba(55,200,251,.03),0 0 0 56px rgba(4,87,226,.025)
+}
+.remote-intro-icon{
+  position:relative;z-index:1;width:64px;height:64px;display:grid;place-items:center;border-radius:18px;
+  color:var(--dd-cyan);border:1px solid rgba(55,200,251,.24);background:rgba(55,200,251,.08)
+}
+.remote-intro-icon svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
+.remote-support-intro strong{position:relative;z-index:1;display:block;margin-top:1.2rem;font-size:1.12rem}
+.remote-support-intro p{position:relative;z-index:1;margin:.55rem 0 0;color:rgba(255,255,255,.68);font-size:.82rem;line-height:1.6}
+.remote-support-meta{position:relative;z-index:1;margin-top:1.5rem;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.10);color:rgba(255,255,255,.72);font-size:.76rem;line-height:1.55}
 .download-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
 .download-card{
-  display:flex;flex-direction:column;min-height:240px;padding:1.25rem;
-  border:1px solid var(--dd-line);border-radius:20px;background:#fff;
-  box-shadow:0 14px 34px rgba(8,30,72,.06)
+  position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:290px;padding:1.45rem;
+  border:1px solid rgba(8,30,72,.10);border-radius:24px;background:#fff;
+  box-shadow:0 16px 40px rgba(8,30,72,.075);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease
 }
-.download-top{display:flex;align-items:center;gap:.9rem}
+.download-card:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--dd-blue),var(--dd-cyan))}
+.download-card:hover{transform:translateY(-3px);border-color:rgba(4,87,226,.18);box-shadow:0 22px 46px rgba(8,30,72,.11)}
+.download-top{display:flex;align-items:center;gap:1rem;padding-top:.15rem}
 .os-icon{
-  width:50px;height:50px;flex:0 0 50px;display:grid;place-items:center;border-radius:15px;
-  color:var(--dd-blue);background:linear-gradient(145deg,rgba(4,87,226,.11),rgba(55,200,251,.08));
-  border:1px solid rgba(4,87,226,.12)
+  width:58px;height:58px;flex:0 0 58px;display:grid;place-items:center;border-radius:17px;
+  color:var(--dd-blue);background:linear-gradient(145deg,rgba(4,87,226,.12),rgba(55,200,251,.07));
+  border:1px solid rgba(4,87,226,.13)
 }
-.os-icon svg{width:26px;height:26px;fill:currentColor}
-.download-card h3{margin:0;font-size:1.05rem}.download-card .platform{display:block;margin-top:4px;color:#8793a2;font-size:.72rem}
-.download-card p{margin:1rem 0 1.1rem;color:var(--dd-muted);font-size:.82rem;line-height:1.6}
+.os-icon svg{width:29px;height:29px;fill:currentColor}
+.download-card h3{margin:0;font-size:1.18rem;letter-spacing:-.02em}
+.download-card .platform{display:block;margin-top:4px;color:#8190a2;font-size:.72rem;font-weight:650;letter-spacing:.01em}
+.download-card p{margin:1.2rem 0 1.25rem;color:var(--dd-muted);font-size:.84rem;line-height:1.65}
 .download-button{
-  margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;
-  padding:.78rem .9rem;border-radius:999px;color:#fff;text-decoration:none;font-size:.82rem;font-weight:800;
-  border:1px solid rgba(4,87,226,.12);background:var(--dd-blue);box-shadow:0 10px 24px rgba(4,87,226,.16);
-  transition:transform .18s ease,filter .18s ease
+  margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:.85rem 1rem;border-radius:999px;color:#fff;text-decoration:none;font-size:.84rem;font-weight:800;
+  border:1px solid rgba(4,87,226,.12);background:linear-gradient(135deg,var(--dd-blue),#0754c7);
+  box-shadow:0 11px 25px rgba(4,87,226,.19);transition:transform .18s ease,filter .18s ease,box-shadow .18s ease
 }
-.download-button:hover{transform:translateY(-1px);filter:brightness(1.05)}
-.download-note{margin:1rem 0 0;color:#7c8998;font-size:.76rem;line-height:1.55;text-align:center}
+.download-button:hover{transform:translateY(-1px);filter:brightness(1.05);box-shadow:0 14px 30px rgba(4,87,226,.23)}
+.download-note{
+  max-width:1120px;margin:1rem auto 0;padding:1rem 1.1rem;display:flex;align-items:flex-start;justify-content:center;gap:.65rem;
+  border:1px solid rgba(4,87,226,.09);border-radius:16px;background:rgba(255,255,255,.72);
+  color:#6f7f91;font-size:.76rem;line-height:1.55;text-align:center
+}
+.download-note:before{content:"i";flex:0 0 20px;width:20px;height:20px;display:grid;place-items:center;border-radius:50%;color:var(--dd-blue);font-weight:900;background:rgba(4,87,226,.08)}
 
 .service-info{
   padding:0 clamp(2.2rem,5vw,4.5rem) clamp(2.4rem,5vw,4.5rem);
@@ -282,6 +326,8 @@ h1{max-width:760px;margin:0;font-size:clamp(2.4rem,5.3vw,4.8rem);line-height:.98
   .status-hero{grid-template-columns:1fr;min-height:auto}
   .status-visual{min-height:360px}
   .portal-art{width:min(68%,390px)}
+  .remote-support-shell{grid-template-columns:1fr}
+  .remote-support-intro{min-height:auto}
 }
 @media(max-width:740px){
   .page{width:min(100% - 16px,1380px);padding-top:8px}
@@ -292,6 +338,7 @@ h1{max-width:760px;margin:0;font-size:clamp(2.4rem,5.3vw,4.8rem);line-height:.98
   .status-visual{min-height:300px;border-radius:22px}.portal-art{width:min(84%,340px)}
   .actions{align-items:stretch}.btn{width:100%}
   .downloads{padding:2.2rem 1.25rem}.downloads-head{flex-direction:column;gap:1rem}.download-grid{grid-template-columns:1fr}.always-badge{align-self:flex-start}
+  .remote-support-shell{gap:.85rem}.remote-support-intro{padding:1.25rem;border-radius:20px}.download-card{min-height:0;border-radius:20px}
   .service-info{padding:0 1.25rem 2.2rem}.schedule{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
@@ -351,7 +398,7 @@ h1{max-width:760px;margin:0;font-size:clamp(2.4rem,5.3vw,4.8rem);line-height:.98
            ========================================================= -->
       <section class="downloads" aria-labelledby="downloadsTitle">
         <div class="downloads-head">
-          <div>
+          <div class="downloads-heading">
             <p class="downloads-kicker">Suporte Remoto</p>
             <h2 id="downloadsTitle" class="downloads-title">DATADARK Remote Support</h2>
             <p class="downloads-description">
@@ -367,64 +414,83 @@ h1{max-width:760px;margin:0;font-size:clamp(2.4rem,5.3vw,4.8rem);line-height:.98
           </span>
         </div>
 
-        <div class="download-grid">
-          <article class="download-card">
-            <div class="download-top">
-              <div class="os-icon" aria-hidden="true">
+        <div class="remote-support-shell">
+          <aside class="remote-support-intro" aria-label="Informações sobre o suporte remoto">
+            <div>
+              <div class="remote-intro-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24">
-                  <path d="M3 5.2 10.4 4v7.1H3V5.2Zm8.3-1.4L21 2.4v8.7h-9.7V3.8ZM3 12h7.4v7.1L3 18V12Zm8.3 0H21v8.6l-9.7-1.4V12Z"/>
+                  <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+                  <path d="M8 20h8M12 16v4"></path>
+                  <path d="M8 10l2.2 2.2L16 7"></path>
                 </svg>
               </div>
-              <div>
-                <h3>Windows</h3>
-                <span class="platform">DATADARK Remote Support</span>
-              </div>
+              <strong>Aplicativo oficial DATADARK</strong>
+              <p>Escolha abaixo a versão correspondente ao sistema operacional do computador que receberá o atendimento.</p>
             </div>
-
-            <p>
-              Versão preparada para computadores Windows. Faça o download,
-              extraia o arquivo e utilize-o somente quando orientado pelo suporte DATADARK.
-            </p>
-
-            <a
-              class="download-button"
-              href="https://github.com/jcsiw/DATADARK-TECNOLOGIA/raw/main/Downloads/v1.0/DATADARK_Remote_Support_Windows.zip?download="
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-            >
-              ↓ Baixar para Windows
-            </a>
-          </article>
-
-          <article class="download-card">
-            <div class="download-top">
-              <div class="os-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2.2c-2.4 0-4 1.7-4 4.2 0 1.1.3 2 .7 2.8-1.9 1.3-3.2 3.5-3.2 5.9 0 .8.1 1.5.4 2.2-.8.5-1.4 1.4-1.4 2.4 0 1.5 1.2 2.7 2.7 2.7 1 0 1.9-.6 2.4-1.4.8.4 1.6.6 2.4.6s1.7-.2 2.4-.6c.5.8 1.4 1.4 2.4 1.4 1.5 0 2.7-1.2 2.7-2.7 0-1-.6-1.9-1.4-2.4.2-.7.4-1.4.4-2.2 0-2.4-1.3-4.6-3.2-5.9.4-.8.7-1.8.7-2.8 0-2.5-1.6-4.2-4-4.2Zm-1.8 4.2c0-1.4.7-2.2 1.8-2.2s1.8.8 1.8 2.2c0 .8-.2 1.5-.5 2.1-.4-.1-.9-.1-1.3-.1s-.9 0-1.3.1c-.3-.6-.5-1.3-.5-2.1Zm-1.5 9.7c.7.7 1.9 1.2 3.3 1.2s2.6-.5 3.3-1.2c-.2 2-1.5 3.4-3.3 3.4s-3.1-1.4-3.3-3.4Z"/>
-                </svg>
-              </div>
-              <div>
-                <h3>Linux</h3>
-                <span class="platform">DATADARK Remote Support</span>
-              </div>
+            <div class="remote-support-meta">
+              Disponível independentemente do status do Portal DATADARK e do horário de expediente.
             </div>
+          </aside>
 
-            <p>
-              Versão destinada a estações Linux. Faça o download do pacote
-              e siga as orientações fornecidas pela equipe DATADARK para iniciar o atendimento.
-            </p>
+          <div class="download-grid">
+            <article class="download-card">
+              <div class="download-top">
+                <div class="os-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M3 5.2 10.4 4v7.1H3V5.2Zm8.3-1.4L21 2.4v8.7h-9.7V3.8ZM3 12h7.4v7.1L3 18V12Zm8.3 0H21v8.6l-9.7-1.4V12Z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3>Windows</h3>
+                  <span class="platform">DATADARK Remote Support</span>
+                </div>
+              </div>
 
-            <a
-              class="download-button"
-              href="https://github.com/jcsiw/DATADARK-TECNOLOGIA/raw/main/Downloads/v1.0/DATADARK_Remote_Support_Linux.zip?download="
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-            >
-              ↓ Baixar para Linux
-            </a>
-          </article>
+              <p>
+                Versão preparada para computadores Windows. Faça o download,
+                extraia o arquivo e utilize-o somente quando orientado pelo suporte DATADARK.
+              </p>
+
+              <a
+                class="download-button"
+                href="https://github.com/jcsiw/DATADARK-TECNOLOGIA/raw/main/Downloads/v1.0/DATADARK_Remote_Support_Windows.zip?download="
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                ↓ Baixar para Windows
+              </a>
+            </article>
+
+            <article class="download-card">
+              <div class="download-top">
+                <div class="os-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2.2c-2.4 0-4 1.7-4 4.2 0 1.1.3 2 .7 2.8-1.9 1.3-3.2 3.5-3.2 5.9 0 .8.1 1.5.4 2.2-.8.5-1.4 1.4-1.4 2.4 0 1.5 1.2 2.7 2.7 2.7 1 0 1.9-.6 2.4-1.4.8.4 1.6.6 2.4.6s1.7-.2 2.4-.6c.5.8 1.4 1.4 2.4 1.4 1.5 0 2.7-1.2 2.7-2.7 0-1-.6-1.9-1.4-2.4.2-.7.4-1.4.4-2.2 0-2.4-1.3-4.6-3.2-5.9.4-.8.7-1.8.7-2.8 0-2.5-1.6-4.2-4-4.2Zm-1.8 4.2c0-1.4.7-2.2 1.8-2.2s1.8.8 1.8 2.2c0 .8-.2 1.5-.5 2.1-.4-.1-.9-.1-1.3-.1s-.9 0-1.3.1c-.3-.6-.5-1.3-.5-2.1Zm-1.5 9.7c.7.7 1.9 1.2 3.3 1.2s2.6-.5 3.3-1.2c-.2 2-1.5 3.4-3.3 3.4s-3.1-1.4-3.3-3.4Z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3>Linux</h3>
+                  <span class="platform">DATADARK Remote Support</span>
+                </div>
+              </div>
+
+              <p>
+                Versão destinada a estações Linux. Faça o download do pacote
+                e siga as orientações fornecidas pela equipe DATADARK para iniciar o atendimento.
+              </p>
+
+              <a
+                class="download-button"
+                href="https://github.com/jcsiw/DATADARK-TECNOLOGIA/raw/main/Downloads/v1.0/DATADARK_Remote_Support_Linux.zip?download="
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                ↓ Baixar para Linux
+              </a>
+            </article>
+          </div>
         </div>
 
         <p class="download-note">
