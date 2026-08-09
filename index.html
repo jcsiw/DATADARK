@@ -1,498 +1,804 @@
-<!DOCTYPE html>
-<html  >
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:image:src" content="assets/images/index-meta.png">
-  <meta property="og:image" content="assets/images/index-meta.png">
-  <meta name="twitter:title" content="DATADARK Tecnologia | Suporte Técnico, Redes, Servidores Linux e Infraestrutura de TI em Porto Alegre">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="assets/images/logo-site-1.png" type="image/x-icon">
-  <meta name="description" content="A DATADARK Tecnologia oferece suporte técnico especializado, manutenção de computadores, servidores Linux, redes, backup, virtualização e monitoramento para empresas em Porto Alegre e Região Metropolitana.">
-  
-  
-  <title>DATADARK Tecnologia | Suporte Técnico, Redes, Servidores Linux e Infraestrutura de TI em Porto Alegre</title>
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/parallax/jarallax.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Inter+Tight:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter+Tight:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=XLTUJj"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=XLTUJj" type="text/css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  
-  <!-- =========================================
-     DATADARK Tecnologia - Configuração Global
-     ========================================= -->
-
-<!-- Identidade -->
-<meta name="author" content="DATADARK Tecnologia">
-<meta name="theme-color" content="#0B1624">
-
-<!-- Indexação -->
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z3B9DR2VX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'G-0Z3B9DR2VX');
-</script>
+  <!-- SEO principal -->
+  <title>DATADARK Tecnologia | Suporte Técnico e Infraestrutura de TI</title>
+  <meta name="description" content="Suporte técnico, redes, servidores, backup, segurança e infraestrutura de TI em Porto Alegre, Região Metropolitana e atendimento remoto em todo o Brasil.">
   <meta name="author" content="DATADARK Tecnologia">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="theme-color" content="#0b1624">
+  <link rel="canonical" href="https://datadark.com.br/">
 
-<meta name="theme-color" content="#0B1624">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="DATADARK Tecnologia">
+  <meta property="og:title" content="DATADARK Tecnologia | Suporte Técnico e Infraestrutura de TI">
+  <meta property="og:description" content="Suporte técnico, redes, servidores, backup, segurança e infraestrutura de TI em Porto Alegre, Região Metropolitana e atendimento remoto em todo o Brasil.">
+  <meta property="og:url" content="https://datadark.com.br/">
+  <meta property="og:image" content="https://datadark.com.br/assets/images/index-meta.png">
+  <meta property="og:image:secure_url" content="https://datadark.com.br/assets/images/index-meta.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1536">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="DATADARK Tecnologia - Suporte Técnico e Infraestrutura de TI">
 
-<link rel="canonical" href="https://datadark.com.br/">
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DATADARK Tecnologia | Suporte Técnico e Infraestrutura de TI">
+  <meta name="twitter:description" content="Suporte técnico, redes, servidores, backup, segurança e infraestrutura de TI em Porto Alegre, Região Metropolitana e atendimento remoto em todo o Brasil.">
+  <meta name="twitter:image" content="https://datadark.com.br/assets/images/index-meta.png">
+  <meta name="twitter:image:alt" content="DATADARK Tecnologia - Suporte Técnico e Infraestrutura de TI">
 
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <!-- Schema.org / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://datadark.com.br/#organization",
+        "name": "DATADARK Tecnologia",
+        "url": "https://datadark.com.br/",
+        "description": "Suporte técnico, redes, servidores, backup, segurança e infraestrutura de TI em Porto Alegre, Região Metropolitana e atendimento remoto em todo o Brasil.",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://datadark.com.br/assets/images/logo-site-1.png",
+          "width": 1536,
+          "height": 1024
+        },
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://datadark.com.br/assets/images/index-meta.png",
+          "width": 1536,
+          "height": 1024
+        },
+        "email": "mailto:contato@datadark.com.br",
+        "telephone": "+55 51 99519-0259",
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Porto Alegre"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Região Metropolitana de Porto Alegre"
+          },
+          {
+            "@type": "Country",
+            "name": "Brasil"
+          }
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "telephone": "+55 51 99519-0259",
+          "email": "contato@datadark.com.br",
+          "areaServed": "BR",
+          "availableLanguage": "pt-BR"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://datadark.com.br/#website",
+        "url": "https://datadark.com.br/",
+        "name": "DATADARK Tecnologia",
+        "publisher": {
+          "@id": "https://datadark.com.br/#organization"
+        },
+        "inLanguage": "pt-BR"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://datadark.com.br/#webpage",
+        "url": "https://datadark.com.br/",
+        "name": "DATADARK Tecnologia | Suporte Técnico e Infraestrutura de TI",
+        "description": "Suporte técnico, redes, servidores, backup, segurança e infraestrutura de TI em Porto Alegre, Região Metropolitana e atendimento remoto em todo o Brasil.",
+        "isPartOf": {
+          "@id": "https://datadark.com.br/#website"
+        },
+        "about": {
+          "@id": "https://datadark.com.br/#organization"
+        },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://datadark.com.br/assets/images/index-meta.png",
+          "width": 1536,
+          "height": 1024
+        },
+        "inLanguage": "pt-BR"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Ícones e recursos locais -->
+  <link rel="icon" href="assets/images/logo-site-1.png" type="image/png">
+  <link rel="preload" href="assets/images/background-5-1717x916.png" as="image">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/datadark.css">
 </head>
 <body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
-<!-- Analytics -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z3B9DR2VX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- =====================================================
+       MENU PRINCIPAL
+  ====================================================== -->
+  <header class="site-header" id="topo">
+    <nav class="navbar navbar-dark navbar-expand-xl" aria-label="Navegação principal">
+      <div class="container nav-shell">
+        <button class="navbar-toggler" type="button" id="navToggle"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Abrir menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-gtag('config', 'G-0Z3B9DR2VX', {
-  anonymize_ip: true
-});
-</script>
-<!-- /Analytics -->
+        <div class="navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-xl-center">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
+            <li class="nav-item"><a class="nav-link" href="#solucoes">Soluções</a></li>
+            <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+            <li class="nav-item"><a class="nav-link" href="#atendimento">Atendimento</a></li>
+            <li class="nav-item"><a class="nav-link" href="#portal">Portal</a></li>
+          </ul>
 
-
-  
-  <section data-bs-version="5.1" class="menu menu5 cid-vlIl8PiWs0" once="menu" id="menu05-2">
-	
-
-	<nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
-		<div class="container">
-			<div class="navbar-brand">
-				
-				
-			</div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<div class="hamburger">
-					<span></span>
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav nav-dropdown navbar-nav-top-padding" data-app-modern-menu="true"><li class="nav-item">
-						<a class="nav-link link text-white display-4" href="index.html#header13-4">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link link text-white display-4" href="index.html#features015-6" aria-expanded="false">Serviços</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link link text-white display-4" href="index.html#article05-7">Sobre</a>
-					</li><li class="nav-item"><a class="nav-link link text-white display-4" href="index.html#features013-e">Soluções</a></li><li class="nav-item"><a class="nav-link link text-white display-4" href="index.html#features031-h">Áreas</a></li><li class="nav-item"><a class="nav-link link text-white display-4" href="index.html#image01-n">Atendimento</a></li></ul>
-				<div class="navbar-buttons mbr-section-btn"><a class="btn btn-primary display-4" href="https://wa.me/5551995190259"> WhatsApp</a></div>
-			</div>
-		</div>
-	</nav>
-</section>
-
-<section data-bs-version="5.1" class="header13 cid-vlIKMbHR4j mbr-fullscreen mbr-parallax-background" id="header13-4">
-  
-
-  
-  
-
-  <div class="align-center container-fluid">
-    
-
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-8">
-        <img src="assets/images/logo-2-1536x1024.png" alt="DATADARK Tecnologia" title="">
-      </div>
-    </div>
-  </div>
-</section>
-
-<section data-bs-version="5.1" class="features15 cid-vm9dV9dR45" id="features015-6">
-	
-
-	
-	
-	<div class="container-fluid">
-		<div class="row justify-content-center">
-			<div class="col-12 content-head">
-				<div class="mbr-section-head mb-5">
-					<h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-						<strong>SERVIÇOS EM DESTAQUE</strong></h3>
-					<h5 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-4 display-7">
-						Destaque para alguns dos serviços prestados pela <strong><em>DATADARK Tecnologia</em></strong></h5>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="item features-without-image col-12 col-lg-4 active">
-				<div class="item-wrapper">
-					<div class="img-wrapper">
-						<img src="assets/images/ic-suporte00-192x203.png" alt="DATADARK">
-					</div>
-					<div class="card-box">
-						<h4 class="card-title mbr-fonts-style mb-0 display-7"><strong>Suporte Técnico Especializado</strong></h4>
-						<h5 class="card-text mbr-fonts-style mt-3 display-7">
-							<div>Atendimento rápido e eficiente para diagnóstico, correção de falhas e resolução de problemas em computadores, notebooks e equipamentos de TI.</div>
-						</h5>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-4">
-				<div class="item-wrapper">
-					<div class="img-wrapper">
-						<img src="assets/images/ic-manutencao-192x156.png" alt="DATADARK" data-slide-to="1" data-bs-slide-to="1">
-					</div>
-					<div class="card-box">
-						<h4 class="card-title mbr-fonts-style mb-0 display-7"><strong>Manutenção Preventiva</strong></h4>
-						<h5 class="card-text mbr-fonts-style mt-3 display-7">Evite paradas inesperadas através de revisões periódicas, limpeza, otimização e monitoramento dos equipamentos.</h5>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-4">
-				<div class="item-wrapper">
-					<div class="img-wrapper">
-						<img src="assets/images/ic-servidores-192x106.png" alt="DATADARK" data-bs-slide-to="2" data-slide-to="2">
-					</div>
-					<div class="card-box">
-						<h4 class="card-title mbr-fonts-style mb-0 display-7"><strong>Servidores Linux/Windows</strong></h4>
-						<h5 class="card-text mbr-fonts-style mt-3 display-7">Implantação, configuração e administração de servidores Linux e Windows para serviços corporativos, compartilhamentos, aplicações e segurança.</h5>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-4">
-				<div class="item-wrapper">
-					<div class="img-wrapper">
-						<img src="assets/images/ic-seguranca-192x106.png" alt="DATADARK" data-slide-to="3" data-bs-slide-to="3">
-					</div>
-					<div class="card-box">
-						<h4 class="card-title mbr-fonts-style mb-0 display-7"><strong>Segurança da Informação</strong></h4>
-						<h5 class="card-text mbr-fonts-style mt-3 display-7">Implementação de boas práticas de segurança, proteção contra malware, ransomware, invasões e vazamento de dados.</h5>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-4">
-				<div class="item-wrapper">
-					<div class="img-wrapper">
-						<img src="assets/images/ic-backup-192x137.png" alt="DATADARK" data-bs-slide-to="4" data-slide-to="4">
-					</div>
-					<div class="card-box">
-						<h4 class="card-title mbr-fonts-style mb-0 display-7"><strong>Backup Local e em Nuvem</strong></h4>
-						<h5 class="card-text mbr-fonts-style mt-3 display-7">Proteção dos seus dados com rotinas de backup automatizadas e estratégias de recuperação em caso de falhas ou perdas.</h5>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-4">
-				<div class="item-wrapper">
-					<div class="img-wrapper">
-						<img src="assets/images/ic-suporteemp-192x111.png" alt="Mobirise Website Builder" data-slide-to="5" data-bs-slide-to="5">
-					</div>
-					<div class="card-box">
-						<h4 class="card-title mbr-fonts-style mb-0 display-7"><strong>Suporte para Empresas</strong></h4>
-						<h5 class="card-text mbr-fonts-style mt-3 display-7">Atendimento especializado para pequenas e médias empresas, garantindo continuidade operacional e suporte ao ambiente de TI.</h5>
-					</div>
-				</div>
-			</div>
-
-			<div class="item features-without-image col-12 col-lg-4">
-				<div class="item-wrapper">
-					<div class="img-wrapper">
-						<img src="assets/images/ic-suporteres-192x104.png" alt="DATADARK" data-bs-slide-to="6" data-slide-to="6">
-					</div>
-					<div class="card-box">
-						<h4 class="card-title mbr-fonts-style mb-0 display-7"><strong>Suporte Residencial</strong></h4>
-						<h5 class="card-text mbr-fonts-style mt-3 display-7">Assistência técnica para usuários domésticos, incluindo computadores, notebooks, impressoras, Wi-Fi e dispositivos conectados.</h5>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-4">
-				<div class="item-wrapper">
-					<div class="img-wrapper">
-						<img src="assets/images/ic-remoto-192x125.png" alt="Mobirise Website Builder" data-bs-slide-to="7" data-slide-to="7">
-					</div>
-					<div class="card-box">
-						<h4 class="card-title mbr-fonts-style mb-0 display-7"><strong>Suporte Remoto</strong></h4>
-						<h5 class="card-text mbr-fonts-style mt-3 display-7">Atendimento rápido sem necessidade de deslocamento, permitindo solucionar diversos problemas de forma segura e eficiente.</h5>
-					</div>
-				</div>
-			</div>
-			<div class="item features-without-image col-12 col-lg-4">
-				<div class="item-wrapper">
-					<div class="img-wrapper">
-						<img src="assets/images/ic-consultoria-192x128.png" alt="DATADARK" data-bs-slide-to="8" data-slide-to="8">
-					</div>
-					<div class="card-box">
-						<h4 class="card-title mbr-fonts-style mb-0 display-7"><strong>Consultoria em Tecnologia</strong></h4>
-						<h5 class="card-text mbr-fonts-style mt-3 display-7">Orientação para aquisição de equipamentos, melhorias de infraestrutura, segurança e planejamento tecnológico.</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section data-bs-version="5.1" class="features13 start cid-vmbPgcrhnt" id="features013-e">
-    
-
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-12 content-head">
-      <div class="mbr-section-head mb-5">
-        <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Soluções com as melhores tecnologias do mercado</strong></h4>
-        
-      </div>
-    </div>
-  </div>
-  <div class="row mbr-section-content">
-    <div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-3-838x419.png" alt="DATADARK" title="" data-slide-to="0" data-bs-slide-to="0">
+          <a class="btn btn-datadark ms-xl-3 mt-3 mt-xl-0"
+             href="https://wa.me/5551995190259"
+             target="_blank" rel="noopener noreferrer">
+            WhatsApp
+          </a>
         </div>
-        
-        
       </div>
-    </div>
-    <div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-4-838x419.png" alt="DATADARK" title="" data-slide-to="1" data-bs-slide-to="1">
-        </div>
-        
-        
-      </div>
-    </div>
-    <div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-5-838x419.png" alt="DATADARK" title="" data-slide-to="2" data-bs-slide-to="2">
-        </div>
-        
-        
-      </div>
-    </div>
-    <div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-6-838x419.png" alt="DATADARK" title="" data-slide-to="3" data-bs-slide-to="3">
-        </div>
-        
-        
-      </div>
-    </div>
-    <div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-5-838x437.png" alt="DATADARK" title="" data-slide-to="4" data-bs-slide-to="4">
-        </div>
-        
-        
-      </div>
-    </div>
-    <div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-6-838x460.png" alt="DATADARK" title="" data-slide-to="5" data-bs-slide-to="5">
-        </div>
-        
-        
-      </div>
-    </div><div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-7-1693x929.png" alt="DATADARK" title="" data-slide-to="6" data-bs-slide-to="6">
-        </div>
-        
-        
-      </div>
-    </div><div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-8-1684x934.png" alt="DATADARK" title="" data-slide-to="7" data-bs-slide-to="7">
-        </div>
-        
-        
-      </div>
-    </div><div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-9-1672x941.png" alt="DATADARK" title="" data-slide-to="8" data-bs-slide-to="8">
-        </div>
-        
-        
-      </div>
-    </div><div class="item features-image col-6 col-md-4 col-lg-3">
-      <div class="item-wrapper">
-        <div class="item-img">
-          <img src="assets/images/bt-tec-10-1672x941.png" alt="DATADARK" title="" data-slide-to="9" data-bs-slide-to="9">
-        </div>
-        
-        
-      </div>
-    </div>
+    </nav>
+  </header>
 
-  </div>
-</div>
-</section>
+  <main id="conteudo">
+    <!-- =====================================================
+         HOME / HERO
+    ====================================================== -->
+    <section id="home" class="hero-section section-tech-bg">
+      <div class="container-fluid hero-content text-center">
+        <h1 class="visually-hidden">DATADARK Tecnologia - Suporte Técnico e Infraestrutura de TI</h1>
+        <img class="hero-logo" src="assets/images/logo-2-1536x1024.png"
+             alt="DATADARK Tecnologia" width="1536" height="1024">
+      </div>
+    </section>
 
-<section data-bs-version="5.1" class="start article05 cid-vm9BXlkUbv mbr-fullscreen mbr-parallax-background" id="article05-7">
-  
+    <!-- =====================================================
+         SERVIÇOS EM DESTAQUE
+         Grade responsiva: 3 colunas desktop, 2 tablet, 1 mobile.
+    ====================================================== -->
+    <section id="servicos" class="section-pad services-section">
+      <div class="container-fluid section-container">
+        <div class="section-heading services-heading text-center mx-auto">
+          <h2>SERVIÇOS EM DESTAQUE</h2>
+          <p>Destaque para alguns dos serviços prestados pela <strong><em>DATADARK Tecnologia</em></strong></p>
+        </div>
 
-  
-  
+        <div class="row g-4 mt-3 services-grid">
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="service-card h-100">
+              <div class="service-icon" aria-hidden="true">
+                <img src="assets/images/ic-suporte00-192x203.png" alt="" width="192" height="203" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Suporte Técnico Especializado</h3>
+                <p>Atendimento rápido e eficiente para diagnóstico, correção de falhas e resolução de problemas em computadores, notebooks e equipamentos de TI.</p>
+              </div>
+            </article>
+          </div>
 
-  <div class="container-fluid">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-12">
-        <div class="card-wrapper">
-          <div class="row">
-            <div class="col-12 col-md-12 col-lg-5 image-wrapper">
-              <img class="w-100" src="assets/images/ic-sobre-1-1440x960.png" alt="DATADARK">
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="service-card h-100">
+              <div class="service-icon" aria-hidden="true">
+                <img src="assets/images/ic-manutencao-192x156.png" alt="" width="192" height="156" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Manutenção Preventiva</h3>
+                <p>Evite paradas inesperadas através de revisões periódicas, limpeza, otimização e monitoramento dos equipamentos.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="service-card h-100">
+              <div class="service-icon" aria-hidden="true">
+                <img src="assets/images/ic-servidores-192x106.png" alt="" width="192" height="106" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Servidores Linux/Windows</h3>
+                <p>Implantação, configuração e administração de servidores Linux e Windows para serviços corporativos, compartilhamentos, aplicações e segurança.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="service-card h-100">
+              <div class="service-icon" aria-hidden="true">
+                <img src="assets/images/ic-seguranca-192x106.png" alt="" width="192" height="106" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Segurança da Informação</h3>
+                <p>Implementação de boas práticas de segurança, proteção contra malware, ransomware, invasões e vazamento de dados.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="service-card h-100">
+              <div class="service-icon" aria-hidden="true">
+                <img src="assets/images/ic-backup-192x137.png" alt="" width="192" height="137" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Backup Local e em Nuvem</h3>
+                <p>Proteção dos seus dados com rotinas de backup automatizadas e estratégias de recuperação em caso de falhas ou perdas.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="service-card h-100">
+              <div class="service-icon" aria-hidden="true">
+                <img src="assets/images/ic-suporteemp-192x111.png" alt="" width="192" height="111" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Suporte para Empresas</h3>
+                <p>Atendimento especializado para pequenas e médias empresas, garantindo continuidade operacional e suporte ao ambiente de TI.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="service-card h-100">
+              <div class="service-icon" aria-hidden="true">
+                <img src="assets/images/ic-suporteres-192x104.png" alt="" width="192" height="104" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Suporte Residencial</h3>
+                <p>Assistência técnica para usuários domésticos, incluindo computadores, notebooks, impressoras, Wi-Fi e dispositivos conectados.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="service-card h-100">
+              <div class="service-icon" aria-hidden="true">
+                <img src="assets/images/ic-remoto-192x125.png" alt="" width="192" height="125" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Suporte Remoto</h3>
+                <p>Atendimento rápido sem necessidade de deslocamento, permitindo solucionar diversos problemas de forma segura e eficiente.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="service-card h-100">
+              <div class="service-icon" aria-hidden="true">
+                <img src="assets/images/ic-consultoria-192x128.png" alt="" width="192" height="128" loading="lazy">
+              </div>
+              <div class="service-content">
+                <h3>Consultoria em Tecnologia</h3>
+                <p>Orientação para aquisição de equipamentos, melhorias de infraestrutura, segurança e planejamento tecnológico.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SOLUÇÕES / TECNOLOGIAS
+         Cards em HTML: textos e ícones são editáveis diretamente.
+    ====================================================== -->
+    <section id="solucoes" class="section-pad solutions-section">
+      <div class="container-fluid section-container position-relative">
+        <div class="section-heading solutions-heading text-center mx-auto text-white">
+          <h2>Soluções com as melhores tecnologias do mercado</h2>
+          <p>Infraestrutura, segurança e suporte integrados para ambientes de TI confiáveis, produtivos e preparados para crescer.</p>
+        </div>
+
+        <div class="technology-grid mt-4 mt-lg-5">
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><path d="M20 47H49a11 11 0 0 0 1-22 18 18 0 0 0-34-4A13 13 0 0 0 20 47Z"/><path d="M32 51V31M24 39l8-8 8 8"/></svg>
             </div>
-            <div class="col-12 col-lg col-md-12">
-              <div class="text-wrapper align-left">
-                <h1 class="mbr-section-title mbr-fonts-style mb-4 display-5">
-                  <strong>Sobre a DATADARK Tecnologia</strong></h1>
-                <p class="mbr-text mbr-fonts-style mb-4 display-7">A DATADARK Tecnologia nasceu com o propósito de oferecer suporte técnico de qualidade, com foco em soluções rápidas, eficientes e acessíveis para empresas e residências.<br><br>Nosso compromisso é manter sua tecnologia funcionando para que você possa focar no que realmente importa.<br>
-                </p>
-                
+            <div>
+              <h3>Cloud</h3>
+              <p>Infraestrutura em nuvem segura e escalável.</p>
+            </div>
+          </article>
+
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><rect x="12" y="10" width="40" height="13" rx="3"/><rect x="12" y="26" width="40" height="13" rx="3"/><rect x="12" y="42" width="40" height="13" rx="3"/><path d="M19 16.5h.01M19 32.5h.01M19 48.5h.01M44 16.5h3M44 32.5h3M44 48.5h3"/></svg>
+            </div>
+            <div>
+              <h3>Servidores</h3>
+              <p>Ambientes robustos e de alta disponibilidade.</p>
+            </div>
+          </article>
+
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><path d="M32 7 51 15v14c0 13-8 23-19 28C21 52 13 42 13 29V15Z"/><path d="m23 32 6 6 13-15"/></svg>
+            </div>
+            <div>
+              <h3>Segurança</h3>
+              <p>Proteção de dados e redes corporativas.</p>
+            </div>
+          </article>
+
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><path d="M10 25a31 31 0 0 1 44 0M17 33a21 21 0 0 1 30 0M24 41a11 11 0 0 1 16 0"/><circle cx="32" cy="50" r="3"/></svg>
+            </div>
+            <div>
+              <h3>Redes</h3>
+              <p>Conectividade estável e de alta performance.</p>
+            </div>
+          </article>
+
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><rect x="9" y="12" width="31" height="31" rx="3"/><rect x="24" y="26" width="31" height="27" rx="3"/><path d="M31 34v8h8"/></svg>
+            </div>
+            <div>
+              <h3>Virtualização</h3>
+              <p>Mais eficiência e flexibilidade para o TI.</p>
+            </div>
+          </article>
+
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><rect x="10" y="10" width="18" height="18" rx="2"/><rect x="36" y="10" width="18" height="18" rx="2"/><rect x="10" y="36" width="18" height="18" rx="2"/><rect x="36" y="36" width="18" height="18" rx="2"/></svg>
+            </div>
+            <div>
+              <h3>Microsoft 365</h3>
+              <p>Produtividade e colaboração para sua equipe.</p>
+            </div>
+          </article>
+
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><path d="M18 20a22 22 0 1 1-5 24M18 20v-9M18 20H9"/><ellipse cx="32" cy="31" rx="8" ry="4"/><path d="M24 31v12c0 2 4 4 8 4s8-2 8-4V31M24 37c0 2 4 4 8 4s8-2 8-4"/></svg>
+            </div>
+            <div>
+              <h3>Backup</h3>
+              <p>Cópias automáticas e recuperação confiável.</p>
+            </div>
+          </article>
+
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><rect x="8" y="11" width="48" height="34" rx="3"/><path d="M25 54h14M32 45v9M16 35l9-9 7 6 12-14 5 4"/></svg>
+            </div>
+            <div>
+              <h3>Monitoramento</h3>
+              <p>Acompanhamento 24/7 para máxima performance.</p>
+            </div>
+          </article>
+
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><path d="M13 33v-4a19 19 0 0 1 38 0v4M13 33h8v15h-5a3 3 0 0 1-3-3ZM51 33h-8v15h5a3 3 0 0 0 3-3Z"/><path d="M43 49c-2 5-7 7-13 7h-3"/></svg>
+            </div>
+            <div>
+              <h3>Suporte</h3>
+              <p>Atendimento especializado e suporte contínuo.</p>
+            </div>
+          </article>
+
+          <article class="technology-card">
+            <div class="technology-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img"><rect x="7" y="10" width="42" height="31" rx="3"/><path d="M16 33v-7M24 33V20M32 33v-10M12 48h28M28 41v7"/><circle cx="49" cy="45" r="8"/><path d="M49 33v4M49 53v4M37 45h4M57 45h4M40.5 36.5l3 3M54.5 50.5l3 3M57.5 36.5l-3 3M43.5 50.5l-3 3"/></svg>
+            </div>
+            <div>
+              <h3>Gestão de TI</h3>
+              <p>Estratégia, processos e tecnologia para resultados eficientes.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SOBRE
+    ====================================================== -->
+    <section id="sobre" class="section-pad about-section">
+      <div class="container-fluid section-container">
+        <div class="row g-4 g-xl-5 align-items-center">
+          <div class="col-12 col-lg-6">
+            <div class="about-visual">
+              <img class="about-image" src="assets/images/ic-sobre-1-1440x960.png" alt="Infraestrutura, segurança e suporte da DATADARK Tecnologia" loading="lazy">
+              <div class="about-visual-badge" aria-hidden="true">
+                <span class="about-badge-dot"></span>
+                Tecnologia que mantém seu ambiente em operação
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <div class="about-copy">
+              <span class="section-kicker">Quem somos</span>
+              <h2>Sobre a DATADARK Tecnologia</h2>
+              <p class="about-lead">Tecnologia deve simplificar o trabalho, proteger informações e manter sua operação disponível.</p>
+              <p>A DATADARK Tecnologia oferece suporte técnico e soluções de infraestrutura para empresas e residências, com atendimento objetivo, diagnóstico cuidadoso e foco na resolução eficiente de cada necessidade.</p>
+              <p>Nosso compromisso é cuidar do ambiente de TI de forma prática e confiável, para que nossos clientes possam concentrar tempo e energia no que realmente importa.</p>
+
+              <div class="about-pillars" aria-label="Áreas de atuação da DATADARK Tecnologia">
+                <div class="about-pillar">
+                  <span class="about-pillar-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M4 17v2h16v-2M6 15V5h12v10M9 8h6M9 11h6"/></svg>
+                  </span>
+                  <div>
+                    <strong>Suporte técnico</strong>
+                    <span>Atendimento remoto e presencial.</span>
+                  </div>
+                </div>
+
+                <div class="about-pillar">
+                  <span class="about-pillar-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M4 6h16v5H4zM4 13h16v5H4zM7 8.5h.01M7 15.5h.01M10 8.5h6M10 15.5h6"/></svg>
+                  </span>
+                  <div>
+                    <strong>Infraestrutura</strong>
+                    <span>Redes, servidores, backup e conectividade.</span>
+                  </div>
+                </div>
+
+                <div class="about-pillar">
+                  <span class="about-pillar-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-2.9 7.7-7 10-4.1-2.3-7-5.4-7-10V6zM9 12l2 2 4-4"/></svg>
+                  </span>
+                  <div>
+                    <strong>Segurança e continuidade</strong>
+                    <span>Proteção e disponibilidade para seus dados.</span>
+                  </div>
+                </div>
+              </div>
+
+              <a class="btn btn-datadark about-cta" href="#contato">Fale com a DATADARK</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         ÁREA DE ATENDIMENTO
+    ====================================================== -->
+    <section id="atendimento" class="section-pad service-area-section">
+      <div class="container-fluid section-container">
+        <div class="service-area-shell">
+          <div class="row g-4 g-xl-5 align-items-center">
+            <div class="col-12 col-lg-6">
+              <div class="service-area-copy">
+                <span class="section-kicker">Área de atendimento</span>
+                <h2>Suporte próximo quando você precisa. Remoto onde você estiver.</h2>
+                <p class="service-area-lead">Atendemos empresas e residências com suporte técnico objetivo, presencial na região de Porto Alegre e remoto para todo o Brasil.</p>
+
+                <div class="attendance-modes" aria-label="Modalidades de atendimento">
+                  <article class="attendance-mode">
+                    <span class="attendance-mode-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M4 10.5V19h16v-8.5M2 11l10-8 10 8M9 19v-5h6v5"/></svg>
+                    </span>
+                    <div>
+                      <h3>Atendimento presencial</h3>
+                      <p>Porto Alegre e cidades da Região Metropolitana.</p>
+                    </div>
+                  </article>
+
+                  <article class="attendance-mode attendance-mode-highlight">
+                    <span class="attendance-mode-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M4 5h16v11H4zM8 20h8M12 16v4M7 9h10M7 12h6"/></svg>
+                    </span>
+                    <div>
+                      <h3>Atendimento remoto</h3>
+                      <p>Suporte técnico para clientes em qualquer cidade do país.</p>
+                    </div>
+                  </article>
+                </div>
+
+                <div class="service-area-cities">
+                  <div class="service-area-cities-heading">
+                    <strong>Atendimento presencial</strong>
+                    <span>Principais cidades atendidas</span>
+                  </div>
+
+                  <div class="city-grid" aria-label="Cidades atendidas presencialmente">
+                    <span>Porto Alegre</span>
+                    <span>Canoas</span>
+                    <span>Gravataí</span>
+                    <span>Cachoeirinha</span>
+                    <span>Alvorada</span>
+                    <span>Viamão</span>
+                    <span>São Leopoldo</span>
+                    <span>Novo Hamburgo</span>
+                    <span>Esteio</span>
+                    <span>Sapucaia do Sul</span>
+                  </div>
+                </div>
+
+                <div class="service-area-actions">
+                  <a class="btn btn-datadark" href="https://www.datadark.com.br/portal/">Solicitar atendimento</a>
+                  <a class="service-area-whatsapp" href="https://wa.me/5551995190259" target="_blank" rel="noopener noreferrer">Falar pelo WhatsApp</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+              <div class="service-area-visual">
+                <img class="area-image" src="assets/images/ic-suporte02-1536x1024.png" alt="Suporte técnico remoto da DATADARK Tecnologia" loading="lazy">
+                <div class="area-coverage-card area-coverage-local">
+                  <span class="coverage-dot" aria-hidden="true"></span>
+                  <div>
+                    <strong>Presencial</strong>
+                    <span>Porto Alegre + Região Metropolitana</span>
+                  </div>
+                </div>
+                <div class="area-coverage-card area-coverage-remote">
+                  <span class="coverage-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18M4.5 7.5h15M4.5 16.5h15"/></svg>
+                  </span>
+                  <div>
+                    <strong>Remoto</strong>
+                    <span>Atendimento em todo o Brasil</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section data-bs-version="5.1" class="features031 cid-vmcriMkwyH" id="features031-h">
-    
-    
-    
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-12 content-head mb-5">
-                <h1 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>ÁREA DE ATENDIMENTO</strong></h1>
-                
-            </div>
-        </div>
-        <div class="row justify-content-center  blockContent">
-            <div class="col-12 col-lg">
-                <div class="item-wrapper align-left">
-                    <div class="counter-container mbr-text mbr-fonts-style display-7">
-                        <div style="text-align: left;"><span style="font-size: 1.4rem;">Prestamos suporte técnico remoto e presencial para empresas e residências, garantindo atendimento rápido, especializado e com foco na continuidade das operações.</span><br></div><div style="text-align: left;"><strong><br></strong></div><div style="text-align: left;">Onde atendemos presencialmente e remotamente:</div><div style="text-align: left;"><strong style="font-size: 1.4rem;">PORTO ALEGRE</strong><br></div><div style="text-align: left;"><strong>CANOAS</strong></div><div style="text-align: left;"><strong>GRAVATAÍ</strong></div><div style="text-align: left;"><strong>CACHOEIRINHA</strong></div><div style="text-align: left;"><strong>ALVORADA</strong></div><div style="text-align: left;"><strong>VIAMÃO</strong></div><div style="text-align: left;"><strong>SÃO LEOPOLDO</strong></div><div style="text-align: left;"><strong>NOVO HAMBURGO</strong></div><div style="text-align: left;"><strong>ESTEIO</strong></div><div style="text-align: left;"><strong>SAPUCAIA DO SUL</strong></div><div style="text-align: left;"><strong><br></strong></div><div style="text-align: left;">Atendimento remoto:<br><strong>TODAS AS CIDADES DO PAÍS.</strong></div><div style="text-align: left;"><strong><br></strong></div><ul>
-                        </ul>
+    <!-- =====================================================
+         PORTAL DATADARK
+    ====================================================== -->
+    <section id="portal" class="section-pad portal-section">
+      <div class="container-fluid section-container">
+        <div class="portal-shell">
+          <div class="portal-grid">
+            <div class="portal-copy-col">
+              <div class="portal-copy">
+                <span class="section-kicker portal-kicker">Portal DATADARK</span>
+                <h2>Seu atendimento em um só lugar.</h2>
+                <p class="portal-lead">Acesse o Portal DATADARK para abrir chamados, acompanhar atendimentos e consultar seu histórico de suporte com mais organização, praticidade e segurança.</p>
+
+                <div class="portal-features" aria-label="Recursos do Portal DATADARK">
+                  <article class="portal-feature">
+                    <span class="portal-feature-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                    </span>
+                    <div>
+                      <strong>Abrir chamados</strong>
+                      <span>Registre sua solicitação de suporte diretamente pelo portal.</span>
                     </div>
+                  </article>
+
+                  <article class="portal-feature">
+                    <span class="portal-feature-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.35-5.65L4 8.7M4 4v4.7h4.7"/><path d="M12 8v4l2.8 1.7"/></svg>
+                    </span>
+                    <div>
+                      <strong>Acompanhar atendimento</strong>
+                      <span>Consulte a evolução e o status de cada chamado em andamento.</span>
+                    </div>
+                  </article>
+
+                  <article class="portal-feature">
+                    <span class="portal-feature-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+                    </span>
+                    <div>
+                      <strong>Histórico organizado</strong>
+                      <span>Mantenha seus atendimentos anteriores centralizados e acessíveis.</span>
+                    </div>
+                  </article>
+
+                  <article class="portal-feature">
+                    <span class="portal-feature-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0 1 10 0v3"/><path d="M5 10h14v10H5z"/><path d="M12 14v2"/></svg>
+                    </span>
+                    <div>
+                      <strong>Acesso seguro</strong>
+                      <span>Área dedicada para seus dados, solicitações e acompanhamento.</span>
+                    </div>
+                  </article>
                 </div>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="image-wrapper">
-                    <img class="w-100" src="assets/images/ic-suporte02-1536x1024.png" alt="DATADARK">
+
+                <div class="portal-actions">
+                  <a class="btn btn-datadark btn-lg portal-cta" href="https://www.datadark.com.br/portal/">
+                    Acessar o Portal
+                    <span aria-hidden="true">→</span>
+                  </a>
+                  <span class="portal-access-note">Clientes e novos cadastros</span>
                 </div>
+              </div>
             </div>
 
+            <div class="portal-visual-col">
+              <div class="portal-visual-card">
+                <figure class="portal-visual">
+                  <img src="assets/images/portal-datadark-rev10.png"
+                       alt="Ilustração do Portal DATADARK com acesso seguro e ambiente de atendimento digital"
+                       loading="lazy" width="1122" height="1402">
+                </figure>
+                <div class="portal-visual-caption">
+                  <span class="portal-status-dot" aria-hidden="true"></span>
+                  <div>
+                    <strong>Acesso dedicado ao Portal</strong>
+                    <span>Chamados, acompanhamento e histórico em um ambiente seguro</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<section data-bs-version="5.1" class="image01 cid-vrISDDnUXM mbr-fullscreen mbr-parallax-background" id="image01-n">
-  
+    <!-- =====================================================
+         CONTATO
+         Envio pelo Formspree, compatível com GitHub Pages.
+    ====================================================== -->
+    <section id="contato" class="section-pad contact-section">
+      <div class="container-fluid section-container">
+        <div class="row g-0 contact-shell align-items-stretch">
+          <div class="col-12 col-lg-6">
+            <img class="contact-image" src="assets/images/contato.png" alt="Entre em contato com a DATADARK Tecnologia" loading="lazy">
+          </div>
 
-  
-  
+          <div class="col-12 col-lg-6 contact-form-wrap">
+            <div class="section-heading text-start mb-4">
+              <h2>Entre em contato</h2>
+              <p>Preencha os dados abaixo. Sua mensagem será enviada diretamente para a DATADARK Tecnologia.</p>
+            </div>
 
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-12 col-lg-9">
-        <div class="image-wrapper mb-4">
-          <a href="https://www.datadark.com.br/portal/"><img class="w-100" src="assets/images/portal-imagens.png" alt="Portal DATADARK Tecnologia"></a>
+            <form id="contactForm" action="https://formspree.io/f/xjybglyk" method="POST" novalidate>
+              <input type="hidden" name="subject" value="Contato pelo site DATADARK Tecnologia">
+              <div class="hp-field" aria-hidden="true">
+                <label for="companyWebsite">Não preencha este campo</label>
+                <input type="text" id="companyWebsite" name="_gotcha" tabindex="-1" autocomplete="off">
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label" for="name">Nome</label>
+                  <input class="form-control" type="text" id="name" name="name" autocomplete="name" required>
+                  <div class="invalid-feedback">Informe seu nome.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="email">E-mail</label>
+                  <input class="form-control" type="email" id="email" name="email" autocomplete="email" required>
+                  <div class="invalid-feedback">Informe um e-mail válido.</div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="phone">Celular / WhatsApp</label>
+                  <input class="form-control" type="tel" id="phone" name="phone" autocomplete="tel" required>
+                  <div class="invalid-feedback">Informe seu telefone ou WhatsApp.</div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="message">Sua mensagem</label>
+                  <textarea class="form-control" id="message" name="message" rows="6" required></textarea>
+                  <div class="invalid-feedback">Digite sua mensagem.</div>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-datadark btn-lg w-100" id="contactSubmit" type="submit">Enviar mensagem</button>
+                </div>
+              </div>
+              <div class="form-status mt-3" id="formStatus" role="status" aria-live="polite" hidden></div>
+              <p class="form-note mt-3 mb-0">Você também pode escrever para <a href="mailto:contato@datadark.com.br">contato@datadark.com.br</a>.</p>
+            </form>
+          </div>
         </div>
-        
-        
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       RODAPÉ
+  ====================================================== -->
+  <footer class="site-footer">
+    <div class="container-fluid footer-container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="footer-brand-name" href="#home" aria-label="DATADARK Tecnologia - voltar ao início">
+            <span>DATA</span><strong>DARK</strong>
+            <small>TECNOLOGIA</small>
+          </a>
+          <p>Suporte técnico, infraestrutura e soluções de TI com atendimento objetivo, segurança e continuidade para empresas e residências.</p>
+          <div class="footer-actions">
+            <a class="footer-action footer-action-primary" href="https://www.datadark.com.br/portal/">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3"/><path d="M5 10h14v10H5z"/></svg>
+              Portal DATADARK
+            </a>
+            <a class="footer-action" href="https://wa.me/5551995190259" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/><path d="M9 8.5c.3 2.6 2 4.5 4.6 5.4"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <nav class="footer-column" aria-label="Navegação do rodapé">
+          <h2>Navegação</h2>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#solucoes">Soluções</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#atendimento">Atendimento</a></li>
+            <li><a href="#portal">Portal</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-column">
+          <h2>Atendimento</h2>
+          <ul class="footer-info-list">
+            <li>
+              <span class="footer-info-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+              </span>
+              <span><strong>Presencial</strong>Porto Alegre e Região Metropolitana</span>
+            </li>
+            <li>
+              <span class="footer-info-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </span>
+              <span><strong>Remoto</strong>Atendimento em todo o Brasil</span>
+            </li>
+          </ul>
+        </div>
+
+        <address class="footer-column footer-contact">
+          <h2>Contato</h2>
+          <a href="tel:+5551995190259">
+            <span class="footer-info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-3 2a15 15 0 0 0 5 5l2-3 5 2v4c0 1-1 2-2 2A17 17 0 0 1 3 6c0-1 1-2 2-2Z"/></svg>
+            </span>
+            <span><strong>Telefone / WhatsApp</strong>(51) 99519.0259</span>
+          </a>
+          <a href="mailto:contato@datadark.com.br">
+            <span class="footer-info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+            </span>
+            <span><strong>E-mail</strong>contato@datadark.com.br</span>
+          </a>
+        </address>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <span>© <span id="currentYear">2026</span> DATADARK Tecnologia</span>
+          <span class="footer-divider" aria-hidden="true"></span>
+</div>
+        <div class="footer-credit">
+          <span>Developed by <strong>Júlio Marques</strong></span>
+          <a href="#home" class="footer-top-link">Voltar ao topo <span aria-hidden="true">↑</span></a>
+        </div>
       </div>
     </div>
+  </footer>
+
+  <!-- =====================================================
+       CONSENTIMENTO DE ANALYTICS
+       GA4 só é carregado após aceitação e em produção.
+  ====================================================== -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite"
+       aria-label="Preferências de cookies" hidden>
+    <div class="cookie-copy">
+      <strong>Privacidade e cookies</strong>
+      <span>Utilizamos cookies de análise para entender o uso do site. Você pode aceitar ou continuar sem Analytics.</span>
+    </div>
+    <div class="cookie-actions">
+      <button class="btn btn-sm btn-light" type="button" id="rejectCookies">Continuar sem Analytics</button>
+      <button class="btn btn-sm btn-datadark" type="button" id="acceptCookies">Aceitar</button>
+    </div>
   </div>
-</section>
 
-<section data-bs-version="5.1" class="form03 cid-vnNueENYEy mbr-fullscreen" id="form03-k">
-    
-
-    
-
-    <div class="container-fluid">
-        <div class="row justify-content-center align-items-center main-row">
-            <div class="col-12 col-lg item-wrapper">
-                
-                <div class="col-lg-12 mx-auto mbr-form" data-form-type="formoid">
-                    <form action="https://mobirise.eu/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="1SUo6e4BhzuV5r+Geb5m3FSslnn9yJc2vJyk2etR4RgA2l+p6Lz0j8fQXEERiYXMfZmp5gwMod7YZaEAkmsbDaEOT+SKxMhyBWA57S4W/YkCvietFASwECejWsSQl6jQ">
-                        <div class="row">
-                            <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Obrigado por seu contato.</div>
-                            <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
-                                Oops...! some problem!
-                            </div>
-                        </div>
-                        <div class="dragArea row">
-                            <div class="col-md col-sm-12 form-group mb-3 mb-3" data-for="name">
-                                <input type="text" name="name" placeholder="Nome" data-form-field="name" class="form-control" value="" id="name-form03-k">
-                            </div>
-                            <div class="col-md col-sm-12 form-group mb-3 mb-3" data-for="email">
-                                <input type="email" name="email" placeholder="E-mail" data-form-field="email" class="form-control" value="" id="email-form03-k">
-                            </div>
-                            <div class="col-12 form-group mb-3 mb-3" data-for="phone">
-                                <input type="tel" name="phone" placeholder="Cel/Whats" data-form-field="phone" class="form-control" value="" id="phone-form03-k">
-                            </div>
-                            <div class="col-12 form-group mb-3 mb-3" data-for="textarea">
-                                <textarea name="textarea" placeholder="Sua mensagem" data-form-field="textarea" class="form-control" id="textarea-form03-k"></textarea>
-                            </div>
-                            <div class="col-auto align-center mbr-section-btn"><button type="submit" class="w-100 btn btn-primary display-7">Enviar</button></div>
-                        </div>
-                    </form>
-                </div>
-
-
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="image-wrapper">
-                    <img class="w-100" src="assets/images/contato.png" alt="datadark.com.br">
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<section data-bs-version="5.1" class="footer4 cid-vmcv873yI3 mbr-reveal" once="footers" id="footer04-j">
-
-    
-
-    
-
-    <div class="container">
-        <div class="media-container-row align-center mbr-white">
-            <div class="col-12">
-                <p class="mbr-text mb-0 mbr-fonts-style display-7">
-                    © 2026 DATADARK TECNOLOGIA -&nbsp;<br><strong>Developed by <em>Júlio Marques</em></strong></p>
-            </div>
-        </div>
-    </div>
-</section><section><a href="https://mobiri.se"></a><a href="https://mobiri.se"></a></section><script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/parallax/jarallax.js"></script>  <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>  <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-script.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/theme/js/script.js"></script>  <script src="assets/formoid/formoid.min.js"></script>  
-  
-  
-<input name="cookieData" type="hidden" data-cookie-cookiesAlertType='1' data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d' data-cookie-colorBg='rgb(255, 255, 255)' data-cookie-opacityOverlay='0' data-cookie-bgOpacity='100' data-cookie-textButton='Continuar' data-cookie-rejectText='REJECT' data-cookie-colorButton='#0457e2' data-cookie-rejectColor='#ffffff' data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true' data-cookie-text="Utilizamos cookies para melhorar sua experiência, analisar o tráfego do site e garantir seu funcionamento adequado. Ao continuar navegando, você concorda com nossa utilização de cookies.">
-  </body>
+  <script src="assets/js/datadark.js" defer></script>
+</body>
 </html>
