@@ -472,7 +472,7 @@ h1{max-width:760px;margin:0;font-size:clamp(2.4rem,5.3vw,4.8rem);line-height:.98
                 </svg>
               </div>
               <strong>Aplicativo oficial DATADARK</strong>
-              <p>Escolha abaixo a versão correspondente ao sistema operacional do computador que receberá o atendimento.</p>
+              <p>Escolha a versão correspondente ao sistema operacional do computador que receberá o atendimento.</p>
             </div>
             <div class="remote-support-meta">
               Disponível independentemente do status do Portal DATADARK e do horário de expediente.
@@ -748,7 +748,7 @@ h1{max-width:760px;margin:0;font-size:clamp(2.4rem,5.3vw,4.8rem);line-height:.98
   function showAvailable(s) {
     orb("available","✓");
     title.textContent = "Atendimento disponível";
-    lead.textContent = "O endpoint oficial de disponibilidade respondeu HTTP 200 com o estado ONLINE. O Portal DATADARK está operacional.";
+    lead.textContent = "O Portal DATADARK está operacional e ONLINE...";
     notice.className = "notice available";
     notice.textContent = `${s.period} Clique no botão abaixo para acessar o portal com segurança.`;
     portalButton.hidden = false;
@@ -761,7 +761,7 @@ h1{max-width:760px;margin:0;font-size:clamp(2.4rem,5.3vw,4.8rem);line-height:.98
     title.textContent = "Portal temporariamente indisponível";
     lead.textContent = "Estamos dentro do horário de atendimento, porém o Portal DATADARK não respondeu à verificação de disponibilidade.";
     notice.className = "notice maintenance";
-    notice.innerHTML = "<strong>Manutenção ou melhorias em andamento.</strong> Nossa infraestrutura pode estar passando por uma intervenção técnica programada, atualização de segurança ou melhoria de serviços. Trabalhamos para restabelecer o acesso com a maior brevidade possível, preservando a estabilidade e a segurança do ambiente.";
+    notice.innerHTML = "<strong>Manutenção ou melhorias em andamento.</strong> Nossa infraestrutura pode estar passando por uma intervenção técnica programada, atualização de segurança ou melhoria de serviços... Trabalhamos para restabelecer o acesso com a maior brevidade possível, preservando a estabilidade e a segurança do ambiente.";
     portalButton.hidden = true;
     retryButton.hidden = false;
     serverState.textContent = "Portal: indisponível ou em manutenção";
