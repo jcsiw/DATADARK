@@ -121,16 +121,58 @@
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/datadark.css">
   <style>
-    .portal-qr-trigger {
-      border-color: rgba(255, 255, 255, .55);
+    .portal-qr-image-trigger {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      background: transparent;
       color: #fff;
+      text-align: inherit;
+      cursor: pointer;
     }
 
-    .portal-qr-trigger:hover,
-    .portal-qr-trigger:focus-visible {
-      border-color: #fff;
-      background: rgba(255, 255, 255, .1);
-      color: #fff;
+    .portal-qr-image-trigger img {
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    .portal-qr-image-trigger:hover img,
+    .portal-qr-image-trigger:focus-visible img {
+      transform: scale(1.015);
+      filter: brightness(.78);
+    }
+
+    .portal-qr-image-trigger:focus-visible {
+      outline: 3px solid #46d8fd;
+      outline-offset: 3px;
+    }
+
+    .portal-qr-image-label {
+      position: absolute;
+      left: 50%;
+      bottom: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      width: max-content;
+      max-width: calc(100% - 2rem);
+      padding: .7rem 1rem;
+      transform: translateX(-50%);
+      border: 1px solid rgba(70, 216, 253, .6);
+      border-radius: 999px;
+      background: rgba(3, 19, 43, .88);
+      box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .4);
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .portal-qr-image-label span {
+      color: #46d8fd;
+      font-size: 1.2em;
     }
 
     .portal-qr-modal {
@@ -698,23 +740,24 @@
                     Baixar app Android
                     <span aria-hidden="true">↓</span>
                   </a>
-                  <button class="btn btn-outline-light btn-lg portal-cta portal-qr-trigger"
-                          type="button" id="openPortalQr"
-                          aria-haspopup="dialog" aria-controls="portalQrModal">
-                    Exibir QR Code
-                    <span aria-hidden="true">▦</span>
-                  </button>
                 </div>
               </div>
             </div>
 
             <div class="portal-visual-col">
               <div class="portal-visual-card">
-                <figure class="portal-visual">
+                <button class="portal-visual portal-qr-image-trigger" type="button"
+                        id="openPortalQr" aria-haspopup="dialog"
+                        aria-controls="portalQrModal"
+                        aria-label="Exibir QR Code para baixar o aplicativo DATADARK Portal">
                   <img src="assets/images/portal-datadark-rev10.png"
                        alt="Ilustração do Portal DATADARK com acesso seguro e ambiente de atendimento digital"
                        loading="lazy" width="1122" height="1402">
-                </figure>
+                  <span class="portal-qr-image-label">
+                    Clique para exibir o QR Code
+                    <span aria-hidden="true">▦</span>
+                  </span>
+                </button>
                 <div class="portal-visual-caption">
                   <span class="portal-status-dot" aria-hidden="true"></span>
                   <div>
