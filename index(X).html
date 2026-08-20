@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- SEO principal -->
-  <title>DATADARK Tecnologia | Suporte Técnico e Infraestrutura de TI</title>
-  <meta name="description" content="Suporte técnico, redes, servidores, backup, segurança e infraestrutura de TI em Porto Alegre, Região Metropolitana e atendimento remoto em todo o Brasil.">
+  <title>DATADARK Tecnologia | Suporte Técnico e Infraestrutura de TI em Porto Alegre</title>
+  <meta name="description" content="A DATADARK Tecnologia oferece suporte técnico, redes, servidores, backup, segurança e infraestrutura de TI em Porto Alegre e Região Metropolitana, com atendimento remoto em todo o Brasil.">
   <meta name="author" content="DATADARK Tecnologia">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <meta name="theme-color" content="#0b1624">
@@ -120,123 +120,6 @@
   <link rel="preload" href="assets/images/background-5-1717x916.png" as="image">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/datadark.css">
-  <style>
-    .portal-qr-image-trigger {
-      position: relative;
-      display: block;
-      width: 100%;
-      padding: 0;
-      overflow: hidden;
-      border: 0;
-      background: transparent;
-      color: #fff;
-      text-align: inherit;
-      cursor: pointer;
-    }
-
-    .portal-qr-image-trigger img {
-      transition: transform .35s ease, filter .35s ease;
-    }
-
-    .portal-qr-image-trigger:hover img,
-    .portal-qr-image-trigger:focus-visible img {
-      transform: scale(1.015);
-      filter: brightness(.78);
-    }
-
-    .portal-qr-image-trigger:focus-visible {
-      outline: 3px solid #46d8fd;
-      outline-offset: 3px;
-    }
-
-    .portal-qr-image-label {
-      position: absolute;
-      left: 50%;
-      bottom: 1.25rem;
-      display: inline-flex;
-      align-items: center;
-      gap: .6rem;
-      width: max-content;
-      max-width: calc(100% - 2rem);
-      padding: .7rem 1rem;
-      transform: translateX(-50%);
-      border: 1px solid rgba(70, 216, 253, .6);
-      border-radius: 999px;
-      background: rgba(3, 19, 43, .88);
-      box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .4);
-      font-weight: 700;
-      line-height: 1.2;
-      text-align: center;
-      backdrop-filter: blur(8px);
-    }
-
-    .portal-qr-image-label span {
-      color: #46d8fd;
-      font-size: 1.2em;
-    }
-
-    .portal-qr-modal {
-      width: min(92vw, 470px);
-      padding: 0;
-      border: 1px solid rgba(67, 152, 255, .45);
-      border-radius: 1.25rem;
-      background: #081a32;
-      color: #fff;
-      box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, .65);
-    }
-
-    .portal-qr-modal::backdrop {
-      background: rgba(1, 10, 24, .86);
-      backdrop-filter: blur(7px);
-    }
-
-    .portal-qr-modal-inner {
-      position: relative;
-      display: grid;
-      justify-items: center;
-      gap: 1rem;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .portal-qr-modal-close {
-      position: absolute;
-      top: .8rem;
-      right: .8rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      border: 1px solid rgba(255, 255, 255, .25);
-      border-radius: 50%;
-      background: rgba(255, 255, 255, .08);
-      color: #fff;
-      font-size: 1.5rem;
-      line-height: 1;
-    }
-
-    .portal-qr-modal h2 {
-      margin: 0;
-      padding-inline: 2rem;
-      font-size: clamp(1.35rem, 4vw, 1.75rem);
-    }
-
-    .portal-qr-modal p {
-      margin: 0;
-      color: #b9c7da;
-    }
-
-    .portal-qr-modal img {
-      display: block;
-      width: min(72vw, 340px);
-      height: auto;
-      padding: .75rem;
-      border-radius: 1rem;
-      background: #fff;
-    }
-
-    @media (max-width: 575.98px) {
-      .portal-qr-modal-inner { padding: 1.5rem 1rem; }
-    }
-  </style>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -948,20 +831,5 @@
   </div>
 
   <script src="assets/js/datadark.js" defer></script>
-  <script>
-    (() => {
-      const modal = document.getElementById('portalQrModal');
-      const openButton = document.getElementById('openPortalQr');
-      const closeButton = document.getElementById('closePortalQr');
-
-      if (!modal || !openButton || !closeButton) return;
-
-      openButton.addEventListener('click', () => modal.showModal());
-      closeButton.addEventListener('click', () => modal.close());
-      modal.addEventListener('click', (event) => {
-        if (event.target === modal) modal.close();
-      });
-    })();
-  </script>
 </body>
 </html>

@@ -120,6 +120,123 @@
   <link rel="preload" href="assets/images/background-5-1717x916.png" as="image">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/datadark.css">
+  <style>
+    .portal-qr-image-trigger {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      text-align: inherit;
+      cursor: pointer;
+    }
+
+    .portal-qr-image-trigger img {
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    .portal-qr-image-trigger:hover img,
+    .portal-qr-image-trigger:focus-visible img {
+      transform: scale(1.015);
+      filter: brightness(.78);
+    }
+
+    .portal-qr-image-trigger:focus-visible {
+      outline: 3px solid #46d8fd;
+      outline-offset: 3px;
+    }
+
+    .portal-qr-image-label {
+      position: absolute;
+      left: 50%;
+      bottom: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      width: max-content;
+      max-width: calc(100% - 2rem);
+      padding: .7rem 1rem;
+      transform: translateX(-50%);
+      border: 1px solid rgba(70, 216, 253, .6);
+      border-radius: 999px;
+      background: rgba(3, 19, 43, .88);
+      box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .4);
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .portal-qr-image-label span {
+      color: #46d8fd;
+      font-size: 1.2em;
+    }
+
+    .portal-qr-modal {
+      width: min(92vw, 470px);
+      padding: 0;
+      border: 1px solid rgba(67, 152, 255, .45);
+      border-radius: 1.25rem;
+      background: #081a32;
+      color: #fff;
+      box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, .65);
+    }
+
+    .portal-qr-modal::backdrop {
+      background: rgba(1, 10, 24, .86);
+      backdrop-filter: blur(7px);
+    }
+
+    .portal-qr-modal-inner {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      gap: 1rem;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .portal-qr-modal-close {
+      position: absolute;
+      top: .8rem;
+      right: .8rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .08);
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .portal-qr-modal h2 {
+      margin: 0;
+      padding-inline: 2rem;
+      font-size: clamp(1.35rem, 4vw, 1.75rem);
+    }
+
+    .portal-qr-modal p {
+      margin: 0;
+      color: #b9c7da;
+    }
+
+    .portal-qr-modal img {
+      display: block;
+      width: min(72vw, 340px);
+      height: auto;
+      padding: .75rem;
+      border-radius: 1rem;
+      background: #fff;
+    }
+
+    @media (max-width: 575.98px) {
+      .portal-qr-modal-inner { padding: 1.5rem 1rem; }
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -616,18 +733,31 @@
                     Acessar o Portal
                     <span aria-hidden="true">→</span>
                   </a>
-                  <span class="portal-access-note">Clientes e novos cadastros</span>
+                  <a class="btn btn-datadark btn-lg portal-cta"
+                     href="/app/DATADARK-Portal-1.0.apk"
+                     download="DATADARK-Portal-1.0.apk"
+                     aria-label="Baixar aplicativo DATADARK Portal para Android">
+                    Baixar app Android
+                    <span aria-hidden="true">↓</span>
+                  </a>
                 </div>
               </div>
             </div>
 
             <div class="portal-visual-col">
               <div class="portal-visual-card">
-                <figure class="portal-visual">
+                <button class="portal-visual portal-qr-image-trigger" type="button"
+                        id="openPortalQr" aria-haspopup="dialog"
+                        aria-controls="portalQrModal"
+                        aria-label="Exibir QR Code para baixar o aplicativo DATADARK Portal">
                   <img src="assets/images/portal-datadark-rev10.png"
                        alt="Ilustração do Portal DATADARK com acesso seguro e ambiente de atendimento digital"
                        loading="lazy" width="1122" height="1402">
-                </figure>
+                  <span class="portal-qr-image-label">
+                    Clique para exibir o QR Code
+                    <span aria-hidden="true">▦</span>
+                  </span>
+                </button>
                 <div class="portal-visual-caption">
                   <span class="portal-status-dot" aria-hidden="true"></span>
                   <div>
@@ -641,6 +771,24 @@
         </div>
       </div>
     </section>
+
+    <dialog class="portal-qr-modal" id="portalQrModal" aria-labelledby="portalQrTitle">
+      <div class="portal-qr-modal-inner">
+        <button class="portal-qr-modal-close" type="button" id="closePortalQr"
+                aria-label="Fechar QR Code">×</button>
+        <h2 id="portalQrTitle">Baixe o DATADARK Portal</h2>
+        <p>Aponte a câmera do celular para o QR Code.</p>
+        <img src="assets/images/qrcode-DATADARK-Portal-1.0.png"
+             alt="QR Code para baixar o aplicativo DATADARK Portal para Android"
+             width="512" height="512">
+        <a class="btn btn-datadark btn-lg"
+           href="/app/DATADARK-Portal-1.0.apk"
+           download="DATADARK-Portal-1.0.apk">
+          Baixar APK diretamente
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </dialog>
 
     <!-- =====================================================
          CONTATO
@@ -800,5 +948,20 @@
   </div>
 
   <script src="assets/js/datadark.js" defer></script>
+  <script>
+    (() => {
+      const modal = document.getElementById('portalQrModal');
+      const openButton = document.getElementById('openPortalQr');
+      const closeButton = document.getElementById('closePortalQr');
+
+      if (!modal || !openButton || !closeButton) return;
+
+      openButton.addEventListener('click', () => modal.showModal());
+      closeButton.addEventListener('click', () => modal.close());
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) modal.close();
+      });
+    })();
+  </script>
 </body>
 </html>
