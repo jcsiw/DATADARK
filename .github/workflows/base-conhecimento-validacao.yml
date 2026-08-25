@@ -6,7 +6,10 @@ on:
       - main
     paths:
       - "base-conhecimento/artigos/**"
+      - "base-conhecimento/data/categorias.json"
       - "base-conhecimento/data/indice.json"
+      - "scripts/base-conhecimento/taxonomia.py"
+      - "scripts/base-conhecimento/testar-taxonomia.py"
       - "scripts/base-conhecimento/validar-artigos.py"
       - "scripts/base-conhecimento/gerar-indice.py"
       - "scripts/base-conhecimento/testar-gerador-indice.py"
@@ -18,7 +21,10 @@ on:
       - main
     paths:
       - "base-conhecimento/artigos/**"
+      - "base-conhecimento/data/categorias.json"
       - "base-conhecimento/data/indice.json"
+      - "scripts/base-conhecimento/taxonomia.py"
+      - "scripts/base-conhecimento/testar-taxonomia.py"
       - "scripts/base-conhecimento/validar-artigos.py"
       - "scripts/base-conhecimento/gerar-indice.py"
       - "scripts/base-conhecimento/testar-gerador-indice.py"
@@ -98,6 +104,7 @@ jobs:
             "scripts/base-conhecimento/validar-artigos.py"
             "scripts/base-conhecimento/gerar-indice.py"
             "scripts/base-conhecimento/testar-gerador-indice.py"
+            "scripts/base-conhecimento/testar-taxonomia.py"
           )
 
           for arquivo in "${ARQUIVOS[@]}"; do
@@ -123,6 +130,27 @@ jobs:
 
           done
 
+          TAXONOMIA="scripts/base-conhecimento/taxonomia.py"
+
+          if [[ ! -f "${TAXONOMIA}" ]]; then
+            echo "ERRO: arquivo ausente: ${TAXONOMIA}"
+            exit 1
+          fi
+
+          modo="$(
+            git ls-files --stage -- "${TAXONOMIA}" |
+            awk '{print $1}'
+          )"
+
+          if [[ "${modo}" != "100644" ]]; then
+            echo "ERRO: modo Git inválido para ${TAXONOMIA}"
+            echo "Modo encontrado: ${modo:-AUSENTE}"
+            echo "Modo esperado: 100644"
+            exit 1
+          fi
+
+          echo "OK: ${TAXONOMIA} = ${modo}"
+
       - name: Validar sintaxe Python
         env:
           PYTHONPYCACHEPREFIX: ${{ runner.temp }}/python-pycache
@@ -130,11 +158,20 @@ jobs:
           set -Eeuo pipefail
 
           python3 -m py_compile \
+            scripts/base-conhecimento/taxonomia.py \
+            scripts/base-conhecimento/testar-taxonomia.py \
             scripts/base-conhecimento/validar-artigos.py \
             scripts/base-conhecimento/gerar-indice.py \
             scripts/base-conhecimento/testar-gerador-indice.py
 
           echo "OK: sintaxe Python válida."
+
+      - name: Executar testes da taxonomia
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/testar-taxonomia.py
 
       - name: Executar testes do gerador
         run: |

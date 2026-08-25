@@ -265,6 +265,10 @@ def main() -> int:
                 minimum,
                 """
 <title>Computador não liga</title>
+
+<meta
+  name="kb-category"
+  content="hardware">
 """,
             )
 
@@ -308,8 +312,11 @@ def main() -> int:
                 "url":
                     "artigos/computador-nao-liga.html",
 
+                "category_id":
+                    "hardware",
+
                 "category":
-                    "",
+                    "Hardware",
 
                 "keywords":
                     [],
@@ -355,7 +362,7 @@ def main() -> int:
 
 <meta
   name="kb-category"
-  content="Áudio">
+  content="audio">
 """,
             )
 
@@ -405,9 +412,16 @@ def main() -> int:
 
 
             assert_true(
+                audio["category_id"]
+                == "audio",
+                "category_id foi extraído",
+            )
+
+
+            assert_true(
                 audio["category"]
                 == "Áudio",
-                "categoria foi extraída",
+                "label da categoria foi resolvida",
             )
 
 
@@ -738,7 +752,7 @@ def main() -> int:
 
 <meta
   name="kb-category"
-  content="Documentos">
+  content="documentos">
 """,
             )
 
@@ -774,6 +788,460 @@ def main() -> int:
             assert_true(
                 alternate_output.is_file(),
                 "arquivo customizado foi criado fora do repositório",
+            )
+
+
+            # ==========================================
+            # TESTE 11 — CATEGORIA CANÔNICA /
+            # category_id + LABEL
+            # ==========================================
+
+            category_root = (
+                root
+                / "contrato-categorias"
+            )
+
+            category_root.mkdir()
+
+
+            valid_articles = (
+                category_root
+                / "valida"
+                / "artigos"
+            )
+
+            valid_output = (
+                category_root
+                / "valida"
+                / "indice.json"
+            )
+
+            valid_articles.mkdir(
+                parents=True
+            )
+
+
+            write_article(
+                valid_articles
+                / "wifi-sem-internet.html",
+                """
+<title>Wi-Fi sem internet</title>
+
+<meta
+  name="kb-category"
+  content="wifi">
+""",
+            )
+
+
+            result = run_generator(
+                valid_articles,
+                valid_output,
+                cwd=root,
+            )
+
+
+            require_code(
+                result,
+                0,
+                (
+                    "categoria canônica "
+                    "é aceita"
+                ),
+            )
+
+
+            valid_data = json.loads(
+                valid_output.read_text(
+                    encoding="utf-8"
+                )
+            )
+
+
+            assert_true(
+                len(valid_data) == 1,
+                (
+                    "artigo com categoria "
+                    "canônica foi indexado"
+                ),
+            )
+
+
+            assert_true(
+                valid_data[0][
+                    "category_id"
+                ]
+                == "wifi",
+                (
+                    "category_id canônico "
+                    "foi preservado"
+                ),
+            )
+
+
+            assert_true(
+                valid_data[0][
+                    "category"
+                ]
+                == "Wi-Fi",
+                (
+                    "label da categoria "
+                    "foi resolvida pela taxonomia"
+                ),
+            )
+
+
+            # ==========================================
+            # TESTE 12 — CATEGORIAS INVÁLIDAS /
+            # FAIL-CLOSED / ATOMICIDADE
+            # ==========================================
+
+            invalid_category_cases = (
+                (
+                    "ausente",
+                    "",
+                    (
+                        "meta kb-category "
+                        "ausente ou vazia"
+                    ),
+                ),
+                (
+                    "vazia",
+                    """
+<meta
+  name="kb-category"
+  content="">
+""",
+                    (
+                        "meta kb-category "
+                        "ausente ou vazia"
+                    ),
+                ),
+                (
+                    "label",
+                    """
+<meta
+  name="kb-category"
+  content="Wi-Fi">
+""",
+                    (
+                        "categoria desconhecida: "
+                        "Wi-Fi"
+                    ),
+                ),
+                (
+                    "espacos",
+                    """
+<meta
+  name="kb-category"
+  content=" wifi ">
+""",
+                    (
+                        "categoria desconhecida: "
+                        " wifi "
+                    ),
+                ),
+                (
+                    "desconhecida",
+                    """
+<meta
+  name="kb-category"
+  content="internet">
+""",
+                    (
+                        "categoria desconhecida: "
+                        "internet"
+                    ),
+                ),
+                (
+                    "multipla",
+                    """
+<meta
+  name="kb-category"
+  content="rede,wifi">
+""",
+                    (
+                        "categoria desconhecida: "
+                        "rede,wifi"
+                    ),
+                ),
+                (
+                    "duplicada",
+                    """
+<meta
+  name="kb-category"
+  content="wifi">
+
+<meta
+  name="kb-category"
+  content="rede">
+""",
+                    (
+                        "meta kb-category "
+                        "duplicada"
+                    ),
+                ),
+            )
+
+
+            for (
+                case_name,
+                category_meta,
+                expected_message,
+            ) in invalid_category_cases:
+
+                case_root = (
+                    category_root
+                    / case_name
+                )
+
+                case_articles = (
+                    case_root
+                    / "artigos"
+                )
+
+                case_output = (
+                    case_root
+                    / "indice.json"
+                )
+
+                case_articles.mkdir(
+                    parents=True
+                )
+
+
+                write_article(
+                    case_articles
+                    / "teste-categoria.html",
+                    (
+                        "\n"
+                        "<title>"
+                        "Teste controlado "
+                        "de categoria"
+                        "</title>\n"
+                        + category_meta
+                    ),
+                )
+
+
+                case_output.write_text(
+                    "INDICE-PRESERVADO\n",
+                    encoding="utf-8",
+                )
+
+                hash_before = sha256(
+                    case_output
+                )
+
+
+                result = run_generator(
+                    case_articles,
+                    case_output,
+                    cwd=root,
+                )
+
+
+                require_code(
+                    result,
+                    1,
+                    (
+                        "categoria inválida / "
+                        f"{case_name}"
+                    ),
+                )
+
+
+                assert_true(
+                    expected_message
+                    in result.stdout,
+                    (
+                        "erro esperado foi "
+                        "reportado / "
+                        f"{case_name}"
+                    ),
+                )
+
+
+                assert_true(
+                    sha256(
+                        case_output
+                    )
+                    == hash_before,
+                    (
+                        "categoria inválida "
+                        "preserva índice / "
+                        f"{case_name}"
+                    ),
+                )
+
+
+            # ==========================================
+            # TESTE 13 — TAXONOMIA INEXISTENTE /
+            # ERRO OPERACIONAL / ATOMICIDADE
+            # ==========================================
+
+            missing_root = (
+                category_root
+                / "taxonomia-ausente"
+            )
+
+            missing_articles = (
+                missing_root
+                / "artigos"
+            )
+
+            missing_output = (
+                missing_root
+                / "indice.json"
+            )
+
+            missing_articles.mkdir(
+                parents=True
+            )
+
+            missing_output.write_text(
+                "INDICE-PRESERVADO\n",
+                encoding="utf-8",
+            )
+
+            missing_hash_before = sha256(
+                missing_output
+            )
+
+
+            result = run_generator(
+                missing_articles,
+                missing_output,
+                "--categories",
+                str(
+                    missing_root
+                    / "nao-existe.json"
+                ),
+                cwd=root,
+            )
+
+
+            require_code(
+                result,
+                2,
+                (
+                    "taxonomia inexistente "
+                    "retorna erro operacional"
+                ),
+            )
+
+
+            assert_true(
+                (
+                    "arquivo de taxonomia "
+                    "não encontrado"
+                )
+                in result.stdout,
+                (
+                    "taxonomia inexistente "
+                    "é reportada"
+                ),
+            )
+
+
+            assert_true(
+                sha256(
+                    missing_output
+                )
+                == missing_hash_before,
+                (
+                    "taxonomia inexistente "
+                    "preserva índice"
+                ),
+            )
+
+
+            # ==========================================
+            # TESTE 14 — TAXONOMIA JSON INVÁLIDA /
+            # ERRO OPERACIONAL / ATOMICIDADE
+            # ==========================================
+
+            invalid_taxonomy_root = (
+                category_root
+                / "taxonomia-invalida"
+            )
+
+            invalid_taxonomy_articles = (
+                invalid_taxonomy_root
+                / "artigos"
+            )
+
+            invalid_taxonomy_output = (
+                invalid_taxonomy_root
+                / "indice.json"
+            )
+
+            invalid_taxonomy_file = (
+                invalid_taxonomy_root
+                / "categorias.json"
+            )
+
+            invalid_taxonomy_articles.mkdir(
+                parents=True
+            )
+
+            invalid_taxonomy_output.write_text(
+                "INDICE-PRESERVADO\n",
+                encoding="utf-8",
+            )
+
+            invalid_taxonomy_file.write_text(
+                "{ isto nao e json\n",
+                encoding="utf-8",
+            )
+
+            invalid_taxonomy_hash_before = (
+                sha256(
+                    invalid_taxonomy_output
+                )
+            )
+
+
+            result = run_generator(
+                invalid_taxonomy_articles,
+                invalid_taxonomy_output,
+                "--categories",
+                str(
+                    invalid_taxonomy_file
+                ),
+                cwd=root,
+            )
+
+
+            require_code(
+                result,
+                2,
+                (
+                    "taxonomia JSON inválida "
+                    "retorna erro operacional"
+                ),
+            )
+
+
+            assert_true(
+                "JSON inválido"
+                in result.stdout,
+                (
+                    "JSON inválido da taxonomia "
+                    "é reportado"
+                ),
+            )
+
+
+            assert_true(
+                sha256(
+                    invalid_taxonomy_output
+                )
+                == invalid_taxonomy_hash_before,
+                (
+                    "taxonomia inválida "
+                    "preserva índice"
+                ),
             )
 
 

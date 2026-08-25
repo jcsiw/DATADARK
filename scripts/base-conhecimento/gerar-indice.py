@@ -35,6 +35,13 @@ from collections import defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
 
+from taxonomia import (
+    Taxonomy,
+    TaxonomyError,
+    default_taxonomy_path,
+    load_taxonomy,
+)
+
 
 SLUG_RE = re.compile(
     r"^[a-z0-9]+(?:-[a-z0-9]+)*\.html$"
@@ -62,7 +69,6 @@ OPTIONAL_META = (
     "description",
     "keywords",
     "kb-aliases",
-    "kb-category",
 )
 
 
@@ -434,6 +440,7 @@ def read_head(
 
 def extract_article(
     path: Path,
+    taxonomy: Taxonomy,
 ) -> tuple[
     dict,
     list[str],
@@ -504,6 +511,16 @@ def extract_article(
         )
 
 
+    if (
+        "kb-category"
+        in parser.duplicate_meta
+    ):
+
+        raise ArticleContentError(
+            "meta kb-category duplicada"
+        )
+
+
     for name in sorted(
         parser.duplicate_meta
     ):
@@ -524,14 +541,41 @@ def extract_article(
         )
     )
 
-    category = (
-        collapse_whitespace(
-            parser.meta.get(
-                "kb-category",
-                "",
-            )
+    category_id = (
+        parser.meta.get(
+            "kb-category",
+            "",
         )
     )
+
+
+    if not category_id.strip():
+
+        raise ArticleContentError(
+            "meta kb-category "
+            "ausente ou vazia"
+        )
+
+
+    try:
+
+        category_definition = (
+            taxonomy.resolve_category(
+                category_id
+            )
+        )
+
+    except TaxonomyError as exc:
+
+        raise ArticleContentError(
+            str(exc)
+        ) from exc
+
+
+    category = (
+        category_definition.label
+    )
+
 
     keywords = parse_list_meta(
         parser.meta.get(
@@ -581,6 +625,9 @@ def extract_article(
 
         "url":
             url,
+
+        "category_id":
+            category_id,
 
         "category":
             category,
@@ -832,6 +879,7 @@ def current_output_text(
 
 def build_index(
     articles_dir: Path,
+    taxonomy: Taxonomy,
 ) -> tuple[
     list[dict],
     int,
@@ -898,7 +946,8 @@ def build_index(
 
             entry, article_warnings = (
                 extract_article(
-                    article
+                    article,
+                    taxonomy,
                 )
             )
 
@@ -1053,6 +1102,11 @@ def parse_args():
     )
 
 
+    default_categories = (
+        default_taxonomy_path()
+    )
+
+
     parser = argparse.ArgumentParser(
         description=(
             "Gera automaticamente "
@@ -1079,6 +1133,17 @@ def parse_args():
         default=default_output,
         help=(
             "Arquivo JSON de saída."
+        ),
+    )
+
+
+    parser.add_argument(
+        "--categories",
+        type=Path,
+        default=default_categories,
+        help=(
+            "Arquivo JSON contendo a "
+            "taxonomia oficial de categorias."
         ),
     )
 
@@ -1146,6 +1211,13 @@ def main() -> int:
     )
 
 
+    categories_path = (
+        args.categories
+        .expanduser()
+        .resolve()
+    )
+
+
     print(
         "Base de Conhecimento DATADARK"
     )
@@ -1164,6 +1236,10 @@ def main() -> int:
 
     print(
         f"Índice:  {output}"
+    )
+
+    print(
+        f"Taxonomia: {categories_path}"
     )
 
     print()
@@ -1199,6 +1275,29 @@ def main() -> int:
 
     try:
 
+        taxonomy = load_taxonomy(
+            categories_path
+        )
+
+    except TaxonomyError as exc:
+
+        print(
+            "ERRO OPERACIONAL:"
+        )
+
+        print(
+            "Falha ao carregar taxonomia."
+        )
+
+        print(
+            f"Motivo: {exc}"
+        )
+
+        return 2
+
+
+    try:
+
         articles, ignored = (
             discover_articles(
                 articles_dir
@@ -1212,7 +1311,8 @@ def main() -> int:
             errors,
             warnings,
         ) = build_index(
-            articles_dir
+            articles_dir,
+            taxonomy,
         )
 
 

@@ -29,6 +29,13 @@ from collections import defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
 
+from taxonomia import (
+    Taxonomy,
+    TaxonomyError,
+    default_taxonomy_path,
+    load_taxonomy,
+)
+
 
 SLUG_RE = re.compile(
     r"^[a-z0-9]+(?:-[a-z0-9]+)*\.html$"
@@ -90,6 +97,8 @@ class ArticleHTMLParser(HTMLParser):
         self.charset_found = False
 
         self.meta: dict[str, str] = {}
+
+        self.duplicate_meta: set[str] = set()
 
         self.title_parts: list[str] = []
 
@@ -161,12 +170,15 @@ class ArticleHTMLParser(HTMLParser):
                 .lower()
             )
 
-            content = (
+            raw_content = (
                 attr_map.get(
                     "content",
                     "",
                 )
-                .strip()
+            )
+
+            content = (
+                raw_content.strip()
             )
 
             if (
@@ -187,7 +199,16 @@ class ArticleHTMLParser(HTMLParser):
             )
 
             if name:
-                self.meta[name] = content
+
+                if name in self.meta:
+                    self.duplicate_meta.add(
+                        name
+                    )
+
+                if name == "kb-category":
+                    self.meta[name] = raw_content
+                else:
+                    self.meta[name] = content
 
 
         if tag == "title":
@@ -348,6 +369,7 @@ class ArticleHTMLParser(HTMLParser):
 
 def validate_article(
     path: Path,
+    taxonomy: Taxonomy,
 ) -> tuple[list[str], list[str]]:
 
     errors: list[str] = []
@@ -609,6 +631,50 @@ def validate_article(
 
 
     # --------------------------------------------------
+    # CATEGORIA OBRIGATÓRIA
+    # --------------------------------------------------
+
+    category_id = (
+        parser.meta.get(
+            "kb-category",
+            "",
+        )
+    )
+
+
+    if not category_id.strip():
+
+        error(
+            "meta kb-category "
+            "ausente ou vazia"
+        )
+
+    else:
+
+        if (
+            "kb-category"
+            in parser.duplicate_meta
+        ):
+
+            error(
+                "meta kb-category duplicada"
+            )
+
+
+        try:
+
+            taxonomy.resolve_category(
+                category_id
+            )
+
+        except TaxonomyError as exc:
+
+            error(
+                str(exc)
+            )
+
+
+    # --------------------------------------------------
     # METADADOS OPCIONAIS
     # --------------------------------------------------
 
@@ -624,10 +690,6 @@ def validate_article(
         (
             "kb-aliases",
             "meta kb-aliases ausente",
-        ),
-        (
-            "kb-category",
-            "meta kb-category ausente",
         ),
     )
 
@@ -728,6 +790,11 @@ def parse_args():
     )
 
 
+    default_categories = (
+        default_taxonomy_path()
+    )
+
+
     parser.add_argument(
         "--directory",
         type=Path,
@@ -736,6 +803,20 @@ def parse_args():
             "Diretório contendo os artigos. "
             "Por padrão usa "
             "base-conhecimento/artigos/."
+        ),
+    )
+
+
+    parser.add_argument(
+        "--categories",
+        type=Path,
+        default=default_categories,
+        help=(
+            "Arquivo JSON contendo a "
+            "taxonomia oficial de categorias. "
+            "Por padrão usa "
+            "base-conhecimento/data/"
+            "categorias.json."
         ),
     )
 
@@ -749,6 +830,13 @@ def main() -> int:
 
     directory = (
         args.directory
+        .expanduser()
+        .resolve()
+    )
+
+
+    categories_path = (
+        args.categories
         .expanduser()
         .resolve()
     )
@@ -768,6 +856,10 @@ def main() -> int:
 
     print(
         f"Diretório: {directory}"
+    )
+
+    print(
+        f"Taxonomia: {categories_path}"
     )
 
     print()
@@ -795,6 +887,29 @@ def main() -> int:
         print(
             "O caminho informado não é "
             "um diretório."
+        )
+
+        return 2
+
+
+    try:
+
+        taxonomy = load_taxonomy(
+            categories_path
+        )
+
+    except TaxonomyError as exc:
+
+        print(
+            "ERRO OPERACIONAL:"
+        )
+
+        print(
+            "Falha ao carregar taxonomia."
+        )
+
+        print(
+            f"Motivo: {exc}"
         )
 
         return 2
@@ -849,7 +964,8 @@ def main() -> int:
 
         errors, warnings = (
             validate_article(
-                article
+                article,
+                taxonomy,
             )
         )
 
