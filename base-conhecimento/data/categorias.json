@@ -1,0 +1,195 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "windows",
+      "label": "Windows",
+      "order": 10,
+      "search_terms": [
+        "windows",
+        "win"
+      ]
+    },
+    {
+      "id": "hardware",
+      "label": "Hardware",
+      "order": 20,
+      "search_terms": [
+        "hardware",
+        "placa mãe",
+        "motherboard",
+        "processador",
+        "cpu",
+        "fonte",
+        "psu"
+      ]
+    },
+    {
+      "id": "rede",
+      "label": "Rede",
+      "order": 30,
+      "search_terms": [
+        "rede",
+        "ethernet",
+        "lan",
+        "cabeamento",
+        "tcp ip"
+      ]
+    },
+    {
+      "id": "wifi",
+      "label": "Wi-Fi",
+      "order": 40,
+      "search_terms": [
+        "wifi",
+        "wireless",
+        "wlan"
+      ]
+    },
+    {
+      "id": "bios-uefi",
+      "label": "BIOS / UEFI",
+      "order": 50,
+      "search_terms": [
+        "bios",
+        "uefi"
+      ]
+    },
+    {
+      "id": "armazenamento",
+      "label": "SSD / HD",
+      "order": 60,
+      "search_terms": [
+        "armazenamento",
+        "ssd",
+        "hd",
+        "hdd",
+        "nvme",
+        "disco"
+      ]
+    },
+    {
+      "id": "memoria",
+      "label": "Memória",
+      "order": 70,
+      "search_terms": [
+        "memória",
+        "ram",
+        "ddr"
+      ]
+    },
+    {
+      "id": "audio",
+      "label": "Áudio",
+      "order": 80,
+      "search_terms": [
+        "áudio",
+        "som"
+      ]
+    },
+    {
+      "id": "video",
+      "label": "Vídeo",
+      "order": 90,
+      "search_terms": [
+        "vídeo",
+        "gpu",
+        "placa de vídeo",
+        "monitor",
+        "hdmi"
+      ]
+    },
+    {
+      "id": "notebook",
+      "label": "Notebook",
+      "order": 100,
+      "search_terms": [
+        "notebook",
+        "laptop"
+      ]
+    },
+    {
+      "id": "perifericos",
+      "label": "Periféricos",
+      "order": 110,
+      "search_terms": [
+        "periféricos",
+        "mouse",
+        "teclado",
+        "webcam",
+        "impressora"
+      ]
+    },
+    {
+      "id": "documentos",
+      "label": "Documentos",
+      "order": 120,
+      "search_terms": [
+        "documentos",
+        "documento",
+        "ordem de serviço",
+        "laudo",
+        "termo",
+        "recibo"
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "area-hardware",
+      "label": "Hardware",
+      "order": 10,
+      "description": "Diagnósticos de componentes, energia, temperatura e funcionamento físico.",
+      "category_ids": [
+        "hardware"
+      ]
+    },
+    {
+      "id": "area-windows",
+      "label": "Windows",
+      "order": 20,
+      "description": "Inicialização, recuperação, desempenho, atualizações e falhas do sistema.",
+      "category_ids": [
+        "windows"
+      ]
+    },
+    {
+      "id": "area-rede-wifi",
+      "label": "Rede e Wi-Fi",
+      "order": 30,
+      "description": "Conectividade, acesso à internet, cabeamento e comunicação em rede.",
+      "category_ids": [
+        "rede",
+        "wifi"
+      ]
+    },
+    {
+      "id": "area-armazenamento",
+      "label": "Armazenamento",
+      "order": 40,
+      "description": "SSD, HD, desempenho, falhas de leitura, detecção e integridade dos discos.",
+      "category_ids": [
+        "armazenamento"
+      ]
+    },
+    {
+      "id": "area-audio-video",
+      "label": "Áudio e Vídeo",
+      "order": 50,
+      "description": "Som, imagem, monitores, placas de vídeo e dispositivos multimídia.",
+      "category_ids": [
+        "audio",
+        "video"
+      ]
+    },
+    {
+      "id": "area-documentos",
+      "label": "Documentos Técnicos",
+      "order": 60,
+      "description": "Ordem de serviço, laudos, termos, recibos e documentos de atendimento.",
+      "category_ids": [
+        "documentos"
+      ]
+    }
+  ]
+}
