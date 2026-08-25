@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- TEMPORÁRIO DURANTE O DESENVOLVIMENTO.
+       Será removido antes da publicação oficial. -->
+  <meta
+    name="robots"
+    content="noindex,nofollow">
+
+  <meta
+    name="theme-color"
+    content="#05090c">
+
+  <title>Base de Conhecimento | DATADARK Tecnologia</title>
+
+  <meta
+    name="description"
+    content="Base de Conhecimento DATADARK com diagnósticos, procedimentos e informações técnicas.">
+
+  <link
+    rel="stylesheet"
+    href="assets/css/base-conhecimento.css">
+</head>
+
+<body>
+
+  <a
+    class="skip-link"
+    href="#conteudo-principal">
+    Ir para o conteúdo principal
+  </a>
+
+  <!-- =====================================================
+       CABEÇALHO
+       ===================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a
+        class="brand"
+        href="../"
+        aria-label="DATADARK Tecnologia - Página inicial">
+
+        <span class="brand-mark" aria-hidden="true"></span>
+
+        <span class="brand-text">
+          <strong>DATADARK</strong>
+          <small>TECNOLOGIA</small>
+        </span>
+      </a>
+
+      <a
+        class="back-link"
+        href="../">
+        <span aria-hidden="true">←</span>
+        <span>Voltar ao site</span>
+      </a>
+
+    </div>
+  </header>
+
+
+  <!-- =====================================================
+       CONTEÚDO PRINCIPAL
+       ===================================================== -->
+  <main id="conteudo-principal">
+
+    <!-- HERO / PESQUISA -->
+    <section
+      class="hero"
+      aria-labelledby="titulo-base-conhecimento">
+
+      <div class="container hero-inner">
+
+        <div class="hero-eyebrow">
+          CENTRAL TÉCNICA
+        </div>
+
+        <h1 id="titulo-base-conhecimento">
+          Base de Conhecimento
+        </h1>
+
+        <p class="hero-description">
+          Diagnósticos, procedimentos e informações técnicas
+          para encontrar soluções rapidamente.
+        </p>
+
+
+        <!-- CAMPO DE PESQUISA
+             A funcionalidade será implementada na ETAPA 4. -->
+        <div
+          class="search-area"
+          role="search"
+          aria-label="Pesquisa da Base de Conhecimento">
+
+          <label
+            class="sr-only"
+            for="kb-search">
+            Pesquisar na Base de Conhecimento
+          </label>
+
+          <div class="search-box">
+
+            <span
+              class="search-icon"
+              aria-hidden="true">
+
+              <svg
+                viewBox="0 0 24 24"
+                role="img"
+                focusable="false">
+
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="7"></circle>
+
+                <path
+                  d="M16.2 16.2 21 21"></path>
+
+              </svg>
+
+            </span>
+
+            <input
+              id="kb-search"
+              class="search-input"
+              type="search"
+              name="q"
+              placeholder="Descreva o problema ou digite uma palavra-chave..."
+              autocomplete="off"
+              aria-controls="kb-results">
+
+            <!-- Será ativado pelo JavaScript da pesquisa. -->
+            <button
+              id="kb-clear"
+              class="search-clear"
+              type="button"
+              aria-label="Limpar pesquisa"
+              hidden>
+              ×
+            </button>
+
+          </div>
+
+          <p class="search-example">
+            Exemplo:
+            <span>computador reinicia quando jogo</span>
+          </p>
+
+        </div>
+
+
+        <!-- CATEGORIAS
+             A filtragem será implementada na ETAPA 7. -->
+        <div
+          class="category-strip"
+          aria-label="Categorias da Base de Conhecimento">
+
+          <span class="category-chip category-chip-active">
+            Todos
+          </span>
+
+          <span class="category-chip">
+            Windows
+          </span>
+
+          <span class="category-chip">
+            Hardware
+          </span>
+
+          <span class="category-chip">
+            Rede
+          </span>
+
+          <span class="category-chip">
+            Wi-Fi
+          </span>
+
+          <span class="category-chip">
+            BIOS / UEFI
+          </span>
+
+          <span class="category-chip">
+            SSD / HD
+          </span>
+
+          <span class="category-chip">
+            Memória
+          </span>
+
+          <span class="category-chip">
+            Áudio
+          </span>
+
+          <span class="category-chip">
+            Vídeo
+          </span>
+
+          <span class="category-chip">
+            Notebook
+          </span>
+
+          <span class="category-chip">
+            Periféricos
+          </span>
+
+          <span class="category-chip">
+            Documentos
+          </span>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ÁREA DINÂMICA
+         ===================================================== -->
+    <section
+      class="knowledge-area"
+      aria-labelledby="titulo-conteudo">
+
+      <div class="container">
+
+        <h2
+          id="titulo-conteudo"
+          class="sr-only">
+          Conteúdo da Base de Conhecimento
+        </h2>
+
+
+        <!-- ESTADO INICIAL -->
+        <div
+          id="kb-initial"
+          class="kb-state"
+          data-kb-state="initial">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="section-kicker">
+                NAVEGUE POR ÁREA
+              </span>
+
+              <h2>
+                Explore a Base de Conhecimento
+              </h2>
+            </div>
+
+            <p>
+              Pesquise diretamente pelo problema ou comece
+              por uma das áreas técnicas.
+            </p>
+
+          </div>
+
+
+          <div class="explore-grid">
+
+            <article class="explore-card">
+
+              <div
+                class="explore-icon"
+                aria-hidden="true">
+                01
+              </div>
+
+              <div>
+                <h3>Hardware</h3>
+
+                <p>
+                  Diagnósticos de componentes, energia,
+                  temperatura e funcionamento físico.
+                </p>
+              </div>
+
+              <span
+                class="card-arrow"
+                aria-hidden="true">
+                →
+              </span>
+
+            </article>
+
+
+            <article class="explore-card">
+
+              <div
+                class="explore-icon"
+                aria-hidden="true">
+                02
+              </div>
+
+              <div>
+                <h3>Windows</h3>
+
+                <p>
+                  Inicialização, recuperação, desempenho,
+                  atualizações e falhas do sistema.
+                </p>
+              </div>
+
+              <span
+                class="card-arrow"
+                aria-hidden="true">
+                →
+              </span>
+
+            </article>
+
+
+            <article class="explore-card">
+
+              <div
+                class="explore-icon"
+                aria-hidden="true">
+                03
+              </div>
+
+              <div>
+                <h3>Rede e Wi-Fi</h3>
+
+                <p>
+                  Conectividade, acesso à internet,
+                  cabeamento e comunicação em rede.
+                </p>
+              </div>
+
+              <span
+                class="card-arrow"
+                aria-hidden="true">
+                →
+              </span>
+
+            </article>
+
+
+            <article class="explore-card">
+
+              <div
+                class="explore-icon"
+                aria-hidden="true">
+                04
+              </div>
+
+              <div>
+                <h3>Armazenamento</h3>
+
+                <p>
+                  SSD, HD, desempenho, falhas de leitura,
+                  detecção e integridade dos discos.
+                </p>
+              </div>
+
+              <span
+                class="card-arrow"
+                aria-hidden="true">
+                →
+              </span>
+
+            </article>
+
+
+            <article class="explore-card">
+
+              <div
+                class="explore-icon"
+                aria-hidden="true">
+                05
+              </div>
+
+              <div>
+                <h3>Áudio e Vídeo</h3>
+
+                <p>
+                  Som, imagem, monitores, placas de vídeo
+                  e dispositivos multimídia.
+                </p>
+              </div>
+
+              <span
+                class="card-arrow"
+                aria-hidden="true">
+                →
+              </span>
+
+            </article>
+
+
+            <article class="explore-card">
+
+              <div
+                class="explore-icon"
+                aria-hidden="true">
+                06
+              </div>
+
+              <div>
+                <h3>Documentos Técnicos</h3>
+
+                <p>
+                  Ordem de serviço, laudos, termos,
+                  recibos e documentos de atendimento.
+                </p>
+              </div>
+
+              <span
+                class="card-arrow"
+                aria-hidden="true">
+                →
+              </span>
+
+            </article>
+
+          </div>
+
+        </div>
+
+
+        <!-- ESTADO DE CARREGAMENTO -->
+        <div
+          id="kb-loading"
+          class="kb-state"
+          data-kb-state="loading"
+          hidden>
+
+          <div class="state-message">
+            <span class="state-indicator" aria-hidden="true"></span>
+
+            <h2>
+              Carregando Base de Conhecimento...
+            </h2>
+
+            <p>
+              Preparando os artigos disponíveis.
+            </p>
+          </div>
+
+        </div>
+
+
+        <!-- ESTADO DE RESULTADOS -->
+        <div
+          id="kb-results"
+          class="kb-state"
+          data-kb-state="results"
+          hidden>
+
+          <div class="results-header">
+
+            <div>
+              <span class="section-kicker">
+                RESULTADOS
+              </span>
+
+              <h2 id="kb-results-title">
+                Resultados encontrados
+              </h2>
+            </div>
+
+            <p
+              id="kb-results-count"
+              class="results-count"
+              role="status"
+              aria-live="polite">
+            </p>
+
+          </div>
+
+          <div
+            id="kb-results-list"
+            class="results-list">
+          </div>
+
+        </div>
+
+
+        <!-- ESTADO SEM RESULTADOS -->
+        <div
+          id="kb-empty"
+          class="kb-state"
+          data-kb-state="empty"
+          hidden>
+
+          <div class="state-message">
+
+            <div
+              class="state-symbol"
+              aria-hidden="true">
+              ?
+            </div>
+
+            <h2>
+              Nenhum resultado encontrado
+            </h2>
+
+            <p>
+              Tente usar palavras diferentes ou descreva
+              o problema de outra forma.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ESTADO DE ERRO -->
+        <div
+          id="kb-error"
+          class="kb-state"
+          data-kb-state="error"
+          hidden>
+
+          <div class="state-message">
+
+            <div
+              class="state-symbol state-symbol-error"
+              aria-hidden="true">
+              !
+            </div>
+
+            <h2>
+              Não foi possível carregar a Base de Conhecimento
+            </h2>
+
+            <p>
+              Tente novamente em alguns instantes.
+            </p>
+
+            <button
+              id="kb-retry"
+              class="retry-button"
+              type="button">
+              Tentar novamente
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       RODAPÉ
+       ===================================================== -->
+  <footer class="site-footer">
+
+    <div class="container footer-inner">
+
+      <div class="footer-brand">
+        <strong>DATADARK</strong>
+        <span>TECNOLOGIA</span>
+      </div>
+
+      <div class="footer-copy">
+        © 2026 DATADARK TECNOLOGIA
+      </div>
+
+      <a
+        class="footer-link"
+        href="../">
+        datadark.com.br
+      </a>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
