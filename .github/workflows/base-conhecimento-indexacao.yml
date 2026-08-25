@@ -1,0 +1,410 @@
+name: Base de Conhecimento - Indexação e Publicação
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: base-conhecimento-indexacao-main
+  cancel-in-progress: true
+
+jobs:
+
+  indexar:
+
+    name: Validar, indexar e preparar site
+
+    if: github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
+    permissions:
+      contents: write
+      pages: read
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      PYTHONUTF8: "1"
+
+    steps:
+
+      - name: Checkout da main
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Configurar Python
+        uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+          check-latest: false
+
+      - name: Informações do ambiente
+        run: |
+          set -Eeuo pipefail
+
+          echo "===== SISTEMA ====="
+          uname -a
+
+          echo
+          echo "===== PYTHON ====="
+          python3 --version
+
+          echo
+          echo "===== GIT ====="
+          git --version
+
+          echo
+          echo "===== HEAD ====="
+          git rev-parse HEAD
+
+          echo
+          echo "===== REF ====="
+          echo "${GITHUB_REF}"
+
+          echo
+          echo "===== ACTOR ====="
+          echo "${GITHUB_ACTOR}"
+
+      - name: Validar permissões dos scripts
+        run: |
+          set -Eeuo pipefail
+
+          ARQUIVOS=(
+            "scripts/base-conhecimento/validar-artigos.py"
+            "scripts/base-conhecimento/gerar-indice.py"
+            "scripts/base-conhecimento/testar-gerador-indice.py"
+          )
+
+          for arquivo in "${ARQUIVOS[@]}"; do
+
+            if [[ ! -f "${arquivo}" ]]; then
+              echo "ERRO: arquivo ausente: ${arquivo}"
+              exit 1
+            fi
+
+            modo="$(
+              git ls-files --stage -- "${arquivo}" \
+              | awk '{print $1}'
+            )"
+
+            if [[ "${modo}" != "100755" ]]; then
+              echo "ERRO: modo Git inválido para ${arquivo}"
+              echo "Modo encontrado: ${modo:-AUSENTE}"
+              echo "Modo esperado: 100755"
+              exit 1
+            fi
+
+            echo "OK: ${arquivo} = ${modo}"
+
+          done
+
+      - name: Validar sintaxe Python
+        env:
+          PYTHONPYCACHEPREFIX: ${{ runner.temp }}/python-pycache
+        run: |
+          set -Eeuo pipefail
+
+          python3 -m py_compile \
+            scripts/base-conhecimento/validar-artigos.py \
+            scripts/base-conhecimento/gerar-indice.py \
+            scripts/base-conhecimento/testar-gerador-indice.py
+
+          echo "OK: sintaxe Python válida."
+
+      - name: Executar testes do gerador
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/testar-gerador-indice.py
+
+      - name: Validar artigos reais
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/validar-artigos.py
+
+      - name: Gerar índice oficial
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/gerar-indice.py
+
+      - name: Validar JSON gerado
+        run: |
+          set -Eeuo pipefail
+
+          python3 -m json.tool \
+            base-conhecimento/data/indice.json \
+            > /dev/null
+
+          echo "OK: indice.json é JSON válido."
+
+      - name: Verificar correspondência do índice
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/gerar-indice.py \
+            --check
+
+          echo "OK: indice.json corresponde aos artigos."
+
+      - name: Controlar alterações produzidas
+        id: indice
+        run: |
+          set -Eeuo pipefail
+
+          INDEX="base-conhecimento/data/indice.json"
+
+          echo "===== GIT DIFF CHECK ====="
+          git diff --check
+
+          echo
+          echo "===== ARQUIVOS MODIFICADOS ====="
+
+          modificados="$(
+            {
+              git diff --name-only
+              git ls-files \
+                --others \
+                --exclude-standard
+            } \
+            | sort -u
+          )"
+
+          if [[ -n "${modificados}" ]]; then
+            printf '%s\n' "${modificados}"
+          else
+            echo "Nenhuma alteração."
+          fi
+
+          inesperados="$(
+            printf '%s\n' "${modificados}" \
+            | sed '/^$/d' \
+            | grep -vxF "${INDEX}" \
+            || true
+          )"
+
+          if [[ -n "${inesperados}" ]]; then
+
+            echo
+            echo "ERRO DE INTEGRIDADE:"
+            echo "O processo alterou arquivos não autorizados."
+            echo
+            printf '%s\n' "${inesperados}"
+
+            exit 1
+
+          fi
+
+          if git diff --quiet -- "${INDEX}"; then
+
+            echo
+            echo "Índice já estava sincronizado."
+
+            echo "changed=false" \
+              >> "${GITHUB_OUTPUT}"
+
+          else
+
+            echo
+            echo "Índice precisa de commit técnico."
+
+            echo "changed=true" \
+              >> "${GITHUB_OUTPUT}"
+
+          fi
+
+      - name: Preparar alteração do índice
+        if: steps.indice.outputs.changed == 'true'
+        run: |
+          set -Eeuo pipefail
+
+          INDEX="base-conhecimento/data/indice.json"
+
+          git add -- "${INDEX}"
+
+          git diff --cached --check
+
+          staged="$(
+            git diff \
+              --cached \
+              --name-only
+          )"
+
+          if [[ "${staged}" != "${INDEX}" ]]; then
+
+            echo "ERRO DE INTEGRIDADE:"
+            echo "A área staged contém arquivos não autorizados."
+            echo
+            printf '%s\n' "${staged}"
+
+            exit 1
+
+          fi
+
+          echo "OK: somente indice.json está staged."
+
+      - name: Confirmar que main não avançou
+        if: steps.indice.outputs.changed == 'true'
+        run: |
+          set -Eeuo pipefail
+
+          git fetch \
+            --no-tags \
+            origin \
+            main
+
+          local_sha="$(
+            git rev-parse HEAD
+          )"
+
+          remoto_sha="$(
+            git rev-parse origin/main
+          )"
+
+          echo "HEAD local:  ${local_sha}"
+          echo "origin/main: ${remoto_sha}"
+
+          if [[ "${local_sha}" != "${remoto_sha}" ]]; then
+
+            echo
+            echo "ERRO:"
+            echo "A branch main avançou durante a execução."
+            echo "Nenhum force push será realizado."
+
+            exit 1
+
+          fi
+
+          echo "OK: main permanece no commit esperado."
+
+      - name: Criar e enviar commit técnico
+        if: steps.indice.outputs.changed == 'true'
+        run: |
+          set -Eeuo pipefail
+
+          git config \
+            user.name \
+            "github-actions[bot]"
+
+          git config \
+            user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git commit \
+            -m "Atualiza índice da Base de Conhecimento"
+
+          echo
+          echo "===== COMMIT TÉCNICO ====="
+
+          git log \
+            -1 \
+            --oneline \
+            --decorate
+
+          echo
+          echo "===== PUSH ====="
+
+          git push \
+            origin \
+            HEAD:main
+
+      - name: Confirmar integridade após indexação
+        run: |
+          set -Eeuo pipefail
+
+          status="$(
+            git status --porcelain
+          )"
+
+          if [[ -n "${status}" ]]; then
+
+            echo "ERRO:"
+            echo "Working tree não está limpo."
+            echo
+            printf '%s\n' "${status}"
+
+            exit 1
+
+          fi
+
+          echo "OK: working tree limpo."
+
+          echo
+          echo "===== COMMIT QUE SERÁ PUBLICADO ====="
+
+          git log \
+            -1 \
+            --oneline \
+            --decorate
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v6.0.0
+
+      - name: Criar artefato do site
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: .
+          include-hidden-files: false
+          retention-days: 1
+
+
+  publicar:
+
+    name: Publicar GitHub Pages
+
+    needs:
+      - indexar
+
+    if: github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
+    permissions:
+      actions: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5.0.0
+
+      - name: Resultado da publicação
+        run: |
+          set -Eeuo pipefail
+
+          echo "=============================================="
+          echo "DATADARK TECNOLOGIA"
+          echo "INDEXAÇÃO E PUBLICAÇÃO CONCLUÍDAS"
+          echo "=============================================="
+
+          echo
+          echo "URL:"
+          echo "${{ steps.deployment.outputs.page_url }}"
