@@ -100,6 +100,7 @@ jobs:
             "scripts/base-conhecimento/gerar-indice.py"
             "scripts/base-conhecimento/testar-gerador-indice.py"
             "scripts/base-conhecimento/testar-taxonomia.py"
+            "scripts/base-conhecimento/testar-template-artigo.py"
             "scripts/base-conhecimento/testar-categorias.mjs"
             "scripts/base-conhecimento/testar-pesquisa.mjs"
             "scripts/base-conhecimento/testar-consulta.mjs"
@@ -150,6 +151,27 @@ jobs:
 
           echo "OK: ${TAXONOMIA} = ${modo}"
 
+          TEMPLATE="scripts/base-conhecimento/templates/artigo-v1.html"
+
+          if [[ ! -f "${TEMPLATE}" ]]; then
+            echo "ERRO: arquivo ausente: ${TEMPLATE}"
+            exit 1
+          fi
+
+          modo="$(
+            git ls-files --stage -- "${TEMPLATE}" \
+            | awk '{print $1}'
+          )"
+
+          if [[ "${modo}" != "100644" ]]; then
+            echo "ERRO: modo Git inválido para ${TEMPLATE}"
+            echo "Modo encontrado: ${modo:-AUSENTE}"
+            echo "Modo esperado: 100644"
+            exit 1
+          fi
+
+          echo "OK: ${TEMPLATE} = ${modo}"
+
           MODULOS_JS=(
             "base-conhecimento/assets/js/normalizador.js"
             "base-conhecimento/assets/js/categorias.js"
@@ -191,7 +213,8 @@ jobs:
             scripts/base-conhecimento/testar-taxonomia.py \
             scripts/base-conhecimento/validar-artigos.py \
             scripts/base-conhecimento/gerar-indice.py \
-            scripts/base-conhecimento/testar-gerador-indice.py
+            scripts/base-conhecimento/testar-gerador-indice.py \
+            scripts/base-conhecimento/testar-template-artigo.py
 
           echo "OK: sintaxe Python válida."
 
@@ -237,6 +260,13 @@ jobs:
 
           python3 \
             scripts/base-conhecimento/testar-gerador-indice.py
+
+      - name: Executar testes do template oficial de artigo
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/testar-template-artigo.py
 
       - name: Executar testes da taxonomia JavaScript
         run: |
