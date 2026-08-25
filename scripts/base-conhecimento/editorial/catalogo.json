@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "articles": [
+    {
+      "id": "DD-KB-000001",
+      "title": "Wi-Fi conecta, mas fica sem internet",
+      "slug": "wifi-conecta-mas-fica-sem-internet",
+      "category_id": "wifi",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    }
+  ]
+}
