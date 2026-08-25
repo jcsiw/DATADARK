@@ -1,0 +1,239 @@
+name: Base de Conhecimento - Validação
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "base-conhecimento/artigos/**"
+      - "base-conhecimento/data/indice.json"
+      - "scripts/base-conhecimento/validar-artigos.py"
+      - "scripts/base-conhecimento/gerar-indice.py"
+      - "scripts/base-conhecimento/testar-gerador-indice.py"
+      - ".github/workflows/base-conhecimento-validacao.yml"
+      - ".github/workflows/base-conhecimento-indexacao.yml"
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "base-conhecimento/artigos/**"
+      - "base-conhecimento/data/indice.json"
+      - "scripts/base-conhecimento/validar-artigos.py"
+      - "scripts/base-conhecimento/gerar-indice.py"
+      - "scripts/base-conhecimento/testar-gerador-indice.py"
+      - ".github/workflows/base-conhecimento-validacao.yml"
+      - ".github/workflows/base-conhecimento-indexacao.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: base-conhecimento-validacao-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  validar:
+
+    name: Validar Base de Conhecimento
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      PYTHONUTF8: "1"
+
+    steps:
+
+      - name: Checkout do repositório
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Configurar Python
+        uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+          check-latest: false
+
+      - name: Informações do ambiente
+        run: |
+          set -Eeuo pipefail
+
+          echo "===== SISTEMA ====="
+          uname -a
+
+          echo
+          echo "===== PYTHON ====="
+          python3 --version
+
+          echo
+          echo "===== GIT ====="
+          git --version
+
+          echo
+          echo "===== COMMIT ====="
+          git rev-parse HEAD
+
+          echo
+          echo "===== BRANCH / REF ====="
+          echo "${GITHUB_REF}"
+
+      - name: Validar permissões dos scripts
+        run: |
+          set -Eeuo pipefail
+
+          ARQUIVOS=(
+            "scripts/base-conhecimento/validar-artigos.py"
+            "scripts/base-conhecimento/gerar-indice.py"
+            "scripts/base-conhecimento/testar-gerador-indice.py"
+          )
+
+          for arquivo in "${ARQUIVOS[@]}"; do
+
+            if [[ ! -f "${arquivo}" ]]; then
+              echo "ERRO: arquivo ausente: ${arquivo}"
+              exit 1
+            fi
+
+            modo="$(
+              git ls-files --stage -- "${arquivo}" \
+              | awk '{print $1}'
+            )"
+
+            if [[ "${modo}" != "100755" ]]; then
+              echo "ERRO: modo Git inválido para ${arquivo}"
+              echo "Modo encontrado: ${modo:-AUSENTE}"
+              echo "Modo esperado: 100755"
+              exit 1
+            fi
+
+            echo "OK: ${arquivo} = ${modo}"
+
+          done
+
+      - name: Validar sintaxe Python
+        env:
+          PYTHONPYCACHEPREFIX: ${{ runner.temp }}/python-pycache
+        run: |
+          set -Eeuo pipefail
+
+          python3 -m py_compile \
+            scripts/base-conhecimento/validar-artigos.py \
+            scripts/base-conhecimento/gerar-indice.py \
+            scripts/base-conhecimento/testar-gerador-indice.py
+
+          echo "OK: sintaxe Python válida."
+
+      - name: Executar testes do gerador
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/testar-gerador-indice.py
+
+      - name: Validar artigos reais
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/validar-artigos.py
+
+      - name: Validar indice.json versionado
+        run: |
+          set -Eeuo pipefail
+
+          python3 -m json.tool \
+            base-conhecimento/data/indice.json \
+            > /dev/null
+
+          echo "OK: indice.json versionado é JSON válido."
+
+      - name: Gerar índice de homologação
+        run: |
+          set -Eeuo pipefail
+
+          TEMP_INDEX="${RUNNER_TEMP}/datadark-base-conhecimento-indice.json"
+
+          rm -f "${TEMP_INDEX}"
+
+          python3 \
+            scripts/base-conhecimento/gerar-indice.py \
+            --output "${TEMP_INDEX}"
+
+          test -f "${TEMP_INDEX}"
+
+          echo
+          echo "===== ÍNDICE TEMPORÁRIO ====="
+
+          python3 -m json.tool \
+            "${TEMP_INDEX}" \
+            > /dev/null
+
+          echo "OK: JSON temporário válido."
+
+          echo
+          echo "===== SHA-256 ====="
+
+          sha256sum \
+            "${TEMP_INDEX}"
+
+      - name: Verificar índice de homologação
+        run: |
+          set -Eeuo pipefail
+
+          TEMP_INDEX="${RUNNER_TEMP}/datadark-base-conhecimento-indice.json"
+
+          python3 \
+            scripts/base-conhecimento/gerar-indice.py \
+            --output "${TEMP_INDEX}" \
+            --check
+
+          echo "OK: índice temporário corresponde aos artigos."
+
+      - name: Controle final de integridade
+        run: |
+          set -Eeuo pipefail
+
+          echo "===== GIT DIFF CHECK ====="
+
+          git diff --check
+
+          echo
+          echo "===== WORKING TREE ====="
+
+          status="$(
+            git status --porcelain
+          )"
+
+          if [[ -n "${status}" ]]; then
+
+            echo "ERRO: o workflow modificou o repositório."
+            echo
+            printf '%s\n' "${status}"
+
+            exit 1
+
+          fi
+
+          echo "OK: working tree permanece limpo."
+
+      - name: Resultado final
+        run: |
+          set -Eeuo pipefail
+
+          echo "=============================================="
+          echo "BASE DE CONHECIMENTO DATADARK"
+          echo "VALIDAÇÃO CONCLUÍDA COM SUCESSO"
+          echo "=============================================="
