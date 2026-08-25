@@ -30,10 +30,20 @@ import {
    CONFIGURAÇÃO
    ========================================================== */
 
+export const CATEGORY_INTENT_BONUS = 30;
+
+
+const CATEGORY_ID_PATTERN =
+  /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+
 export const SEARCH_DEFAULTS = Object.freeze({
   maxResults: 20,
 
   prefixMinimumLength: 4,
+
+  categoryIntentBonus:
+    CATEGORY_INTENT_BONUS,
 
   fieldWeights: Object.freeze({
     title: 100,
@@ -84,6 +94,273 @@ function toStringArray(value) {
       (item) => item.trim()
     )
     .filter(Boolean);
+}
+
+
+
+/* ==========================================================
+   CATEGORY IDS
+   ========================================================== */
+
+function normalizeCategoryIds(
+  value,
+  label = "categoryIds"
+) {
+
+  if (
+    value === null
+    || value === undefined
+  ) {
+
+    return null;
+
+  }
+
+
+  if (!Array.isArray(value)) {
+
+    throw new TypeError(
+      `${label} deve ser um array ou null.`
+    );
+
+  }
+
+
+  const result = [];
+  const seen = new Set();
+
+
+  for (
+    let index = 0;
+    index < value.length;
+    index += 1
+  ) {
+
+    const categoryId =
+      value[index];
+
+
+    if (
+      typeof categoryId !== "string"
+      || categoryId.length === 0
+      || categoryId.trim()
+        !== categoryId
+      || !CATEGORY_ID_PATTERN.test(
+        categoryId
+      )
+    ) {
+
+      throw new TypeError(
+        `${label}[${index}] inválido.`
+      );
+
+    }
+
+
+    if (!seen.has(categoryId)) {
+
+      seen.add(
+        categoryId
+      );
+
+      result.push(
+        categoryId
+      );
+
+    }
+
+  }
+
+
+  return result;
+}
+
+
+function compareArticleTitles(
+  left,
+  right
+) {
+
+  const byTitle =
+    left.article.title
+      .localeCompare(
+        right.article.title,
+        "pt-BR",
+        {
+          sensitivity: "base",
+        }
+      );
+
+
+  if (byTitle !== 0) {
+
+    return byTitle;
+
+  }
+
+
+  return (
+    left.article.slug
+      .localeCompare(
+        right.article.slug,
+        "pt-BR",
+        {
+          sensitivity: "base",
+        }
+      )
+  );
+
+}
+
+
+/* ==========================================================
+   FILTRO CATEGORIAL
+   ========================================================== */
+
+export function filterPreparedIndex(
+  preparedIndex,
+  categoryIds = null
+) {
+
+  if (!Array.isArray(preparedIndex)) {
+
+    throw new TypeError(
+      "O índice preparado deve ser um array."
+    );
+
+  }
+
+
+  const normalizedIds =
+    normalizeCategoryIds(
+      categoryIds
+    );
+
+
+  if (normalizedIds === null) {
+
+    return [
+      ...preparedIndex,
+    ];
+
+  }
+
+
+  if (
+    normalizedIds.length === 0
+  ) {
+
+    return [];
+
+  }
+
+
+  const allowed =
+    new Set(
+      normalizedIds
+    );
+
+
+  return preparedIndex.filter(
+    (preparedArticle) =>
+      Boolean(
+        preparedArticle
+        && preparedArticle.article
+        && allowed.has(
+          preparedArticle
+            .article
+            .category_id
+        )
+      )
+  );
+
+}
+
+
+/* ==========================================================
+   LISTAGEM SEM CONSULTA
+   ========================================================== */
+
+export function listArticles(
+  preparedIndex,
+  customOptions = {}
+) {
+
+  if (!Array.isArray(preparedIndex)) {
+
+    throw new TypeError(
+      "O índice preparado deve ser um array."
+    );
+
+  }
+
+
+  const categoryIds = (
+    customOptions.categoryIds
+    ?? null
+  );
+
+
+  const maxResults = (
+    customOptions.maxResults
+    ?? Number.MAX_SAFE_INTEGER
+  );
+
+
+  if (
+    !Number.isInteger(maxResults)
+    || maxResults < 0
+  ) {
+
+    throw new TypeError(
+      "maxResults deve ser inteiro "
+      + "maior ou igual a zero."
+    );
+
+  }
+
+
+  const filtered =
+    filterPreparedIndex(
+      preparedIndex,
+      categoryIds
+    );
+
+
+  const listed =
+    filtered.map(
+      (preparedArticle) => ({
+        article:
+          preparedArticle.article,
+
+        score:
+          0,
+
+        coverage:
+          0,
+
+        matchedTokens:
+          [],
+
+        titleMatches:
+          0,
+
+        categoryIntentBonus:
+          0,
+      })
+    );
+
+
+  listed.sort(
+    compareArticleTitles
+  );
+
+
+  return listed.slice(
+    0,
+    maxResults
+  );
+
 }
 
 
@@ -144,8 +421,24 @@ function prepareArticle(article) {
       : ""
   );
 
-  if (!title || !url) {
+  const categoryId = (
+    typeof article.category_id
+      === "string"
+      ? article.category_id
+      : ""
+  );
+
+
+  if (
+    !title
+    || !url
+    || !CATEGORY_ID_PATTERN.test(
+      categoryId
+    )
+  ) {
+
     return null;
+
   }
 
   const slug = deriveSlug(
@@ -242,6 +535,10 @@ function prepareArticle(article) {
       url,
       slug,
       description,
+
+      category_id:
+        categoryId,
+
       category,
       aliases,
       keywords,
@@ -617,6 +914,32 @@ export function scoreArticle(
     },
   };
 
+
+  if (
+    !Number.isFinite(
+      options.categoryIntentBonus
+    )
+    || options.categoryIntentBonus < 0
+  ) {
+
+    throw new TypeError(
+      "categoryIntentBonus deve ser "
+      + "um número maior ou igual a zero."
+    );
+
+  }
+
+
+  const categoryIntentIds =
+    normalizeCategoryIds(
+      (
+        customOptions.categoryIntentIds
+        ?? null
+      ),
+      "categoryIntentIds"
+    );
+
+
   const matchedTokens = [];
 
   let tokenScore = 0;
@@ -818,11 +1141,24 @@ export function scoreArticle(
   );
 
 
+  const categoryIntentBonus = (
+    categoryIntentIds !== null
+    && categoryIntentIds.includes(
+      preparedArticle
+        .article
+        .category_id
+    )
+      ? options.categoryIntentBonus
+      : 0
+  );
+
+
   const score = (
     tokenScore
     + coverageBonus
     + titleBonus
     + directPhraseBonus
+    + categoryIntentBonus
   );
 
 
@@ -846,6 +1182,8 @@ export function scoreArticle(
     matchedTokens,
 
     titleMatches,
+
+    categoryIntentBonus,
   };
 }
 
@@ -881,12 +1219,22 @@ export function searchArticles(
     ...customOptions,
   };
 
+  const searchableIndex =
+    filterPreparedIndex(
+      preparedIndex,
+      (
+        options.categoryIds
+        ?? null
+      )
+    );
+
+
   const scored = [];
 
 
   for (
     const preparedArticle
-    of preparedIndex
+    of searchableIndex
   ) {
     const result = scoreArticle(
       preparedArticle,

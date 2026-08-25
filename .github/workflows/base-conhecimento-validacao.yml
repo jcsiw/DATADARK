@@ -8,6 +8,8 @@ on:
       - "base-conhecimento/artigos/**"
       - "base-conhecimento/data/categorias.json"
       - "base-conhecimento/data/indice.json"
+      - "base-conhecimento/assets/js/**"
+      - "scripts/base-conhecimento/*.mjs"
       - "scripts/base-conhecimento/taxonomia.py"
       - "scripts/base-conhecimento/testar-taxonomia.py"
       - "scripts/base-conhecimento/validar-artigos.py"
@@ -23,6 +25,8 @@ on:
       - "base-conhecimento/artigos/**"
       - "base-conhecimento/data/categorias.json"
       - "base-conhecimento/data/indice.json"
+      - "base-conhecimento/assets/js/**"
+      - "scripts/base-conhecimento/*.mjs"
       - "scripts/base-conhecimento/taxonomia.py"
       - "scripts/base-conhecimento/testar-taxonomia.py"
       - "scripts/base-conhecimento/validar-artigos.py"
@@ -74,6 +78,12 @@ jobs:
           python-version: "3.12"
           check-latest: false
 
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          check-latest: false
+
       - name: Informações do ambiente
         run: |
           set -Eeuo pipefail
@@ -84,6 +94,10 @@ jobs:
           echo
           echo "===== PYTHON ====="
           python3 --version
+
+          echo
+          echo "===== NODE ====="
+          node --version
 
           echo
           echo "===== GIT ====="
@@ -106,6 +120,9 @@ jobs:
             "scripts/base-conhecimento/gerar-indice.py"
             "scripts/base-conhecimento/testar-gerador-indice.py"
             "scripts/base-conhecimento/testar-taxonomia.py"
+            "scripts/base-conhecimento/testar-categorias.mjs"
+            "scripts/base-conhecimento/testar-pesquisa.mjs"
+            "scripts/base-conhecimento/testar-consulta.mjs"
           )
 
           for arquivo in "${ARQUIVOS[@]}"; do
@@ -152,6 +169,36 @@ jobs:
 
           echo "OK: ${TAXONOMIA} = ${modo}"
 
+          MODULOS_JS=(
+            "base-conhecimento/assets/js/normalizador.js"
+            "base-conhecimento/assets/js/categorias.js"
+            "base-conhecimento/assets/js/pesquisa.js"
+            "base-conhecimento/assets/js/consulta.js"
+            "base-conhecimento/assets/js/interface.js"
+          )
+
+          for arquivo in "${MODULOS_JS[@]}"; do
+
+            if [[ ! -f "${arquivo}" ]]; then
+              echo "ERRO: arquivo ausente: ${arquivo}"
+              exit 1
+            fi
+
+            modo="$(
+              git ls-files --stage -- "${arquivo}"               | awk '{print $1}'
+            )"
+
+            if [[ "${modo}" != "100644" ]]; then
+              echo "ERRO: modo Git inválido para ${arquivo}"
+              echo "Modo encontrado: ${modo:-AUSENTE}"
+              echo "Modo esperado: 100644"
+              exit 1
+            fi
+
+            echo "OK: ${arquivo} = ${modo}"
+
+          done
+
       - name: Validar sintaxe Python
         env:
           PYTHONPYCACHEPREFIX: ${{ runner.temp }}/python-pycache
@@ -167,6 +214,34 @@ jobs:
 
           echo "OK: sintaxe Python válida."
 
+      - name: Validar sintaxe JavaScript
+        run: |
+          set -Eeuo pipefail
+
+          MODULOS_JS=(
+            "base-conhecimento/assets/js/normalizador.js"
+            "base-conhecimento/assets/js/categorias.js"
+            "base-conhecimento/assets/js/pesquisa.js"
+            "base-conhecimento/assets/js/consulta.js"
+            "base-conhecimento/assets/js/interface.js"
+          )
+
+          TESTES_JS=(
+            "scripts/base-conhecimento/testar-categorias.mjs"
+            "scripts/base-conhecimento/testar-pesquisa.mjs"
+            "scripts/base-conhecimento/testar-consulta.mjs"
+          )
+
+          for arquivo in "${MODULOS_JS[@]}"; do
+            node               --experimental-default-type=module               --check               "${arquivo}"
+          done
+
+          for arquivo in "${TESTES_JS[@]}"; do
+            node --check "${arquivo}"
+          done
+
+          echo "OK: sintaxe JavaScript válida."
+
       - name: Executar testes da taxonomia
         run: |
           set -Eeuo pipefail
@@ -180,6 +255,24 @@ jobs:
 
           python3 \
             scripts/base-conhecimento/testar-gerador-indice.py
+
+      - name: Executar testes da taxonomia JavaScript
+        run: |
+          set -Eeuo pipefail
+
+          node             --experimental-default-type=module             scripts/base-conhecimento/testar-categorias.mjs
+
+      - name: Executar testes do motor de pesquisa
+        run: |
+          set -Eeuo pipefail
+
+          node             --experimental-default-type=module             scripts/base-conhecimento/testar-pesquisa.mjs
+
+      - name: Executar testes da consulta integrada
+        run: |
+          set -Eeuo pipefail
+
+          node             --experimental-default-type=module             scripts/base-conhecimento/testar-consulta.mjs
 
       - name: Validar artigos reais
         run: |

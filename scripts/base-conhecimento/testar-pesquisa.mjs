@@ -14,7 +14,10 @@ import {
 
 
 import {
+  CATEGORY_INTENT_BONUS,
   prepareIndex,
+  filterPreparedIndex,
+  listArticles,
   searchArticles,
 } from "../../base-conhecimento/assets/js/pesquisa.js";
 
@@ -78,8 +81,11 @@ const articles = [
     url:
       "artigos/computador-nao-liga-e-nao-emite-nenhum-sinal.html",
 
-    category:
+    category_id:
       "hardware",
+
+    category:
+      "Hardware",
 
     keywords: [
       "computador",
@@ -110,8 +116,11 @@ const articles = [
     url:
       "artigos/wi-fi-conecta-mas-fica-sem-internet.html",
 
+    category_id:
+      "wifi",
+
     category:
-      "rede",
+      "Wi-Fi",
 
     keywords: [
       "wifi",
@@ -140,8 +149,11 @@ const articles = [
     url:
       "artigos/reinicia-ao-abrir-jogos-e-programas-pesados.html",
 
-    category:
+    category_id:
       "hardware",
+
+    category:
+      "Hardware",
 
     keywords: [
       "reinicia",
@@ -170,8 +182,11 @@ const articles = [
     url:
       "artigos/computador-reinicia-sozinho-durante-o-uso.html",
 
-    category:
+    category_id:
       "hardware",
+
+    category:
+      "Hardware",
 
     keywords: [
       "computador",
@@ -198,8 +213,11 @@ const articles = [
     url:
       "artigos/restauracao-do-sistema-nao-conclui.html",
 
-    category:
+    category_id:
       "windows",
+
+    category:
+      "Windows",
 
     keywords: [
       "restauracao",
@@ -228,8 +246,11 @@ const articles = [
     url:
       "artigos/tela-azul-com-erro-de-memoria.html",
 
-    category:
+    category_id:
       "windows",
+
+    category:
+      "Windows",
 
     keywords: [
       "bsod",
@@ -258,8 +279,11 @@ const articles = [
     url:
       "artigos/ssd-nao-aparece-na-bios-nem-no-sistema.html",
 
-    category:
+    category_id:
       "armazenamento",
+
+    category:
+      "SSD / HD",
 
     keywords: [
       "ssd",
@@ -288,8 +312,11 @@ const articles = [
     url:
       "artigos/ordem-de-servico.html",
 
-    category:
+    category_id:
       "documentos",
+
+    category:
+      "Documentos",
 
     keywords: [
       "ordem",
@@ -318,8 +345,11 @@ const articles = [
     url:
       "artigos/laudo-tecnico.html",
 
-    category:
+    category_id:
       "documentos",
+
+    category:
+      "Documentos",
 
     keywords: [
       "laudo",
@@ -346,8 +376,11 @@ const articles = [
     url:
       "artigos/termo-de-garantia.html",
 
-    category:
+    category_id:
       "documentos",
+
+    category:
+      "Documentos",
 
     keywords: [
       "garantia",
@@ -757,6 +790,463 @@ assert(
 
 printResult(
   "Ranking determinístico",
+  "OK"
+);
+
+
+
+/* ==========================================================
+   TESTE 17 — CONTRATO CATEGORY_ID
+   ========================================================== */
+
+const preparedWifi =
+  index.find(
+    (item) =>
+      item.article.slug
+      ===
+      "wi-fi-conecta-mas-fica-sem-internet"
+  );
+
+
+assert(
+  preparedWifi
+    ?.article
+    ?.category_id
+    === "wifi",
+  "artigo Wi-Fi deve preservar category_id canônico"
+);
+
+
+assert(
+  preparedWifi
+    ?.article
+    ?.category
+    === "Wi-Fi",
+  "artigo Wi-Fi deve preservar label de apresentação"
+);
+
+
+const missingCategoryId =
+  prepareIndex([
+    {
+      slug:
+        "artigo-sem-category-id",
+
+      title:
+        "Artigo sem category id",
+
+      url:
+        "artigos/artigo-sem-category-id.html",
+
+      category:
+        "Hardware",
+    },
+  ]);
+
+
+assert(
+  missingCategoryId.length === 0,
+  "artigo sem category_id deve ser ignorado"
+);
+
+
+printResult(
+  "Contrato category_id",
+  "OK"
+);
+
+
+/* ==========================================================
+   TESTE 18 — HARD FILTER
+   ========================================================== */
+
+const documentArticles =
+  filterPreparedIndex(
+    index,
+    [
+      "documentos",
+    ]
+  );
+
+
+assert(
+  documentArticles.length === 3,
+  "filtro documentos deve retornar três artigos"
+);
+
+
+assert(
+  documentArticles.every(
+    (item) =>
+      item.article.category_id
+      === "documentos"
+  ),
+  "hard filter não pode permitir categoria externa"
+);
+
+
+const networkArticles =
+  filterPreparedIndex(
+    index,
+    [
+      "rede",
+      "wifi",
+    ]
+  );
+
+
+assert(
+  networkArticles.length === 1,
+  "grupo rede/wifi deve aplicar OR entre category_ids"
+);
+
+
+assert(
+  networkArticles[0]
+    .article
+    .category_id
+    === "wifi",
+  "artigo Wi-Fi deve pertencer ao conjunto rede/wifi"
+);
+
+
+printResult(
+  "Hard filter",
+  "OK"
+);
+
+
+/* ==========================================================
+   TESTE 19 — PESQUISA + FILTRO
+   ========================================================== */
+
+const wifiFiltered =
+  searchArticles(
+    index,
+    "wifi",
+    {
+      categoryIds: [
+        "wifi",
+      ],
+
+      maxResults:
+        Number.MAX_SAFE_INTEGER,
+    }
+  );
+
+
+assert(
+  wifiFiltered.length === 1,
+  "pesquisa WIFI filtrada por wifi deve retornar artigo"
+);
+
+
+assert(
+  wifiFiltered[0]
+    .article
+    .category_id
+    === "wifi",
+  "pesquisa filtrada deve respeitar category_id"
+);
+
+
+const wifiBlockedByNetwork =
+  searchArticles(
+    index,
+    "wifi",
+    {
+      categoryIds: [
+        "rede",
+      ],
+
+      maxResults:
+        Number.MAX_SAFE_INTEGER,
+    }
+  );
+
+
+assert(
+  wifiBlockedByNetwork.length === 0,
+  "hard filter rede deve excluir artigo category_id wifi"
+);
+
+
+printResult(
+  "Pesquisa AND categoria",
+  "OK"
+);
+
+
+/* ==========================================================
+   TESTE 20 — LISTAGEM SEM CONSULTA
+   ========================================================== */
+
+const listedDocuments =
+  listArticles(
+    index,
+    {
+      categoryIds: [
+        "documentos",
+      ],
+    }
+  );
+
+
+const listedDocumentTitles =
+  listedDocuments.map(
+    (item) =>
+      item.article.title
+  );
+
+
+assert(
+  JSON.stringify(
+    listedDocumentTitles
+  )
+  ===
+  JSON.stringify([
+    "Laudo Técnico",
+    "Ordem de Serviço",
+    "Termo de Garantia",
+  ]),
+  "documentos devem ser listados alfabeticamente"
+);
+
+
+assert(
+  searchArticles(
+    index,
+    ""
+  ).length === 0,
+  "listArticles não pode alterar contrato de consulta vazia"
+);
+
+
+printResult(
+  "Listagem categorial",
+  listedDocumentTitles.join(" | ")
+);
+
+
+/* ==========================================================
+   TESTE 21 — BÔNUS DE INTENÇÃO CATEGORIAL
+   ========================================================== */
+
+assert(
+  CATEGORY_INTENT_BONUS === 30,
+  "bônus categorial oficial deve ser 30"
+);
+
+
+const bonusIndex =
+  prepareIndex([
+    {
+      slug:
+        "falha-geral-rede",
+
+      title:
+        "Falha geral de conexão",
+
+      description:
+        "Diagnóstico de falha geral.",
+
+      url:
+        "artigos/falha-geral-rede.html",
+
+      category_id:
+        "rede",
+
+      category:
+        "Rede",
+
+      keywords: [
+        "falha",
+      ],
+
+      aliases: [],
+    },
+
+    {
+      slug:
+        "falha-geral-wifi",
+
+      title:
+        "Falha geral de conexão",
+
+      description:
+        "Diagnóstico de falha geral.",
+
+      url:
+        "artigos/falha-geral-wifi.html",
+
+      category_id:
+        "wifi",
+
+      category:
+        "Wi-Fi",
+
+      keywords: [
+        "falha",
+      ],
+
+      aliases: [],
+    },
+  ]);
+
+
+const withoutIntent =
+  searchArticles(
+    bonusIndex,
+    "falha",
+    {
+      maxResults:
+        Number.MAX_SAFE_INTEGER,
+    }
+  );
+
+
+const withIntent =
+  searchArticles(
+    bonusIndex,
+    "falha",
+    {
+      categoryIntentIds: [
+        "wifi",
+      ],
+
+      maxResults:
+        Number.MAX_SAFE_INTEGER,
+    }
+  );
+
+
+assert(
+  withoutIntent.length === 2,
+  "dataset de bônus deve produzir dois resultados"
+);
+
+
+assert(
+  withIntent.length === 2,
+  "bônus não pode excluir resultados"
+);
+
+
+assert(
+  withIntent[0]
+    .article
+    .category_id
+    === "wifi",
+  "intenção wifi deve priorizar artigo wifi"
+);
+
+
+const wifiWithIntent =
+  withIntent.find(
+    (item) =>
+      item.article.category_id
+      === "wifi"
+  );
+
+
+const networkWithIntent =
+  withIntent.find(
+    (item) =>
+      item.article.category_id
+      === "rede"
+  );
+
+
+assert(
+  wifiWithIntent.categoryIntentBonus
+    === 30,
+  "artigo da categoria intencional deve receber +30"
+);
+
+
+assert(
+  networkWithIntent.categoryIntentBonus
+    === 0,
+  "categoria não intencional não pode receber bônus"
+);
+
+
+assert(
+  wifiWithIntent.score
+    - networkWithIntent.score
+    === 30,
+  "diferença produzida pela intenção deve ser exatamente +30"
+);
+
+
+printResult(
+  "Bônus categorial",
+  "+30"
+);
+
+
+/* ==========================================================
+   TESTE 22 — CATEGORY IDS FAIL-CLOSED
+   ========================================================== */
+
+let invalidCategoryIdRejected =
+  false;
+
+
+try {
+
+  filterPreparedIndex(
+    index,
+    [
+      " wifi ",
+    ]
+  );
+
+}
+
+catch {
+
+  invalidCategoryIdRejected =
+    true;
+
+}
+
+
+assert(
+  invalidCategoryIdRejected,
+  "category_id com espaços externos deve ser rejeitado"
+);
+
+
+let unknownShapeRejected =
+  false;
+
+
+try {
+
+  filterPreparedIndex(
+    index,
+    "wifi"
+  );
+
+}
+
+catch {
+
+  unknownShapeRejected =
+    true;
+
+}
+
+
+assert(
+  unknownShapeRejected,
+  "categoryIds deve exigir array ou null"
+);
+
+
+printResult(
+  "Category IDs fail-closed",
   "OK"
 );
 
