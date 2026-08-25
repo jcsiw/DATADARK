@@ -6,29 +6,54 @@
  * Interface V1.0
  *
  * Responsabilidades:
- * - carregar indice.json;
- * - integrar o motor ao DOM;
+ * - carregar indice.json e categorias.json;
+ * - integrar taxonomia, consulta e DOM;
  * - controlar estados visuais;
  * - debounce;
  * - renderizar resultados;
  * - navegação por teclado;
- * - preservar a consulta na sessão.
+ * - preservar consulta e filtro na sessão.
  *
  * As regras de ranking permanecem em pesquisa.js.
+ * As regras categoriais permanecem em categorias.js.
+ * A orquestração permanece em consulta.js.
  */
 
 import {
   prepareIndex,
-  searchArticles,
 } from "./pesquisa.js";
+
+
+import {
+  ALL_FILTER,
+  prepareTaxonomy,
+  resolveFilter,
+} from "./categorias.js";
+
+
+import {
+  searchKnowledgeBase,
+  listKnowledgeBase,
+} from "./consulta.js";
 
 
 const CONFIG = Object.freeze({
   indexUrl: "data/indice.json",
+
+  categoriesUrl:
+    "data/categorias.json",
+
   debounceMs: 100,
+
   minimumQueryLength: 2,
+
   maxRenderedResults: 20,
-  storageKey: "datadark-kb-query-v1",
+
+  storageKey:
+    "datadark-kb-query-v1",
+
+  categoryStorageKey:
+    "datadark-kb-category-v1",
 });
 
 
@@ -36,7 +61,13 @@ let initialized = false;
 let elements = null;
 
 let preparedIndex = [];
+
+let taxonomy = null;
+
 let indexReady = false;
+
+let activeFilter =
+  ALL_FILTER;
 
 let debounceTimer = null;
 
@@ -60,6 +91,16 @@ function getElements() {
     clear:
       document.getElementById(
         "kb-clear"
+      ),
+
+    categoryStrip:
+      document.getElementById(
+        "kb-category-strip"
+      ),
+
+    exploreGrid:
+      document.querySelector(
+        ".explore-grid"
       ),
 
     retry:
@@ -236,6 +277,337 @@ function restoreQuery() {
 
 }
 
+
+
+
+/* ==========================================================
+   SESSION STORAGE — FILTRO CATEGORIAL
+   ========================================================== */
+
+function storeCategoryFilter(value) {
+
+  try {
+
+    if (
+      value
+      && value !== ALL_FILTER
+    ) {
+
+      sessionStorage.setItem(
+        CONFIG.categoryStorageKey,
+        value
+      );
+
+    }
+
+    else {
+
+      sessionStorage.removeItem(
+        CONFIG.categoryStorageKey
+      );
+
+    }
+
+  }
+
+  catch {
+
+    /*
+     * A filtragem continua funcionando
+     * mesmo sem sessionStorage.
+     */
+
+  }
+
+}
+
+
+function restoreCategoryFilter() {
+
+  try {
+
+    return (
+      sessionStorage.getItem(
+        CONFIG.categoryStorageKey
+      )
+      || ALL_FILTER
+    );
+
+  }
+
+  catch {
+
+    return ALL_FILTER;
+
+  }
+
+}
+
+
+function restoreValidatedCategoryFilter() {
+
+  const storedFilter =
+    restoreCategoryFilter();
+
+
+  try {
+
+    resolveFilter(
+      taxonomy,
+      storedFilter
+    );
+
+
+    activeFilter =
+      storedFilter;
+
+  }
+
+  catch {
+
+    /*
+     * Um valor antigo, manualmente alterado ou
+     * pertencente a outra versão da taxonomia
+     * nunca pode contaminar a interface atual.
+     */
+
+    activeFilter =
+      ALL_FILTER;
+
+
+    storeCategoryFilter(
+      ALL_FILTER
+    );
+
+  }
+
+}
+
+
+
+/* ==========================================================
+   FILTROS — INTERFACE
+   ========================================================== */
+
+function createCategoryButton(
+  value,
+  label
+) {
+
+  const button =
+    document.createElement(
+      "button"
+    );
+
+
+  button.type =
+    "button";
+
+  button.className =
+    "category-chip";
+
+  button.dataset.kbFilter =
+    value;
+
+  button.setAttribute(
+    "aria-pressed",
+    "false"
+  );
+
+  button.textContent =
+    label;
+
+
+  return button;
+
+}
+
+
+function renderCategoryFilters() {
+
+  const fragment =
+    document.createDocumentFragment();
+
+
+  fragment.append(
+    createCategoryButton(
+      ALL_FILTER,
+      "Todos"
+    )
+  );
+
+
+  for (
+    const category
+    of taxonomy.categories
+  ) {
+
+    fragment.append(
+      createCategoryButton(
+        category.id,
+        category.label
+      )
+    );
+
+  }
+
+
+  elements.categoryStrip
+    .replaceChildren(
+      fragment
+    );
+
+}
+
+
+function filterControls() {
+
+  return Array.from(
+    document.querySelectorAll(
+      "[data-kb-filter]"
+    )
+  );
+
+}
+
+
+function syncCategoryFilterUi() {
+
+  for (
+    const control
+    of filterControls()
+  ) {
+
+    const value =
+      control.dataset.kbFilter
+      || "";
+
+    const active =
+      value === activeFilter;
+
+
+    control.setAttribute(
+      "aria-pressed",
+      active
+        ? "true"
+        : "false"
+    );
+
+
+    if (
+      control.classList.contains(
+        "category-chip"
+      )
+    ) {
+
+      control.classList.toggle(
+        "category-chip-active",
+        active
+      );
+
+    }
+
+
+    if (
+      control.classList.contains(
+        "explore-card"
+      )
+    ) {
+
+      control.classList.toggle(
+        "explore-card-active",
+        active
+      );
+
+    }
+
+  }
+
+}
+
+
+function setActiveFilter(value) {
+
+  if (
+    !indexReady
+    || !taxonomy
+  ) {
+
+    return;
+
+  }
+
+
+  /*
+   * resolveFilter é também a barreira de
+   * validação do valor vindo do DOM.
+   */
+  resolveFilter(
+    taxonomy,
+    value
+  );
+
+
+  activeFilter =
+    value;
+
+
+  storeCategoryFilter(
+    activeFilter
+  );
+
+
+  syncCategoryFilterUi();
+
+
+  executeCurrentSearch();
+
+}
+
+
+function handleFilterClick(event) {
+
+  const control =
+    event.target.closest(
+      "[data-kb-filter]"
+    );
+
+
+  if (!control) {
+
+    return;
+
+  }
+
+
+  if (
+    !elements.categoryStrip
+      .contains(control)
+    && !elements.exploreGrid
+      .contains(control)
+  ) {
+
+    return;
+
+  }
+
+
+  const value =
+    control.dataset.kbFilter;
+
+
+  if (!value) {
+
+    return;
+
+  }
+
+
+  setActiveFilter(
+    value
+  );
+
+}
 
 /* ==========================================================
    BOTÃO LIMPAR
@@ -544,7 +916,10 @@ function executeCurrentSearch() {
   resetResultNavigation();
 
 
-  if (!indexReady) {
+  if (
+    !indexReady
+    || !taxonomy
+  ) {
 
     setState(
       "loading"
@@ -559,15 +934,48 @@ function executeCurrentSearch() {
     elements.search.value.trim();
 
 
+  /*
+   * Consulta curta no filtro global mantém
+   * a experiência inicial histórica.
+   *
+   * Consulta curta com categoria/grupo ativo
+   * passa a representar navegação categorial.
+   */
   if (
     query.length
     < CONFIG.minimumQueryLength
   ) {
 
-    clearRenderedResults();
+    if (
+      activeFilter
+      === ALL_FILTER
+    ) {
 
-    setState(
-      "initial"
+      clearRenderedResults();
+
+      setState(
+        "initial"
+      );
+
+      return;
+
+    }
+
+
+    const listedResults =
+      listKnowledgeBase(
+        preparedIndex,
+        taxonomy,
+        activeFilter,
+        {
+          maxResults:
+            Number.MAX_SAFE_INTEGER,
+        }
+      );
+
+
+    renderResults(
+      listedResults
     );
 
     return;
@@ -576,9 +984,11 @@ function executeCurrentSearch() {
 
 
   const results =
-    searchArticles(
+    searchKnowledgeBase(
       preparedIndex,
+      taxonomy,
       query,
+      activeFilter,
       {
         maxResults:
           Number.MAX_SAFE_INTEGER,
@@ -660,14 +1070,23 @@ function scheduleSearch() {
 
 
 /* ==========================================================
-   CARREGAMENTO DO ÍNDICE
+   CARREGAMENTO DA BASE
    ========================================================== */
 
-async function loadIndex() {
+async function loadKnowledgeBase() {
 
   indexReady = false;
 
   preparedIndex = [];
+
+  taxonomy = null;
+
+  activeFilter =
+    ALL_FILTER;
+
+
+  elements.categoryStrip
+    .replaceChildren();
 
 
   clearRenderedResults();
@@ -679,32 +1098,61 @@ async function loadIndex() {
 
   try {
 
-    const response =
-      await fetch(
+    const fetchOptions = {
+      cache: "no-store",
+      credentials: "same-origin",
+    };
+
+
+    const [
+      indexResponse,
+      categoriesResponse,
+    ] = await Promise.all([
+      fetch(
         CONFIG.indexUrl,
-        {
-          cache: "no-store",
-          credentials: "same-origin",
-        }
-      );
+        fetchOptions
+      ),
+
+      fetch(
+        CONFIG.categoriesUrl,
+        fetchOptions
+      ),
+    ]);
 
 
-    if (!response.ok) {
+    if (!indexResponse.ok) {
 
       throw new Error(
         "Falha HTTP ao carregar índice: "
-        + response.status
+        + indexResponse.status
       );
 
     }
 
 
-    const data =
-      await response.json();
+    if (!categoriesResponse.ok) {
+
+      throw new Error(
+        "Falha HTTP ao carregar taxonomia: "
+        + categoriesResponse.status
+      );
+
+    }
+
+
+    const [
+      indexData,
+      taxonomyData,
+    ] = await Promise.all([
+      indexResponse.json(),
+      categoriesResponse.json(),
+    ]);
 
 
     if (
-      !Array.isArray(data)
+      !Array.isArray(
+        indexData
+      )
     ) {
 
       throw new TypeError(
@@ -714,15 +1162,21 @@ async function loadIndex() {
     }
 
 
+    taxonomy =
+      prepareTaxonomy(
+        taxonomyData
+      );
+
+
     preparedIndex =
       prepareIndex(
-        data
+        indexData
       );
 
 
     if (
       preparedIndex.length
-      !== data.length
+      !== indexData.length
     ) {
 
       console.warn(
@@ -731,6 +1185,34 @@ async function loadIndex() {
       );
 
     }
+
+
+    /*
+     * O índice oficial é gerado pelo backend,
+     * mas o navegador também confirma que todo
+     * category_id pertence à taxonomia carregada.
+     */
+    for (
+      const preparedArticle
+      of preparedIndex
+    ) {
+
+      resolveFilter(
+        taxonomy,
+        preparedArticle
+          .article
+          .category_id
+      );
+
+    }
+
+
+    restoreValidatedCategoryFilter();
+
+
+    renderCategoryFilters();
+
+    syncCategoryFilterUi();
 
 
     indexReady = true;
@@ -746,6 +1228,11 @@ async function loadIndex() {
 
     preparedIndex = [];
 
+    taxonomy = null;
+
+    activeFilter =
+      ALL_FILTER;
+
 
     clearRenderedResults();
 
@@ -756,7 +1243,7 @@ async function loadIndex() {
 
     console.error(
       "Base de Conhecimento DATADARK: "
-      + "não foi possível carregar o índice.",
+      + "não foi possível carregar índice e taxonomia.",
       error
     );
 
@@ -800,9 +1287,7 @@ function clearSearch() {
 
   if (indexReady) {
 
-    setState(
-      "initial"
-    );
+    executeCurrentSearch();
 
   }
 
@@ -1048,10 +1533,24 @@ function bindEvents() {
     );
 
 
+  elements.categoryStrip
+    .addEventListener(
+      "click",
+      handleFilterClick
+    );
+
+
+  elements.exploreGrid
+    .addEventListener(
+      "click",
+      handleFilterClick
+    );
+
+
   elements.retry
     .addEventListener(
       "click",
-      loadIndex
+      loadKnowledgeBase
     );
 
 
@@ -1106,7 +1605,7 @@ export async function initKnowledgeBase() {
 
   bindEvents();
 
-  await loadIndex();
+  await loadKnowledgeBase();
 
 }
 

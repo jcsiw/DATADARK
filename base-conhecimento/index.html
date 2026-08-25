@@ -158,63 +158,11 @@
 
 
         <!-- CATEGORIAS
-             A filtragem será implementada na ETAPA 7. -->
+             Geradas dinamicamente a partir da taxonomia oficial. -->
         <div
+          id="kb-category-strip"
           class="category-strip"
           aria-label="Categorias da Base de Conhecimento">
-
-          <span class="category-chip category-chip-active">
-            Todos
-          </span>
-
-          <span class="category-chip">
-            Windows
-          </span>
-
-          <span class="category-chip">
-            Hardware
-          </span>
-
-          <span class="category-chip">
-            Rede
-          </span>
-
-          <span class="category-chip">
-            Wi-Fi
-          </span>
-
-          <span class="category-chip">
-            BIOS / UEFI
-          </span>
-
-          <span class="category-chip">
-            SSD / HD
-          </span>
-
-          <span class="category-chip">
-            Memória
-          </span>
-
-          <span class="category-chip">
-            Áudio
-          </span>
-
-          <span class="category-chip">
-            Vídeo
-          </span>
-
-          <span class="category-chip">
-            Notebook
-          </span>
-
-          <span class="category-chip">
-            Periféricos
-          </span>
-
-          <span class="category-chip">
-            Documentos
-          </span>
-
         </div>
 
       </div>
@@ -265,7 +213,11 @@
 
           <div class="explore-grid">
 
-            <article class="explore-card">
+            <button
+              class="explore-card"
+              type="button"
+              data-kb-filter="group:area-hardware"
+              aria-pressed="false">
 
               <div
                 class="explore-icon"
@@ -288,10 +240,14 @@
                 →
               </span>
 
-            </article>
+            </button>
 
 
-            <article class="explore-card">
+            <button
+              class="explore-card"
+              type="button"
+              data-kb-filter="group:area-windows"
+              aria-pressed="false">
 
               <div
                 class="explore-icon"
@@ -314,10 +270,14 @@
                 →
               </span>
 
-            </article>
+            </button>
 
 
-            <article class="explore-card">
+            <button
+              class="explore-card"
+              type="button"
+              data-kb-filter="group:area-rede-wifi"
+              aria-pressed="false">
 
               <div
                 class="explore-icon"
@@ -340,10 +300,14 @@
                 →
               </span>
 
-            </article>
+            </button>
 
 
-            <article class="explore-card">
+            <button
+              class="explore-card"
+              type="button"
+              data-kb-filter="group:area-armazenamento"
+              aria-pressed="false">
 
               <div
                 class="explore-icon"
@@ -366,10 +330,14 @@
                 →
               </span>
 
-            </article>
+            </button>
 
 
-            <article class="explore-card">
+            <button
+              class="explore-card"
+              type="button"
+              data-kb-filter="group:area-audio-video"
+              aria-pressed="false">
 
               <div
                 class="explore-icon"
@@ -392,10 +360,14 @@
                 →
               </span>
 
-            </article>
+            </button>
 
 
-            <article class="explore-card">
+            <button
+              class="explore-card"
+              type="button"
+              data-kb-filter="group:area-documentos"
+              aria-pressed="false">
 
               <div
                 class="explore-icon"
@@ -418,7 +390,7 @@
                 →
               </span>
 
-            </article>
+            </button>
 
           </div>
 

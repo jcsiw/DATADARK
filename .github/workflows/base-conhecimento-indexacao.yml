@@ -103,6 +103,7 @@ jobs:
             "scripts/base-conhecimento/testar-categorias.mjs"
             "scripts/base-conhecimento/testar-pesquisa.mjs"
             "scripts/base-conhecimento/testar-consulta.mjs"
+            "scripts/base-conhecimento/testar-interface.mjs"
           )
 
           for arquivo in "${ARQUIVOS[@]}"; do
@@ -210,6 +211,7 @@ jobs:
             "scripts/base-conhecimento/testar-categorias.mjs"
             "scripts/base-conhecimento/testar-pesquisa.mjs"
             "scripts/base-conhecimento/testar-consulta.mjs"
+            "scripts/base-conhecimento/testar-interface.mjs"
           )
 
           for arquivo in "${MODULOS_JS[@]}"; do
@@ -253,6 +255,14 @@ jobs:
           set -Eeuo pipefail
 
           node             --experimental-default-type=module             scripts/base-conhecimento/testar-consulta.mjs
+
+      - name: Executar testes da interface categorial
+        run: |
+          set -Eeuo pipefail
+
+          node \
+            --experimental-default-type=module \
+            scripts/base-conhecimento/testar-interface.mjs
 
       - name: Validar artigos reais
         run: |
