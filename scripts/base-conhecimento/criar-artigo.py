@@ -30,12 +30,14 @@ Saída:
 from __future__ import annotations
 
 import argparse
+from datetime import date, datetime
 import hashlib
 import html
 import importlib.util
 import json
 import os
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 import re
 import shutil
 import stat
@@ -91,6 +93,24 @@ VALIDATOR_PATH = (
 INDEXER_PATH = (
     SCRIPT_DIR
     / "gerar-indice.py"
+)
+
+
+CATALOG_PATH = (
+    SCRIPT_DIR
+    / "editorial"
+    / "catalogo.json"
+)
+
+
+CATALOG_VALIDATOR_PATH = (
+    SCRIPT_DIR
+    / "validar-catalogo-editorial.py"
+)
+
+
+PUBLICATION_TIMEZONE = (
+    "America/Sao_Paulo"
 )
 
 
@@ -829,6 +849,13 @@ def official_state_fingerprint() -> str:
     Assinatura do estado oficial consumido pela
     transação.
 
+    Protege:
+    - template;
+    - taxonomia;
+    - índice;
+    - Catálogo Editorial;
+    - artigos HTML.
+
     Detecta alterações concorrentes entre o
     dry-run e a promoção definitiva.
     """
@@ -837,6 +864,7 @@ def official_state_fingerprint() -> str:
         TEMPLATE_PATH,
         CATEGORIES_PATH,
         INDEX_PATH,
+        CATALOG_PATH,
     ]
 
     paths.extend(
@@ -1049,18 +1077,559 @@ def restore_index_atomic(
         )
 
 
+def ensure_catalog_path_clean() -> None:
+    """
+    O Catálogo Editorial oficial não pode possuir
+    alteração local pendente antes da operação.
+    """
+
+    try:
+        relative = (
+            CATALOG_PATH
+            .relative_to(
+                REPOSITORY_ROOT
+            )
+            .as_posix()
+        )
+
+    except ValueError as exc:
+
+        raise ArticleCreationError(
+            "catalogo.json está fora do "
+            "repositório oficial."
+        ) from exc
+
+
+    try:
+        completed = subprocess.run(
+            [
+                "git",
+                "status",
+                "--porcelain=v1",
+                "--untracked-files=all",
+                "--",
+                relative,
+            ],
+            cwd=REPOSITORY_ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+
+    except OSError as exc:
+
+        raise ArticleCreationError(
+            "não foi possível verificar o "
+            "estado Git do Catálogo Editorial: "
+            f"{exc}"
+        ) from exc
+
+
+    if completed.returncode != 0:
+
+        detail = (
+            completed.stderr.strip()
+            or completed.stdout.strip()
+            or (
+                "git status retornou "
+                f"{completed.returncode}"
+            )
+        )
+
+        raise ArticleCreationError(
+            "falha ao verificar o Catálogo "
+            f"Editorial no Git: {detail}"
+        )
+
+
+    if completed.stdout.strip():
+
+        raise ArticleCreationError(
+            "Catálogo Editorial possui "
+            "alteração local pendente; "
+            "operação cancelada."
+        )
+
+
+def ensure_official_catalog_current() -> None:
+    """
+    Exige que o Catálogo Editorial oficial esteja
+    consistente com os artigos e o índice atuais.
+    """
+
+    run_command(
+        [
+            sys.executable,
+            str(
+                CATALOG_VALIDATOR_PATH
+            ),
+            "--catalog",
+            str(
+                CATALOG_PATH
+            ),
+            "--articles-dir",
+            str(
+                ARTICLES_DIR
+            ),
+            "--index",
+            str(
+                INDEX_PATH
+            ),
+            "--categories",
+            str(
+                CATEGORIES_PATH
+            ),
+        ],
+        "verificação do Catálogo Editorial",
+    )
+
+
+def resolve_publication_date(
+    value: str | None,
+) -> str:
+    """
+    Resolve a data editorial em YYYY-MM-DD.
+
+    Se não informada pela CLI, utiliza a data
+    corrente em America/Sao_Paulo.
+    """
+
+    if value is None:
+
+        try:
+            timezone = ZoneInfo(
+                PUBLICATION_TIMEZONE
+            )
+
+        except ZoneInfoNotFoundError as exc:
+
+            raise ArticleCreationError(
+                "timezone editorial indisponível: "
+                f"{PUBLICATION_TIMEZONE}"
+            ) from exc
+
+
+        return (
+            datetime.now(
+                timezone
+            )
+            .date()
+            .isoformat()
+        )
+
+
+    if not isinstance(
+        value,
+        str,
+    ):
+
+        raise ArticleCreationError(
+            "publication-date deve ser string "
+            "YYYY-MM-DD."
+        )
+
+
+    try:
+        parsed = date.fromisoformat(
+            value
+        )
+
+    except ValueError as exc:
+
+        raise ArticleCreationError(
+            "publication-date inválida: "
+            f"{value!r}"
+        ) from exc
+
+
+    if parsed.isoformat() != value:
+
+        raise ArticleCreationError(
+            "publication-date deve usar "
+            "YYYY-MM-DD canônico."
+        )
+
+
+    return value
+
+
+def load_catalog_for_update() -> dict[str, Any]:
+    """
+    Carrega o Catálogo já homologado pelo
+    validador oficial.
+    """
+
+    try:
+        data = json.loads(
+            CATALOG_PATH.read_text(
+                encoding="utf-8"
+            )
+        )
+
+    except (
+        OSError,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+    ) as exc:
+
+        raise ArticleCreationError(
+            "não foi possível carregar o "
+            f"Catálogo Editorial: {exc}"
+        ) from exc
+
+
+    if not isinstance(
+        data,
+        dict,
+    ):
+
+        raise ArticleCreationError(
+            "Catálogo Editorial deve possuir "
+            "objeto JSON na raiz."
+        )
+
+
+    if data.get(
+        "version"
+    ) != 1:
+
+        raise ArticleCreationError(
+            "versão inesperada do "
+            "Catálogo Editorial."
+        )
+
+
+    articles = data.get(
+        "articles"
+    )
+
+
+    if not isinstance(
+        articles,
+        list,
+    ):
+
+        raise ArticleCreationError(
+            "articles inválido no "
+            "Catálogo Editorial."
+        )
+
+
+    return data
+
+
+def next_editorial_id(
+    catalog: dict[str, Any],
+) -> str:
+
+    numbers: list[int] = []
+
+
+    for article in catalog[
+        "articles"
+    ]:
+
+        if not isinstance(
+            article,
+            dict,
+        ):
+
+            raise ArticleCreationError(
+                "registro editorial inválido."
+            )
+
+
+        article_id = article.get(
+            "id"
+        )
+
+
+        if not isinstance(
+            article_id,
+            str,
+        ):
+
+            raise ArticleCreationError(
+                "id editorial inválido."
+            )
+
+
+        match = re.fullmatch(
+            r"DD-KB-([0-9]{6})",
+            article_id,
+        )
+
+
+        if match is None:
+
+            raise ArticleCreationError(
+                "id editorial fora do "
+                f"contrato V1: {article_id!r}"
+            )
+
+
+        numbers.append(
+            int(
+                match.group(1)
+            )
+        )
+
+
+    number = (
+        max(
+            numbers,
+            default=0,
+        )
+        + 1
+    )
+
+
+    if number > 999999:
+
+        raise ArticleCreationError(
+            "sequência editorial DD-KB "
+            "esgotada."
+        )
+
+
+    return (
+        f"DD-KB-{number:06d}"
+    )
+
+
+def build_catalog_candidate(
+    result: dict[str, Any],
+    publication_date: str,
+) -> tuple[str, bytes]:
+    """
+    Constrói o Catálogo candidato sem modificar
+    o arquivo oficial.
+    """
+
+    catalog = (
+        load_catalog_for_update()
+    )
+
+
+    editorial_id = (
+        next_editorial_id(
+            catalog
+        )
+    )
+
+
+    record = {
+        "id":
+            editorial_id,
+        "title":
+            result["title"],
+        "slug":
+            result["slug"],
+        "category_id":
+            result["category_id"],
+        "status":
+            "published",
+        "priority":
+            "normal",
+        "created_on":
+            publication_date,
+        "published_on":
+            publication_date,
+        "review_due":
+            None,
+        "notes":
+            "",
+    }
+
+
+    catalog[
+        "articles"
+    ].append(
+        record
+    )
+
+
+    content = (
+        json.dumps(
+            catalog,
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n"
+    ).encode(
+        "utf-8"
+    )
+
+
+    return (
+        editorial_id,
+        content,
+    )
+
+
+def validate_catalog_candidate(
+    result: dict[str, Any],
+) -> None:
+    """
+    Homologa artigo + índice + catálogo candidatos
+    em ambiente temporário.
+    """
+
+    with tempfile.TemporaryDirectory(
+        prefix=(
+            "datadark-catalogo-"
+            "candidate-"
+        )
+    ) as temp_name:
+
+        temp_root = Path(
+            temp_name
+        )
+
+        temp_articles = (
+            temp_root
+            / "artigos"
+        )
+
+        temp_articles.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+
+        for source in sorted(
+            ARTICLES_DIR.glob(
+                "*.html"
+            ),
+            key=lambda item:
+                item.name.casefold(),
+        ):
+
+            shutil.copy2(
+                source,
+                temp_articles
+                / source.name,
+            )
+
+
+        (
+            temp_articles
+            / result["filename"]
+        ).write_bytes(
+            result[
+                "article_bytes"
+            ]
+        )
+
+
+        temp_index = (
+            temp_root
+            / "indice.json"
+        )
+
+        temp_index.write_bytes(
+            result[
+                "index_bytes"
+            ]
+        )
+
+
+        temp_catalog = (
+            temp_root
+            / "catalogo.json"
+        )
+
+        temp_catalog.write_bytes(
+            result[
+                "catalog_bytes"
+            ]
+        )
+
+
+        run_command(
+            [
+                sys.executable,
+                str(
+                    CATALOG_VALIDATOR_PATH
+                ),
+                "--catalog",
+                str(
+                    temp_catalog
+                ),
+                "--articles-dir",
+                str(
+                    temp_articles
+                ),
+                "--index",
+                str(
+                    temp_index
+                ),
+                "--categories",
+                str(
+                    CATEGORIES_PATH
+                ),
+            ],
+            (
+                "validação do Catálogo "
+                "Editorial candidato"
+            ),
+        )
+
+
+def restore_file_atomic(
+    path: Path,
+    content: bytes,
+    mode: int,
+) -> None:
+    """
+    Restaura arquivo por staged file + os.replace.
+    """
+
+    staged = create_staged_file(
+        path.parent,
+        f".{path.name}.restore.",
+        content,
+        mode,
+    )
+
+
+    try:
+
+        os.replace(
+            staged,
+            path,
+        )
+
+        fsync_directory(
+            path.parent
+        )
+
+    finally:
+
+        staged.unlink(
+            missing_ok=True
+        )
+
+
 def persist_candidate(
     result: dict[str, Any],
 ) -> None:
     """
-    Promove artigo e índice.
+    Promove artigo, índice e Catálogo Editorial.
 
-    A operação somente inicia se o estado oficial
-    ainda for exatamente o mesmo utilizado pelo
-    dry-run.
+    Não existe atomicidade multi-arquivo nativa.
+    A operação utiliza:
+    - staged files;
+    - os.replace individual;
+    - fingerprint concorrente;
+    - validação pós-gravação;
+    - rollback integral.
     """
 
     ensure_content_paths_clean()
+
+    ensure_catalog_path_clean()
 
 
     target = result[
@@ -1098,9 +1667,21 @@ def persist_candidate(
             INDEX_PATH.read_bytes()
         )
 
-        original_mode = (
+        original_index_mode = (
             stat.S_IMODE(
                 INDEX_PATH
+                .stat()
+                .st_mode
+            )
+        )
+
+        original_catalog = (
+            CATALOG_PATH.read_bytes()
+        )
+
+        original_catalog_mode = (
+            stat.S_IMODE(
+                CATALOG_PATH
                 .stat()
                 .st_mode
             )
@@ -1110,7 +1691,8 @@ def persist_candidate(
 
         raise ArticleCreationError(
             "não foi possível preservar "
-            f"indice.json: {exc}"
+            "indice.json/catalogo.json: "
+            f"{exc}"
         ) from exc
 
 
@@ -1118,9 +1700,13 @@ def persist_candidate(
 
     index_staged: Path | None = None
 
+    catalog_staged: Path | None = None
+
     article_installed = False
 
     index_installed = False
+
+    catalog_installed = False
 
 
     try:
@@ -1144,7 +1730,19 @@ def persist_candidate(
                 result[
                     "index_bytes"
                 ],
-                original_mode,
+                original_index_mode,
+            )
+        )
+
+
+        catalog_staged = (
+            create_staged_file(
+                CATALOG_PATH.parent,
+                f".{CATALOG_PATH.name}.",
+                result[
+                    "catalog_bytes"
+                ],
+                original_catalog_mode,
             )
         )
 
@@ -1185,6 +1783,20 @@ def persist_candidate(
 
         fsync_directory(
             INDEX_PATH.parent
+        )
+
+
+        os.replace(
+            catalog_staged,
+            CATALOG_PATH,
+        )
+
+        catalog_staged = None
+
+        catalog_installed = True
+
+        fsync_directory(
+            CATALOG_PATH.parent
         )
 
 
@@ -1247,18 +1859,67 @@ def persist_candidate(
         )
 
 
+        run_command(
+            [
+                sys.executable,
+                str(
+                    CATALOG_VALIDATOR_PATH
+                ),
+                "--catalog",
+                str(
+                    CATALOG_PATH
+                ),
+                "--articles-dir",
+                str(
+                    ARTICLES_DIR
+                ),
+                "--index",
+                str(
+                    INDEX_PATH
+                ),
+                "--categories",
+                str(
+                    CATEGORIES_PATH
+                ),
+            ],
+            (
+                "validador editorial "
+                "pós-gravação"
+            ),
+        )
+
+
     except Exception as exc:
 
         rollback_errors: list[str] = []
+
+
+        if catalog_installed:
+
+            try:
+
+                restore_file_atomic(
+                    CATALOG_PATH,
+                    original_catalog,
+                    original_catalog_mode,
+                )
+
+            except Exception as rollback_exc:
+
+                rollback_errors.append(
+                    "catalogo.json: "
+                    f"{rollback_exc}"
+                )
 
 
         if index_installed:
 
             try:
 
-                restore_index_atomic(
+                restore_file_atomic(
+                    INDEX_PATH,
                     original_index,
-                    original_mode,
+                    original_index_mode,
                 )
 
             except Exception as rollback_exc:
@@ -1319,7 +1980,14 @@ def persist_candidate(
             )
 
 
-def dry_run(
+        if catalog_staged is not None:
+
+            catalog_staged.unlink(
+                missing_ok=True
+            )
+
+
+def _dry_run_article_index(
     data: dict[str, Any],
 ) -> dict[str, Any]:
 
@@ -1580,6 +2248,77 @@ def dry_run(
         }
 
 
+def dry_run(
+    data: dict[str, Any],
+    publication_date: str | None = None,
+) -> dict[str, Any]:
+    """
+    Dry-run integrado:
+
+    artigo candidato
+    + indice.json candidato
+    + catalogo.json candidato
+
+    Nenhum artefato oficial é modificado.
+    """
+
+    ensure_catalog_path_clean()
+
+    ensure_official_catalog_current()
+
+
+    result = (
+        _dry_run_article_index(
+            data
+        )
+    )
+
+
+    resolved_date = (
+        resolve_publication_date(
+            publication_date
+        )
+    )
+
+
+    editorial_id, catalog_bytes = (
+        build_catalog_candidate(
+            result,
+            resolved_date,
+        )
+    )
+
+
+    integrated = {
+        **result,
+        "editorial_id":
+            editorial_id,
+        "publication_date":
+            resolved_date,
+        "catalog_bytes":
+            catalog_bytes,
+    }
+
+
+    validate_catalog_candidate(
+        integrated
+    )
+
+
+    if (
+        official_state_fingerprint()
+        != result["state_token"]
+    ):
+
+        raise ArticleCreationError(
+            "estado oficial mudou durante "
+            "o dry-run integrado"
+        )
+
+
+    return integrated
+
+
 def parse_args():
 
     parser = argparse.ArgumentParser(
@@ -1612,6 +2351,18 @@ def parse_args():
     )
 
 
+    parser.add_argument(
+        "--publication-date",
+        metavar="YYYY-MM-DD",
+        default=None,
+        help=(
+            "Data editorial da publicação. "
+            "Quando omitida, usa a data corrente "
+            "em America/Sao_Paulo."
+        ),
+    )
+
+
     return parser.parse_args()
 
 
@@ -1627,7 +2378,9 @@ def main() -> int:
         )
 
         result = dry_run(
-            data
+            data,
+            publication_date=
+                args.publication_date,
         )
 
 

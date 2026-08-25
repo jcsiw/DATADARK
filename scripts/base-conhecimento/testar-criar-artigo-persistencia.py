@@ -281,6 +281,98 @@ def create_repository(
     return repository
 
 
+def install_editorial_fixture(
+    repository: Path,
+) -> None:
+    """
+    Instala no repositório temporário os
+    componentes oficiais necessários ao
+    Catálogo Editorial.
+    """
+
+    source_scripts = (
+        Path(__file__)
+        .resolve()
+        .parent
+    )
+
+    target_scripts = (
+        repository
+        / "scripts"
+        / "base-conhecimento"
+    )
+
+    target_editorial = (
+        target_scripts
+        / "editorial"
+    )
+
+    target_editorial.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+
+    pairs = (
+        (
+            source_scripts
+            / "validar-catalogo-editorial.py",
+
+            target_scripts
+            / "validar-catalogo-editorial.py",
+        ),
+        (
+            source_scripts
+            / "editorial"
+            / "catalogo.json",
+
+            target_editorial
+            / "catalogo.json",
+        ),
+    )
+
+
+    for source, target in pairs:
+
+        target.write_bytes(
+            source.read_bytes()
+        )
+
+        target.chmod(
+            source.stat().st_mode
+            & 0o777
+        )
+
+
+    run(
+        [
+            "git",
+            "add",
+            "--",
+            (
+                "scripts/base-conhecimento/"
+                "validar-catalogo-editorial.py"
+            ),
+            (
+                "scripts/base-conhecimento/"
+                "editorial/catalogo.json"
+            ),
+        ],
+        cwd=repository,
+    )
+
+
+    run(
+        [
+            "git",
+            "commit",
+            "-m",
+            "Adiciona fixture editorial",
+        ],
+        cwd=repository,
+    )
+
+
 def write_input(
     path: Path,
 ) -> None:
@@ -305,6 +397,11 @@ def test_success(
             parent,
             "success-repo",
         )
+    )
+
+
+    install_editorial_fixture(
+        repository
     )
 
     input_path = (
@@ -376,6 +473,8 @@ def test_success(
             str(
                 input_path
             ),
+            "--publication-date",
+            "2026-08-25",
             "--write",
         ],
         cwd=repository,
@@ -461,6 +560,111 @@ def test_success(
         )
 
 
+    catalog_path = (
+        repository
+        / "scripts"
+        / "base-conhecimento"
+        / "editorial"
+        / "catalogo.json"
+    )
+
+
+    catalog = json.loads(
+        catalog_path.read_text(
+            encoding="utf-8"
+        )
+    )
+
+
+    catalog_matches = [
+        record
+        for record in catalog[
+            "articles"
+        ]
+        if record.get(
+            "slug"
+        )
+        == (
+            "teste-transacional-"
+            "de-rede-wi-fi"
+        )
+    ]
+
+
+    if len(catalog_matches) != 1:
+
+        raise RuntimeError(
+            "novo artigo não aparece "
+            "exatamente uma vez no catálogo"
+        )
+
+
+    record = catalog_matches[0]
+
+
+    expected_record = {
+        "id":
+            "DD-KB-000002",
+
+        "title":
+            matches[0]["title"],
+
+        "slug":
+            (
+                "teste-transacional-"
+                "de-rede-wi-fi"
+            ),
+
+        "category_id":
+            matches[0]["category_id"],
+
+        "status":
+            "published",
+
+        "priority":
+            "normal",
+
+        "created_on":
+            "2026-08-25",
+
+        "published_on":
+            "2026-08-25",
+
+        "review_due":
+            None,
+
+        "notes":
+            "",
+    }
+
+
+    if record != expected_record:
+
+        raise RuntimeError(
+            "registro editorial persistido "
+            "diverge do contrato V1:\n"
+            + json.dumps(
+                record,
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+
+
+    catalog_mode = (
+        catalog_path.stat().st_mode
+        & 0o777
+    )
+
+
+    if catalog_mode != 0o644:
+
+        raise RuntimeError(
+            "modo do catalogo.json inválido: "
+            f"{catalog_mode:o}"
+        )
+
+
     frozen_after = {
         "article":
             sha256(
@@ -516,6 +720,10 @@ def test_success(
             "data/indice.json"
         ),
         (
+            " M scripts/base-conhecimento/"
+            "editorial/catalogo.json"
+        ),
+        (
             "?? base-conhecimento/artigos/"
             "teste-transacional-de-rede-wi-fi.html"
         ),
@@ -547,6 +755,22 @@ def test_success(
 
     print(
         "[OK] índice atualizado"
+    )
+
+    print(
+        "[OK] Catálogo Editorial atualizado"
+    )
+
+    print(
+        "[OK] DD-KB-000002 alocado"
+    )
+
+    print(
+        "[OK] publication-date determinística"
+    )
+
+    print(
+        "[OK] catalogo.json preservou modo 0644"
     )
 
     print(
@@ -632,6 +856,11 @@ def test_rollback(
         )
     )
 
+
+    install_editorial_fixture(
+        repository
+    )
+
     input_path = (
         parent
         / "rollback-input.json"
@@ -653,7 +882,9 @@ def test_rollback(
 
 
     prepared = module.dry_run(
-        data
+        data,
+        publication_date=
+            "2026-08-25",
     )
 
 
@@ -671,6 +902,20 @@ def test_rollback(
 
     index_before = (
         index_path.read_bytes()
+    )
+
+
+    catalog_path = (
+        repository
+        / "scripts"
+        / "base-conhecimento"
+        / "editorial"
+        / "catalogo.json"
+    )
+
+
+    catalog_before = (
+        catalog_path.read_bytes()
     )
 
 
@@ -750,6 +995,17 @@ def test_rollback(
         )
 
 
+    if (
+        catalog_path.read_bytes()
+        != catalog_before
+    ):
+
+        raise RuntimeError(
+            "rollback não restaurou "
+            "catalogo.json"
+        )
+
+
     status = run(
         [
             "git",
@@ -782,7 +1038,183 @@ def test_rollback(
     )
 
     print(
+        "[OK] rollback restaurou catalogo.json"
+    )
+
+    print(
         "[OK] rollback restaurou working tree"
+    )
+
+
+def test_catalog_fingerprint(
+    parent: Path,
+) -> None:
+
+    repository = (
+        create_repository(
+            parent,
+            "catalog-fingerprint-repo",
+        )
+    )
+
+
+    install_editorial_fixture(
+        repository
+    )
+
+
+    input_path = (
+        parent
+        / "catalog-fingerprint-input.json"
+    )
+
+    write_input(
+        input_path
+    )
+
+
+    module = load_module(
+        repository
+    )
+
+
+    data = module.load_input(
+        input_path
+    )
+
+
+    prepared = module.dry_run(
+        data,
+        publication_date=
+            "2026-08-25",
+    )
+
+
+    target = prepared[
+        "target"
+    ]
+
+
+    index_path = (
+        repository
+        / "base-conhecimento"
+        / "data"
+        / "indice.json"
+    )
+
+
+    catalog_path = (
+        repository
+        / "scripts"
+        / "base-conhecimento"
+        / "editorial"
+        / "catalogo.json"
+    )
+
+
+    index_before = (
+        index_path.read_bytes()
+    )
+
+    catalog_before = (
+        catalog_path.read_bytes()
+    )
+
+
+    catalog_path.write_bytes(
+        catalog_before
+        + b"\n"
+    )
+
+
+    real_clean_check = (
+        module.ensure_catalog_path_clean
+    )
+
+
+    module.ensure_catalog_path_clean = (
+        lambda: None
+    )
+
+
+    failure_detected = False
+
+
+    try:
+
+        module.persist_candidate(
+            prepared
+        )
+
+    except module.ArticleCreationError as exc:
+
+        if (
+            "estado oficial mudou"
+            not in str(exc)
+        ):
+            raise
+
+        failure_detected = True
+
+    finally:
+
+        module.ensure_catalog_path_clean = (
+            real_clean_check
+        )
+
+        catalog_path.write_bytes(
+            catalog_before
+        )
+
+
+    if not failure_detected:
+
+        raise RuntimeError(
+            "fingerprint não detectou "
+            "alteração concorrente do catálogo"
+        )
+
+
+    if target.exists():
+
+        raise RuntimeError(
+            "fingerprint permitiu criação "
+            "indevida do artigo"
+        )
+
+
+    if (
+        index_path.read_bytes()
+        != index_before
+    ):
+
+        raise RuntimeError(
+            "fingerprint alterou indice.json"
+        )
+
+
+    status = run(
+        [
+            "git",
+            "status",
+            "--short",
+        ],
+        cwd=repository,
+    ).stdout
+
+
+    if status.strip():
+
+        raise RuntimeError(
+            "teste de fingerprint deixou "
+            "working tree alterado:\n"
+            + status
+        )
+
+
+    print(
+        "[OK] fingerprint detectou alteração "
+        "concorrente do Catálogo Editorial"
     )
 
 
@@ -803,6 +1235,11 @@ def main() -> int:
 
 
         test_rollback(
+            parent
+        )
+
+
+        test_catalog_fingerprint(
             parent
         )
 

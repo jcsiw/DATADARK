@@ -45,6 +45,10 @@ MONITORED = (
     SCRIPT_DIR
     / "templates"
     / "artigo-v1.html",
+
+    SCRIPT_DIR
+    / "editorial"
+    / "catalogo.json",
 )
 
 
@@ -68,6 +72,7 @@ def snapshot() -> dict[str, str]:
 
 def run_creator(
     payload: dict,
+    publication_date: str = "2026-08-25",
 ) -> subprocess.CompletedProcess:
 
     with tempfile.TemporaryDirectory(
@@ -103,6 +108,8 @@ def run_creator(
                 str(CREATOR),
                 "--input",
                 str(input_path),
+                "--publication-date",
+                publication_date,
             ],
             cwd=ROOT,
             env=environment,
@@ -467,6 +474,37 @@ if filename != "audio-novo.html":
 
 print(
     "[OK] algoritmo oficial de slug reutilizado"
+)
+
+
+invalid_date_result = run_creator(
+    BASE_PAYLOAD,
+    publication_date="25/08/2026",
+)
+
+
+if invalid_date_result.returncode == 0:
+    raise SystemExit(
+        "ERRO: publication-date inválida "
+        "foi aceita."
+    )
+
+
+invalid_date_output = (
+    invalid_date_result.stdout
+    + invalid_date_result.stderr
+)
+
+
+if "publication-date" not in invalid_date_output:
+    raise SystemExit(
+        "ERRO: falha de publication-date "
+        "não foi reportada."
+    )
+
+
+print(
+    "[OK] publication-date inválida rejeitada"
 )
 
 
