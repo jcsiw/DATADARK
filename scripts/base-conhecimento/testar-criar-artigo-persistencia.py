@@ -365,6 +365,10 @@ def install_editorial_fixture(
     run(
         [
             "git",
+            "-c",
+            "user.name=DATADARK Test",
+            "-c",
+            "user.email=test@datadark.invalid",
             "commit",
             "-m",
             "Adiciona fixture editorial",
