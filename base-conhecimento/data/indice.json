@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "slug": "homologacao-indexacao-automatica",
+    "title": "Homologação da indexação automática",
+    "description": "Artigo temporário utilizado para validar a geração e publicação automática do índice da Base de Conhecimento DATADARK.",
+    "url": "artigos/homologacao-indexacao-automatica.html",
+    "category": "Documentos",
+    "keywords": [
+      "homologacao",
+      "indexacao",
+      "automatica",
+      "github",
+      "teste"
+    ],
+    "aliases": [
+      "teste indexacao automatica",
+      "homologacao github",
+      "teste automacao base"
+    ]
+  }
+]
