@@ -213,14 +213,33 @@ def create_repository(
     )
 
 
-    shutil.copy2(
+    source_articles = (
         ROOT
         / "base-conhecimento"
         / "artigos"
-        / BASE_ARTICLE,
-        articles
-        / BASE_ARTICLE,
     )
+
+
+    for source_article in sorted(
+        source_articles.glob(
+            "*.html"
+        )
+    ):
+
+        if (
+            not source_article.is_file()
+            or source_article.name.startswith(
+                "_"
+            )
+        ):
+            continue
+
+
+        shutil.copy2(
+            source_article,
+            articles
+            / source_article.name,
+        )
 
 
     shutil.copy2(
@@ -407,6 +426,105 @@ def test_success(
     install_editorial_fixture(
         repository
     )
+
+    baseline_catalog_path = (
+        repository
+        / "scripts"
+        / "base-conhecimento"
+        / "editorial"
+        / "catalogo.json"
+    )
+
+
+    baseline_catalog = json.loads(
+        baseline_catalog_path.read_text(
+            encoding="utf-8"
+        )
+    )
+
+
+    baseline_catalog_mode = (
+        baseline_catalog_path.stat().st_mode
+        & 0o777
+    )
+
+
+    baseline_numbers = []
+
+
+    for baseline_record in baseline_catalog[
+        "articles"
+    ]:
+
+        baseline_id = baseline_record.get(
+            "id"
+        )
+
+
+        if not isinstance(
+            baseline_id,
+            str,
+        ):
+            raise RuntimeError(
+                "fixture contém id editorial "
+                "não textual"
+            )
+
+
+        prefix = "DD-KB-"
+
+
+        if not baseline_id.startswith(
+            prefix
+        ):
+            raise RuntimeError(
+                "fixture contém id editorial "
+                f"inválido: {baseline_id!r}"
+            )
+
+
+        suffix = baseline_id[
+            len(prefix):
+        ]
+
+
+        if (
+            len(suffix) != 6
+            or not suffix.isdigit()
+        ):
+            raise RuntimeError(
+                "fixture contém id editorial "
+                f"fora do contrato V1: {baseline_id!r}"
+            )
+
+
+        baseline_numbers.append(
+            int(
+                suffix
+            )
+        )
+
+
+    expected_number = (
+        max(
+            baseline_numbers,
+            default=0,
+        )
+        + 1
+    )
+
+
+    if expected_number > 999999:
+        raise RuntimeError(
+            "sequência editorial da fixture "
+            "está esgotada"
+        )
+
+
+    expected_editorial_id = (
+        f"DD-KB-{expected_number:06d}"
+    )
+
 
     input_path = (
         parent
@@ -608,7 +726,7 @@ def test_success(
 
     expected_record = {
         "id":
-            "DD-KB-000002",
+            expected_editorial_id,
 
         "title":
             matches[0]["title"],
@@ -661,11 +779,16 @@ def test_success(
     )
 
 
-    if catalog_mode != 0o644:
+    if (
+        catalog_mode
+        != baseline_catalog_mode
+    ):
 
         raise RuntimeError(
-            "modo do catalogo.json inválido: "
-            f"{catalog_mode:o}"
+            "modo do catalogo.json não foi "
+            "preservado: "
+            f"esperado={baseline_catalog_mode:o}, "
+            f"obtido={catalog_mode:o}"
         )
 
 
@@ -766,7 +889,7 @@ def test_success(
     )
 
     print(
-        "[OK] DD-KB-000002 alocado"
+        f"[OK] {expected_editorial_id} alocado"
     )
 
     print(
@@ -774,7 +897,8 @@ def test_success(
     )
 
     print(
-        "[OK] catalogo.json preservou modo 0644"
+        "[OK] catalogo.json preservou modo "
+        f"{baseline_catalog_mode:o}"
     )
 
     print(
