@@ -395,7 +395,7 @@ malicious = dict(
 
 malicious[
     "title"
-] = "Teste <Seguro> & HTML"
+] = 'Teste "Seguro" <HTML> & SEO'
 
 malicious[
     "description"
@@ -424,9 +424,17 @@ category = (
 )
 
 
+malicious_filename = (
+    module.slug_for_title(
+        malicious["title"]
+    )
+)
+
+
 rendered = module.render_article(
     malicious,
     category.label,
+    malicious_filename,
 )
 
 
@@ -455,8 +463,64 @@ if "&lt;img src=x onerror=" not in rendered:
     )
 
 
+if (
+    'content="Teste &quot;Seguro&quot; '
+    '&lt;HTML&gt; &amp; SEO"'
+    not in rendered
+):
+    raise SystemExit(
+        "ERRO: escape do título em atributo SEO "
+        "não foi confirmado."
+    )
+
+
+if "\\u003cscript\\u003e" not in rendered:
+    raise SystemExit(
+        "ERRO: proteção JSON-LD contra fechamento "
+        "de script não foi confirmada."
+    )
+
+
+if (
+    rendered.lower().count(
+        'type="application/ld+json"'
+    )
+    != 1
+):
+    raise SystemExit(
+        "ERRO: JSON-LD não foi materializado "
+        "exatamente uma vez."
+    )
+
+
+expected_canonical = (
+    module.canonical_url_for_filename(
+        malicious_filename
+    )
+)
+
+
+if rendered.count(expected_canonical) != 4:
+    raise SystemExit(
+        "ERRO: URL canônica não foi propagada "
+        "exatamente quatro vezes ao contrato SEO."
+    )
+
+
 print(
     "[OK] conteúdo HTML editorial escapado"
+)
+
+print(
+    "[OK] contextos SEO escapados"
+)
+
+print(
+    "[OK] JSON-LD protegido"
+)
+
+print(
+    "[OK] canonical derivada do filename"
 )
 
 

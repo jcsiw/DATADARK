@@ -114,8 +114,24 @@ PUBLICATION_TIMEZONE = (
 )
 
 
+CANONICAL_ARTICLE_BASE = (
+    "https://datadark.com.br/"
+    "base-conhecimento/artigos"
+)
+
+
+SITE_NAME = (
+    "DATADARK Tecnologia"
+)
+
+
+SITE_URL = (
+    "https://datadark.com.br/"
+)
+
+
 TEMPLATE_SHA256 = (
-    "3430722e3543fb93d746e00ab1548c473d308c05c933eddb5d852e6898717a01"
+    "3ac8cedd4117df31cb1f94f06e6f2020432531f994582f7a15c4808c98a4c495"
 )
 
 
@@ -135,11 +151,15 @@ EXPECTED_FIELDS = {
 
 PLACEHOLDER_COUNTS = {
     "@@TITLE@@": 2,
-    "@@DESCRIPTION@@": 2,
+    "@@TITLE_ATTRIBUTE@@": 2,
+    "@@DESCRIPTION@@": 1,
+    "@@DESCRIPTION_ATTRIBUTE@@": 3,
     "@@KEYWORDS@@": 1,
     "@@ALIASES@@": 1,
     "@@CATEGORY_ID@@": 1,
     "@@CATEGORY_LABEL@@": 2,
+    "@@CANONICAL_URL@@": 2,
+    "@@SEO_JSON_LD@@": 1,
     "@@OVERVIEW@@": 1,
     "@@DIAGNOSIS@@": 1,
     "@@PROCEDURE_STEPS@@": 1,
@@ -594,12 +614,103 @@ def escape_attribute(
     )
 
 
+def canonical_url_for_filename(
+    filename: str,
+) -> str:
+
+    if not re.fullmatch(
+        r"[a-z0-9]+(?:-[a-z0-9]+)*\.html",
+        filename,
+    ):
+        raise ArticleCreationError(
+            "filename inválido para URL canônica: "
+            f"{filename!r}"
+        )
+
+    return (
+        f"{CANONICAL_ARTICLE_BASE}/"
+        f"{filename}"
+    )
+
+
+def build_seo_json_ld(
+    data: dict[str, Any],
+    canonical_url: str,
+) -> str:
+
+    payload = {
+        "@context":
+            "https://schema.org",
+
+        "@type":
+            "TechArticle",
+
+        "headline":
+            data["title"],
+
+        "description":
+            data["description"],
+
+        "inLanguage":
+            "pt-BR",
+
+        "url":
+            canonical_url,
+
+        "mainEntityOfPage": {
+            "@type":
+                "WebPage",
+
+            "@id":
+                canonical_url,
+        },
+
+        "publisher": {
+            "@type":
+                "Organization",
+
+            "name":
+                SITE_NAME,
+
+            "url":
+                SITE_URL,
+        },
+    }
+
+    serialized = json.dumps(
+        payload,
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
+
+    return (
+        serialized
+        .replace("&", "\\u0026")
+        .replace("<", "\\u003c")
+        .replace(">", "\\u003e")
+    )
+
+
 def render_article(
     data: dict[str, Any],
     category_label: str,
+    filename: str,
 ) -> str:
 
     template = template_text()
+
+    canonical_url = (
+        canonical_url_for_filename(
+            filename
+        )
+    )
+
+    seo_json_ld = (
+        build_seo_json_ld(
+            data,
+            canonical_url,
+        )
+    )
 
 
     procedure_html = (
@@ -622,7 +733,17 @@ def render_article(
                 data["title"]
             ),
 
+        "@@TITLE_ATTRIBUTE@@":
+            escape_attribute(
+                data["title"]
+            ),
+
         "@@DESCRIPTION@@":
+            escape_text(
+                data["description"]
+            ),
+
+        "@@DESCRIPTION_ATTRIBUTE@@":
             escape_attribute(
                 data["description"]
             ),
@@ -650,6 +771,14 @@ def render_article(
             escape_text(
                 category_label
             ),
+
+        "@@CANONICAL_URL@@":
+            escape_attribute(
+                canonical_url
+            ),
+
+        "@@SEO_JSON_LD@@":
+            seo_json_ld,
 
         "@@OVERVIEW@@":
             escape_text(
@@ -2041,6 +2170,7 @@ def _dry_run_article_index(
     rendered = render_article(
         data,
         category.label,
+        filename,
     )
 
 

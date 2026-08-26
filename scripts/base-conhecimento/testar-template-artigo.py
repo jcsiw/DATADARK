@@ -63,11 +63,15 @@ TAXONOMY = (
 
 PLACEHOLDER_COUNTS = {
     "@@TITLE@@": 2,
-    "@@DESCRIPTION@@": 2,
+    "@@TITLE_ATTRIBUTE@@": 2,
+    "@@DESCRIPTION@@": 1,
+    "@@DESCRIPTION_ATTRIBUTE@@": 3,
     "@@KEYWORDS@@": 1,
     "@@ALIASES@@": 1,
     "@@CATEGORY_ID@@": 1,
     "@@CATEGORY_LABEL@@": 2,
+    "@@CANONICAL_URL@@": 2,
+    "@@SEO_JSON_LD@@": 1,
     "@@OVERVIEW@@": 1,
     "@@DIAGNOSIS@@": 1,
     "@@PROCEDURE_STEPS@@": 1,
@@ -80,7 +84,16 @@ REPLACEMENTS = {
     "@@TITLE@@":
         "Computador não liga e não emite nenhum sinal",
 
+    "@@TITLE_ATTRIBUTE@@":
+        "Computador não liga e não emite nenhum sinal",
+
     "@@DESCRIPTION@@":
+        (
+            "Procedimento técnico para diagnóstico inicial "
+            "de computador que não apresenta sinais de energia."
+        ),
+
+    "@@DESCRIPTION_ATTRIBUTE@@":
         (
             "Procedimento técnico para diagnóstico inicial "
             "de computador que não apresenta sinais de energia."
@@ -100,6 +113,12 @@ REPLACEMENTS = {
 
     "@@CATEGORY_ID@@":
         "hardware",
+
+    "@@CANONICAL_URL@@":
+        'https://datadark.com.br/base-conhecimento/artigos/computador-nao-liga-e-nao-emite-nenhum-sinal.html',
+
+    "@@SEO_JSON_LD@@":
+        '{"@context":"https://schema.org","@type":"TechArticle","headline":"Computador não liga e não emite nenhum sinal","description":"Procedimento técnico para diagnóstico inicial de computador que não apresenta sinais de energia.","inLanguage":"pt-BR","url":"https://datadark.com.br/base-conhecimento/artigos/computador-nao-liga-e-nao-emite-nenhum-sinal.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://datadark.com.br/base-conhecimento/artigos/computador-nao-liga-e-nao-emite-nenhum-sinal.html"},"publisher":{"@type":"Organization","name":"DATADARK Tecnologia","url":"https://datadark.com.br/"}}',
 
     "@@CATEGORY_LABEL@@":
         "Hardware",
@@ -252,8 +271,22 @@ def main() -> int:
 
 
     require(
-        "<script" not in template_text.lower(),
-        "template não contém JavaScript",
+        template_text.lower().count(
+            "<script"
+        ) == 1,
+        "template contém exatamente um script JSON-LD",
+    )
+
+    require(
+        'type="application/ld+json"'
+        in template_text.lower(),
+        "script do template é JSON-LD",
+    )
+
+    require(
+        "<script src="
+        not in template_text.lower(),
+        "template não contém script executável externo",
     )
 
     require(

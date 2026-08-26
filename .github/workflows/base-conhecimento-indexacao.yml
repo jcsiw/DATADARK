@@ -106,6 +106,7 @@ jobs:
             "scripts/base-conhecimento/testar-criar-artigo-persistencia.py"
             "scripts/base-conhecimento/validar-catalogo-editorial.py"
             "scripts/base-conhecimento/testar-catalogo-editorial.py"
+            "scripts/base-conhecimento/testar-seo-artigos.py"
             "scripts/base-conhecimento/testar-categorias.mjs"
             "scripts/base-conhecimento/testar-pesquisa.mjs"
             "scripts/base-conhecimento/testar-consulta.mjs"
@@ -245,7 +246,8 @@ jobs:
             scripts/base-conhecimento/testar-criar-artigo.py \
             scripts/base-conhecimento/testar-criar-artigo-persistencia.py \
             scripts/base-conhecimento/validar-catalogo-editorial.py \
-            scripts/base-conhecimento/testar-catalogo-editorial.py
+            scripts/base-conhecimento/testar-catalogo-editorial.py \
+            scripts/base-conhecimento/testar-seo-artigos.py
 
           echo "OK: sintaxe Python válida."
 
@@ -352,6 +354,14 @@ jobs:
 
           python3 \
             scripts/base-conhecimento/validar-artigos.py
+
+      - name: Executar testes do SEO Individual
+        run: |
+          set -Eeuo pipefail
+
+          PYTHONDONTWRITEBYTECODE=1 \
+          python3 \
+            scripts/base-conhecimento/testar-seo-artigos.py
 
       - name: Gerar índice oficial
         run: |

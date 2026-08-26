@@ -21,6 +21,7 @@ Saída:
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 import unicodedata
@@ -44,6 +45,22 @@ SLUG_RE = re.compile(
 REMOTE_URL_RE = re.compile(
     r"^(?:https?:)?//",
     re.IGNORECASE,
+)
+
+
+CANONICAL_ARTICLE_BASE = (
+    "https://datadark.com.br/"
+    "base-conhecimento/artigos"
+)
+
+
+SITE_NAME = (
+    "DATADARK Tecnologia"
+)
+
+
+SITE_URL = (
+    "https://datadark.com.br/"
 )
 
 
@@ -99,6 +116,18 @@ class ArticleHTMLParser(HTMLParser):
         self.meta: dict[str, str] = {}
 
         self.duplicate_meta: set[str] = set()
+
+        self.property_meta: dict[str, str] = {}
+
+        self.duplicate_property_meta: set[str] = set()
+
+        self.canonical_hrefs: list[str] = []
+
+        self.json_ld_parts: list[str] = []
+
+        self.json_ld_count = 0
+
+        self.inside_json_ld = False
 
         self.title_parts: list[str] = []
 
@@ -211,6 +240,27 @@ class ArticleHTMLParser(HTMLParser):
                     self.meta[name] = content
 
 
+            property_name = (
+                attr_map.get(
+                    "property",
+                    "",
+                )
+                .strip()
+                .lower()
+            )
+
+            if property_name:
+
+                if property_name in self.property_meta:
+                    self.duplicate_property_meta.add(
+                        property_name
+                    )
+
+                self.property_meta[
+                    property_name
+                ] = content
+
+
         if tag == "title":
             self.inside_title = True
 
@@ -235,9 +285,37 @@ class ArticleHTMLParser(HTMLParser):
 
 
         if tag == "script":
-            self.add_error(
-                "JavaScript não é permitido nos artigos (<script>)"
+
+            script_type = (
+                attr_map.get(
+                    "type",
+                    "",
+                )
+                .strip()
+                .lower()
             )
+
+            unexpected_attrs = (
+                set(attr_map)
+                - {"type"}
+            )
+
+            if (
+                script_type
+                == "application/ld+json"
+                and not unexpected_attrs
+            ):
+
+                self.json_ld_count += 1
+                self.inside_json_ld = True
+
+            else:
+
+                self.add_error(
+                    "JavaScript não é permitido nos artigos "
+                    "(somente application/ld+json sem "
+                    "atributos adicionais é aceito)"
+                )
 
 
         if tag == "iframe":
@@ -273,6 +351,20 @@ class ArticleHTMLParser(HTMLParser):
                 self.add_error(
                     "folha CSS externa/local não é permitida "
                     "(<link rel=\"stylesheet\">)"
+                )
+
+            if "canonical" in rel.split():
+
+                href = (
+                    attr_map.get(
+                        "href",
+                        "",
+                    )
+                    .strip()
+                )
+
+                self.canonical_hrefs.append(
+                    href
                 )
 
 
@@ -322,6 +414,9 @@ class ArticleHTMLParser(HTMLParser):
         if tag == "title":
             self.inside_title = False
 
+        elif tag == "script":
+            self.inside_json_ld = False
+
         elif tag == "style":
             self.inside_style = False
 
@@ -336,6 +431,9 @@ class ArticleHTMLParser(HTMLParser):
 
         if self.inside_title:
             self.title_parts.append(data)
+
+        if self.inside_json_ld:
+            self.json_ld_parts.append(data)
 
         if self.inside_style:
             self.style_parts.append(data)
@@ -365,6 +463,14 @@ class ArticleHTMLParser(HTMLParser):
         return "\n".join(
             self.style_parts
         )
+
+
+    @property
+    def json_ld_text(self) -> str:
+
+        return "".join(
+            self.json_ld_parts
+        ).strip()
 
 
 def validate_article(
@@ -680,10 +786,6 @@ def validate_article(
 
     optional_meta = (
         (
-            "description",
-            "meta description ausente",
-        ),
-        (
             "keywords",
             "meta keywords ausente",
         ),
@@ -704,6 +806,235 @@ def validate_article(
             .strip()
         ):
             warning(message)
+
+
+    # --------------------------------------------------
+    # SEO INDIVIDUAL V1
+    # --------------------------------------------------
+
+    description = (
+        parser.meta.get(
+            "description",
+            "",
+        )
+        .strip()
+    )
+
+    if not description:
+
+        error(
+            "meta description ausente ou vazia"
+        )
+
+
+    expected_canonical = (
+        f"{CANONICAL_ARTICLE_BASE}/"
+        f"{path.name}"
+    )
+
+
+    if len(parser.canonical_hrefs) != 1:
+
+        error(
+            "deve existir exatamente um "
+            "link rel=canonical"
+        )
+
+    elif (
+        parser.canonical_hrefs[0]
+        != expected_canonical
+    ):
+
+        error(
+            "canonical divergente; "
+            f"esperado {expected_canonical}"
+        )
+
+
+    required_name_meta = {
+        "twitter:card":
+            "summary",
+
+        "twitter:title":
+            parser.title,
+
+        "twitter:description":
+            description,
+    }
+
+
+    for key, expected in (
+        required_name_meta.items()
+    ):
+
+        actual = (
+            parser.meta.get(
+                key,
+                "",
+            )
+            .strip()
+        )
+
+        if not actual:
+
+            error(
+                f"meta {key} ausente ou vazia"
+            )
+
+        elif actual != expected:
+
+            error(
+                f"meta {key} divergente"
+            )
+
+        if key in parser.duplicate_meta:
+
+            error(
+                f"meta {key} duplicada"
+            )
+
+
+    if "description" in parser.duplicate_meta:
+
+        error(
+            "meta description duplicada"
+        )
+
+
+    required_property_meta = {
+        "og:type":
+            "article",
+
+        "og:site_name":
+            SITE_NAME,
+
+        "og:locale":
+            "pt_BR",
+
+        "og:title":
+            parser.title,
+
+        "og:description":
+            description,
+
+        "og:url":
+            expected_canonical,
+    }
+
+
+    for key, expected in (
+        required_property_meta.items()
+    ):
+
+        actual = (
+            parser.property_meta.get(
+                key,
+                "",
+            )
+            .strip()
+        )
+
+        if not actual:
+
+            error(
+                f"meta property {key} "
+                "ausente ou vazia"
+            )
+
+        elif actual != expected:
+
+            error(
+                f"meta property {key} divergente"
+            )
+
+        if (
+            key
+            in parser.duplicate_property_meta
+        ):
+
+            error(
+                f"meta property {key} duplicada"
+            )
+
+
+    if parser.json_ld_count != 1:
+
+        error(
+            "deve existir exatamente um "
+            "JSON-LD application/ld+json"
+        )
+
+    elif not parser.json_ld_text:
+
+        error(
+            "JSON-LD vazio"
+        )
+
+    else:
+
+        try:
+
+            structured_data = json.loads(
+                parser.json_ld_text
+            )
+
+        except json.JSONDecodeError as exc:
+
+            error(
+                "JSON-LD inválido: "
+                f"{exc.msg}"
+            )
+
+        else:
+
+            expected_json_ld = {
+                "@context":
+                    "https://schema.org",
+
+                "@type":
+                    "TechArticle",
+
+                "headline":
+                    parser.title,
+
+                "description":
+                    description,
+
+                "inLanguage":
+                    "pt-BR",
+
+                "url":
+                    expected_canonical,
+
+                "mainEntityOfPage": {
+                    "@type":
+                        "WebPage",
+
+                    "@id":
+                        expected_canonical,
+                },
+
+                "publisher": {
+                    "@type":
+                        "Organization",
+
+                    "name":
+                        SITE_NAME,
+
+                    "url":
+                        SITE_URL,
+                },
+            }
+
+            if (
+                structured_data
+                != expected_json_ld
+            ):
+
+                error(
+                    "JSON-LD divergente do "
+                    "Contrato SEO Individual V1"
+                )
 
 
     return errors, warnings

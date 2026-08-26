@@ -99,6 +99,55 @@ def write_article(
     category_meta: str,
 ) -> None:
 
+    canonical_url = (
+        "https://datadark.com.br/"
+        "base-conhecimento/artigos/"
+        f"{path.name}"
+    )
+
+    json_ld = json.dumps(
+        {
+            "@context":
+                "https://schema.org",
+
+            "@type":
+                "TechArticle",
+
+            "headline":
+                "Teste controlado de taxonomia",
+
+            "description":
+                "Teste controlado da taxonomia DATADARK.",
+
+            "inLanguage":
+                "pt-BR",
+
+            "url":
+                canonical_url,
+
+            "mainEntityOfPage": {
+                "@type":
+                    "WebPage",
+
+                "@id":
+                    canonical_url,
+            },
+
+            "publisher": {
+                "@type":
+                    "Organization",
+
+                "name":
+                    "DATADARK Tecnologia",
+
+                "url":
+                    "https://datadark.com.br/",
+            },
+        },
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
+
     path.write_text(
         f"""<!DOCTYPE html>
 <html lang="pt-BR">
@@ -124,6 +173,50 @@ Teste controlado de taxonomia
   content="teste de categoria">
 
 {category_meta}
+
+<link
+  rel="canonical"
+  href="{canonical_url}">
+
+<meta
+  property="og:type"
+  content="article">
+
+<meta
+  property="og:site_name"
+  content="DATADARK Tecnologia">
+
+<meta
+  property="og:locale"
+  content="pt_BR">
+
+<meta
+  property="og:title"
+  content="Teste controlado de taxonomia">
+
+<meta
+  property="og:description"
+  content="Teste controlado da taxonomia DATADARK.">
+
+<meta
+  property="og:url"
+  content="{canonical_url}">
+
+<meta
+  name="twitter:card"
+  content="summary">
+
+<meta
+  name="twitter:title"
+  content="Teste controlado de taxonomia">
+
+<meta
+  name="twitter:description"
+  content="Teste controlado da taxonomia DATADARK.">
+
+<script type="application/ld+json">
+{json_ld}
+</script>
 
 </head>
 
