@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "articles": {
+    "como-preparar-o-computador-antes-de-solicitar-suporte-tecnico": [],
+    "computador-apresenta-erros-ou-reinicia-por-falha-de-memoria": [],
+    "computador-esta-sem-som": [
+      "monitor-sem-sinal-ou-com-tela-preta"
+    ],
+    "computador-liga-mas-nao-apresenta-imagem": [],
+    "computador-nao-reconhece-o-disco-na-bios-ou-uefi": [],
+    "dispositivo-usb-nao-e-reconhecido": [],
+    "monitor-sem-sinal-ou-com-tela-preta": [
+      "computador-esta-sem-som"
+    ],
+    "notebook-nao-liga-mesmo-conectado-ao-carregador": [],
+    "rede-cabeada-conecta-mas-fica-sem-internet": [
+      "wifi-conecta-mas-fica-sem-internet"
+    ],
+    "ssd-ou-hd-nao-aparece-no-windows": [],
+    "wifi-conecta-mas-fica-sem-internet": [
+      "rede-cabeada-conecta-mas-fica-sem-internet"
+    ],
+    "windows-inicia-muito-lento": []
+  }
+}

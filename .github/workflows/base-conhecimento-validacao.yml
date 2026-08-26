@@ -8,6 +8,7 @@ on:
       - "base-conhecimento/artigos/**"
       - "base-conhecimento/data/categorias.json"
       - "base-conhecimento/data/indice.json"
+      - "base-conhecimento/data/relacionados.json"
       - "base-conhecimento/index.html"
       - "base-conhecimento/assets/css/**"
       - "base-conhecimento/assets/js/**"
@@ -25,6 +26,8 @@ on:
       - "scripts/base-conhecimento/validar-catalogo-editorial.py"
       - "scripts/base-conhecimento/testar-catalogo-editorial.py"
       - "scripts/base-conhecimento/testar-seo-artigos.py"
+      - "scripts/base-conhecimento/gerar-relacionados.py"
+      - "scripts/base-conhecimento/testar-gerar-relacionados.py"
       - "scripts/base-conhecimento/editorial/catalogo.json"
       - ".github/workflows/base-conhecimento-validacao.yml"
       - ".github/workflows/base-conhecimento-indexacao.yml"
@@ -36,6 +39,7 @@ on:
       - "base-conhecimento/artigos/**"
       - "base-conhecimento/data/categorias.json"
       - "base-conhecimento/data/indice.json"
+      - "base-conhecimento/data/relacionados.json"
       - "base-conhecimento/index.html"
       - "base-conhecimento/assets/css/**"
       - "base-conhecimento/assets/js/**"
@@ -53,6 +57,8 @@ on:
       - "scripts/base-conhecimento/validar-catalogo-editorial.py"
       - "scripts/base-conhecimento/testar-catalogo-editorial.py"
       - "scripts/base-conhecimento/testar-seo-artigos.py"
+      - "scripts/base-conhecimento/gerar-relacionados.py"
+      - "scripts/base-conhecimento/testar-gerar-relacionados.py"
       - "scripts/base-conhecimento/editorial/catalogo.json"
       - ".github/workflows/base-conhecimento-validacao.yml"
       - ".github/workflows/base-conhecimento-indexacao.yml"
@@ -149,6 +155,8 @@ jobs:
             "scripts/base-conhecimento/validar-catalogo-editorial.py"
             "scripts/base-conhecimento/testar-catalogo-editorial.py"
             "scripts/base-conhecimento/testar-seo-artigos.py"
+            "scripts/base-conhecimento/gerar-relacionados.py"
+            "scripts/base-conhecimento/testar-gerar-relacionados.py"
             "scripts/base-conhecimento/testar-categorias.mjs"
             "scripts/base-conhecimento/testar-pesquisa.mjs"
             "scripts/base-conhecimento/testar-consulta.mjs"
@@ -289,7 +297,9 @@ jobs:
             scripts/base-conhecimento/testar-criar-artigo-persistencia.py \
             scripts/base-conhecimento/validar-catalogo-editorial.py \
             scripts/base-conhecimento/testar-catalogo-editorial.py \
-            scripts/base-conhecimento/testar-seo-artigos.py
+            scripts/base-conhecimento/testar-seo-artigos.py \
+            scripts/base-conhecimento/gerar-relacionados.py \
+            scripts/base-conhecimento/testar-gerar-relacionados.py
 
           echo "OK: sintaxe Python válida."
 
@@ -364,6 +374,13 @@ jobs:
           python3 \
             scripts/base-conhecimento/testar-catalogo-editorial.py
 
+      - name: Executar testes do Gerador de Artigos Relacionados
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/testar-gerar-relacionados.py
+
       - name: Executar testes da taxonomia JavaScript
         run: |
           set -Eeuo pipefail
@@ -415,12 +432,32 @@ jobs:
 
           echo "OK: indice.json versionado é JSON válido."
 
+      - name: Validar relacionados.json versionado
+        run: |
+          set -Eeuo pipefail
+
+          python3 -m json.tool \
+            base-conhecimento/data/relacionados.json \
+            > /dev/null
+
+          echo "OK: relacionados.json versionado é JSON válido."
+
       - name: Validar Catálogo Editorial
         run: |
           set -Eeuo pipefail
 
           python3 \
             scripts/base-conhecimento/validar-catalogo-editorial.py
+
+      - name: Verificar relacionados.json versionado
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/gerar-relacionados.py \
+            --check
+
+          echo "OK: relacionados.json corresponde ao estado editorial."
 
       - name: Gerar índice de homologação
         run: |

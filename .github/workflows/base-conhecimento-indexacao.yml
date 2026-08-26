@@ -107,6 +107,8 @@ jobs:
             "scripts/base-conhecimento/validar-catalogo-editorial.py"
             "scripts/base-conhecimento/testar-catalogo-editorial.py"
             "scripts/base-conhecimento/testar-seo-artigos.py"
+            "scripts/base-conhecimento/gerar-relacionados.py"
+            "scripts/base-conhecimento/testar-gerar-relacionados.py"
             "scripts/base-conhecimento/testar-categorias.mjs"
             "scripts/base-conhecimento/testar-pesquisa.mjs"
             "scripts/base-conhecimento/testar-consulta.mjs"
@@ -247,7 +249,9 @@ jobs:
             scripts/base-conhecimento/testar-criar-artigo-persistencia.py \
             scripts/base-conhecimento/validar-catalogo-editorial.py \
             scripts/base-conhecimento/testar-catalogo-editorial.py \
-            scripts/base-conhecimento/testar-seo-artigos.py
+            scripts/base-conhecimento/testar-seo-artigos.py \
+            scripts/base-conhecimento/gerar-relacionados.py \
+            scripts/base-conhecimento/testar-gerar-relacionados.py
 
           echo "OK: sintaxe Python válida."
 
@@ -322,6 +326,13 @@ jobs:
           python3 \
             scripts/base-conhecimento/testar-catalogo-editorial.py
 
+      - name: Executar testes do Gerador de Artigos Relacionados
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/testar-gerar-relacionados.py
+
       - name: Executar testes da taxonomia JavaScript
         run: |
           set -Eeuo pipefail
@@ -377,6 +388,13 @@ jobs:
           python3 \
             scripts/base-conhecimento/validar-catalogo-editorial.py
 
+      - name: Gerar relacionados oficiais
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/gerar-relacionados.py
+
       - name: Validar JSON gerado
         run: |
           set -Eeuo pipefail
@@ -385,7 +403,12 @@ jobs:
             base-conhecimento/data/indice.json \
             > /dev/null
 
+          python3 -m json.tool \
+            base-conhecimento/data/relacionados.json \
+            > /dev/null
+
           echo "OK: indice.json é JSON válido."
+          echo "OK: relacionados.json é JSON válido."
 
       - name: Verificar correspondência do índice
         run: |
@@ -397,12 +420,23 @@ jobs:
 
           echo "OK: indice.json corresponde aos artigos."
 
+      - name: Verificar correspondência dos relacionados
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/gerar-relacionados.py \
+            --check
+
+          echo "OK: relacionados.json corresponde ao estado editorial."
+
       - name: Controlar alterações produzidas
-        id: indice
+        id: derivados
         run: |
           set -Eeuo pipefail
 
           INDEX="base-conhecimento/data/indice.json"
+          RELATED="base-conhecimento/data/relacionados.json"
 
           echo "===== GIT DIFF CHECK ====="
           git diff --check
@@ -430,6 +464,7 @@ jobs:
             printf '%s\n' "${modificados}" \
             | sed '/^$/d' \
             | grep -vxF "${INDEX}" \
+            | grep -vxF "${RELATED}" \
             || true
           )"
 
@@ -445,10 +480,16 @@ jobs:
 
           fi
 
-          if git diff --quiet -- "${INDEX}"; then
+          derivados="$(
+            git status \
+              --porcelain \
+              -- "${INDEX}" "${RELATED}"
+          )"
+
+          if [[ -z "${derivados}" ]]; then
 
             echo
-            echo "Índice já estava sincronizado."
+            echo "Artefatos derivados já estavam sincronizados."
 
             echo "changed=false" \
               >> "${GITHUB_OUTPUT}"
@@ -456,21 +497,24 @@ jobs:
           else
 
             echo
-            echo "Índice precisa de commit técnico."
+            echo "Artefatos derivados precisam de commit técnico."
 
             echo "changed=true" \
               >> "${GITHUB_OUTPUT}"
 
           fi
 
-      - name: Preparar alteração do índice
-        if: steps.indice.outputs.changed == 'true'
+      - name: Preparar alterações derivadas
+        if: steps.derivados.outputs.changed == 'true'
         run: |
           set -Eeuo pipefail
 
           INDEX="base-conhecimento/data/indice.json"
+          RELATED="base-conhecimento/data/relacionados.json"
 
-          git add -- "${INDEX}"
+          git add -- \
+            "${INDEX}" \
+            "${RELATED}"
 
           git diff --cached --check
 
@@ -480,21 +524,38 @@ jobs:
               --name-only
           )"
 
-          if [[ "${staged}" != "${INDEX}" ]]; then
+          if [[ -z "${staged}" ]]; then
 
             echo "ERRO DE INTEGRIDADE:"
-            echo "A área staged contém arquivos não autorizados."
-            echo
-            printf '%s\n' "${staged}"
+            echo "Nenhum artefato derivado foi staged."
 
             exit 1
 
           fi
 
-          echo "OK: somente indice.json está staged."
+          inesperados="$(
+            printf '%s\n' "${staged}" \
+            | sed '/^$/d' \
+            | grep -vxF "${INDEX}" \
+            | grep -vxF "${RELATED}" \
+            || true
+          )"
+
+          if [[ -n "${inesperados}" ]]; then
+
+            echo "ERRO DE INTEGRIDADE:"
+            echo "A área staged contém arquivos não autorizados."
+            echo
+            printf '%s\n' "${inesperados}"
+
+            exit 1
+
+          fi
+
+          echo "OK: somente artefatos derivados autorizados estão staged."
 
       - name: Confirmar que main não avançou
-        if: steps.indice.outputs.changed == 'true'
+        if: steps.derivados.outputs.changed == 'true'
         run: |
           set -Eeuo pipefail
 
@@ -528,7 +589,7 @@ jobs:
           echo "OK: main permanece no commit esperado."
 
       - name: Criar e enviar commit técnico
-        if: steps.indice.outputs.changed == 'true'
+        if: steps.derivados.outputs.changed == 'true'
         run: |
           set -Eeuo pipefail
 
@@ -541,7 +602,7 @@ jobs:
             "41898282+github-actions[bot]@users.noreply.github.com"
 
           git commit \
-            -m "Atualiza índice da Base de Conhecimento"
+            -m "Atualiza artefatos derivados da Base de Conhecimento"
 
           echo
           echo "===== COMMIT TÉCNICO ====="
