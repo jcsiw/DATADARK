@@ -12,6 +12,138 @@
       "published_on": "2026-08-25",
       "review_due": null,
       "notes": ""
+    },
+    {
+      "id": "DD-KB-000002",
+      "title": "Windows inicia muito lento",
+      "slug": "windows-inicia-muito-lento",
+      "category_id": "windows",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000003",
+      "title": "Computador liga, mas não apresenta imagem",
+      "slug": "computador-liga-mas-nao-apresenta-imagem",
+      "category_id": "hardware",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000004",
+      "title": "Rede cabeada conecta, mas fica sem internet",
+      "slug": "rede-cabeada-conecta-mas-fica-sem-internet",
+      "category_id": "rede",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000005",
+      "title": "Computador não reconhece o disco na BIOS ou UEFI",
+      "slug": "computador-nao-reconhece-o-disco-na-bios-ou-uefi",
+      "category_id": "bios-uefi",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000006",
+      "title": "SSD ou HD não aparece no Windows",
+      "slug": "ssd-ou-hd-nao-aparece-no-windows",
+      "category_id": "armazenamento",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000007",
+      "title": "Computador apresenta erros ou reinicia por falha de memória",
+      "slug": "computador-apresenta-erros-ou-reinicia-por-falha-de-memoria",
+      "category_id": "memoria",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000008",
+      "title": "Computador está sem som",
+      "slug": "computador-esta-sem-som",
+      "category_id": "audio",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000009",
+      "title": "Monitor sem sinal ou com tela preta",
+      "slug": "monitor-sem-sinal-ou-com-tela-preta",
+      "category_id": "video",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000010",
+      "title": "Notebook não liga mesmo conectado ao carregador",
+      "slug": "notebook-nao-liga-mesmo-conectado-ao-carregador",
+      "category_id": "notebook",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000011",
+      "title": "Dispositivo USB não é reconhecido",
+      "slug": "dispositivo-usb-nao-e-reconhecido",
+      "category_id": "perifericos",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
+    },
+    {
+      "id": "DD-KB-000012",
+      "title": "Como preparar o computador antes de solicitar suporte técnico",
+      "slug": "como-preparar-o-computador-antes-de-solicitar-suporte-tecnico",
+      "category_id": "documentos",
+      "status": "published",
+      "priority": "normal",
+      "created_on": "2026-08-25",
+      "published_on": "2026-08-25",
+      "review_due": null,
+      "notes": ""
     }
   ]
 }
