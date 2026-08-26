@@ -109,6 +109,8 @@ jobs:
             "scripts/base-conhecimento/testar-seo-artigos.py"
             "scripts/base-conhecimento/gerar-relacionados.py"
             "scripts/base-conhecimento/testar-gerar-relacionados.py"
+            "scripts/base-conhecimento/renderizar-relacionados.py"
+            "scripts/base-conhecimento/testar-renderizar-relacionados.py"
             "scripts/base-conhecimento/testar-categorias.mjs"
             "scripts/base-conhecimento/testar-pesquisa.mjs"
             "scripts/base-conhecimento/testar-consulta.mjs"
@@ -251,7 +253,9 @@ jobs:
             scripts/base-conhecimento/testar-catalogo-editorial.py \
             scripts/base-conhecimento/testar-seo-artigos.py \
             scripts/base-conhecimento/gerar-relacionados.py \
-            scripts/base-conhecimento/testar-gerar-relacionados.py
+            scripts/base-conhecimento/testar-gerar-relacionados.py \
+            scripts/base-conhecimento/renderizar-relacionados.py \
+            scripts/base-conhecimento/testar-renderizar-relacionados.py
 
           echo "OK: sintaxe Python válida."
 
@@ -395,6 +399,107 @@ jobs:
           python3 \
             scripts/base-conhecimento/gerar-relacionados.py
 
+      - name: Renderizar relacionados oficiais
+        run: |
+          set -Eeuo pipefail
+
+          ARTICLES_DIR="base-conhecimento/artigos"
+
+          TEMP_RENDER="${RUNNER_TEMP}/datadark-base-conhecimento-related-render"
+
+          SOURCE_LIST="${RUNNER_TEMP}/datadark-related-source-list.txt"
+
+          RENDER_LIST="${RUNNER_TEMP}/datadark-related-render-list.txt"
+
+          rm -rf "${TEMP_RENDER}"
+
+          rm -f \
+            "${SOURCE_LIST}" \
+            "${RENDER_LIST}"
+
+          python3 \
+            scripts/base-conhecimento/renderizar-relacionados.py \
+            --output-dir "${TEMP_RENDER}"
+
+          extras="$(
+            find "${TEMP_RENDER}" \
+              -mindepth 1 \
+              -maxdepth 1 \
+              \( ! -type f -o ! -name '*.html' \) \
+              -printf '%f\n' \
+            | sort
+          )"
+
+          if [[ -n "${extras}" ]]; then
+
+            echo "ERRO DE INTEGRIDADE:"
+            echo "A renderização produziu entradas não autorizadas."
+            echo
+            printf '%s\n' "${extras}"
+
+            exit 1
+
+          fi
+
+          find "${ARTICLES_DIR}" \
+            -maxdepth 1 \
+            -type f \
+            -name '*.html' \
+            -printf '%f\n' \
+            | sort \
+            > "${SOURCE_LIST}"
+
+          find "${TEMP_RENDER}" \
+            -maxdepth 1 \
+            -type f \
+            -name '*.html' \
+            -printf '%f\n' \
+            | sort \
+            > "${RENDER_LIST}"
+
+          if ! diff \
+            -u \
+            "${SOURCE_LIST}" \
+            "${RENDER_LIST}"
+          then
+
+            echo
+            echo "ERRO DE INTEGRIDADE:"
+            echo "O conjunto renderizado diverge dos artigos oficiais."
+
+            exit 1
+
+          fi
+
+          alterados=0
+
+          while IFS= read -r arquivo; do
+
+            origem="${TEMP_RENDER}/${arquivo}"
+
+            destino="${ARTICLES_DIR}/${arquivo}"
+
+            if ! cmp \
+              -s \
+              "${origem}" \
+              "${destino}"
+            then
+
+              cp \
+                --preserve=mode \
+                -- \
+                "${origem}" \
+                "${destino}"
+
+              alterados="$(( alterados + 1 ))"
+
+            fi
+
+          done < "${RENDER_LIST}"
+
+          echo
+          echo "Artigos RELATED atualizados: ${alterados}"
+
       - name: Validar JSON gerado
         run: |
           set -Eeuo pipefail
@@ -430,6 +535,23 @@ jobs:
 
           echo "OK: relacionados.json corresponde ao estado editorial."
 
+      - name: Verificar renderização dos relacionados
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/renderizar-relacionados.py \
+            --check
+
+          echo "OK: artigos correspondem ao grafo de relacionados."
+
+      - name: Executar testes do Renderizador Estático de Artigos Relacionados
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/testar-renderizar-relacionados.py
+
       - name: Controlar alterações produzidas
         id: derivados
         run: |
@@ -437,6 +559,7 @@ jobs:
 
           INDEX="base-conhecimento/data/indice.json"
           RELATED="base-conhecimento/data/relacionados.json"
+          ARTICLES_DIR="base-conhecimento/artigos"
 
           echo "===== GIT DIFF CHECK ====="
           git diff --check
@@ -462,10 +585,29 @@ jobs:
 
           inesperados="$(
             printf '%s\n' "${modificados}" \
-            | sed '/^$/d' \
-            | grep -vxF "${INDEX}" \
-            | grep -vxF "${RELATED}" \
-            || true
+            | awk \
+              -v index_path="${INDEX}" \
+              -v related_path="${RELATED}" '
+                NF == 0 {
+                  next
+                }
+
+                $0 == index_path {
+                  next
+                }
+
+                $0 == related_path {
+                  next
+                }
+
+                $0 ~ /^base-conhecimento\/artigos\/[^/]+\.html$/ {
+                  next
+                }
+
+                {
+                  print
+                }
+              '
           )"
 
           if [[ -n "${inesperados}" ]]; then
@@ -483,7 +625,10 @@ jobs:
           derivados="$(
             git status \
               --porcelain \
-              -- "${INDEX}" "${RELATED}"
+              -- \
+              "${INDEX}" \
+              "${RELATED}" \
+              "${ARTICLES_DIR}"
           )"
 
           if [[ -z "${derivados}" ]]; then
@@ -511,10 +656,12 @@ jobs:
 
           INDEX="base-conhecimento/data/indice.json"
           RELATED="base-conhecimento/data/relacionados.json"
+          ARTICLES_DIR="base-conhecimento/artigos"
 
           git add -- \
             "${INDEX}" \
-            "${RELATED}"
+            "${RELATED}" \
+            "${ARTICLES_DIR}"
 
           git diff --cached --check
 
@@ -535,10 +682,29 @@ jobs:
 
           inesperados="$(
             printf '%s\n' "${staged}" \
-            | sed '/^$/d' \
-            | grep -vxF "${INDEX}" \
-            | grep -vxF "${RELATED}" \
-            || true
+            | awk \
+              -v index_path="${INDEX}" \
+              -v related_path="${RELATED}" '
+                NF == 0 {
+                  next
+                }
+
+                $0 == index_path {
+                  next
+                }
+
+                $0 == related_path {
+                  next
+                }
+
+                $0 ~ /^base-conhecimento\/artigos\/[^/]+\.html$/ {
+                  next
+                }
+
+                {
+                  print
+                }
+              '
           )"
 
           if [[ -n "${inesperados}" ]]; then

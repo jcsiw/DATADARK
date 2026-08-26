@@ -1058,6 +1058,128 @@
 
     }
 
+    /* DATADARK:RELATED:CSS:START */
+
+    .article-section .kb-related-list {
+      display:
+        grid;
+
+      gap:
+        12px;
+
+      margin:
+        18px 0 0;
+
+      padding:
+        0;
+
+      list-style:
+        none;
+
+      color:
+        var(--text);
+    }
+
+
+    .article-section .kb-related-item {
+      margin:
+        0;
+
+      padding:
+        0;
+    }
+
+
+    .kb-related-link {
+      display:
+        grid;
+
+      gap:
+        5px;
+
+      padding:
+        16px 18px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        var(--radius-md);
+
+      background:
+        var(--surface);
+
+      color:
+        var(--text);
+
+      text-decoration:
+        none;
+
+      transition:
+        border-color var(--transition),
+        background var(--transition),
+        color var(--transition);
+    }
+
+
+    .kb-related-link:hover {
+      border-color:
+        var(--border-strong);
+
+      background:
+        var(--surface-hover);
+
+      color:
+        var(--text);
+    }
+
+
+    .kb-related-link:focus-visible {
+      outline:
+        2px solid var(--accent);
+
+      outline-offset:
+        3px;
+    }
+
+
+    .kb-related-category {
+      color:
+        var(--accent);
+
+      font-size:
+        12px;
+
+      font-weight:
+        700;
+
+      line-height:
+        1.4;
+
+      letter-spacing:
+        0.05em;
+
+      text-transform:
+        uppercase;
+    }
+
+
+    .kb-related-title {
+      color:
+        var(--text);
+
+      font-size:
+        16px;
+
+      font-weight:
+        700;
+
+      line-height:
+        1.45;
+    }
+
+    /* DATADARK:RELATED:CSS:END */
+
   </style>
 
 </head>
@@ -1248,6 +1370,10 @@
           </div>
 
         </section>
+
+
+        <!-- DATADARK:RELATED:START -->
+        <!-- DATADARK:RELATED:END -->
 
 
         <div class="article-actions">

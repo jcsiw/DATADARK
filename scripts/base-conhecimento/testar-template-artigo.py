@@ -80,6 +80,23 @@ PLACEHOLDER_COUNTS = {
 }
 
 
+HTML_START = (
+    "        <!-- DATADARK:RELATED:START -->"
+)
+
+HTML_END = (
+    "        <!-- DATADARK:RELATED:END -->"
+)
+
+CSS_START = (
+    "    /* DATADARK:RELATED:CSS:START */"
+)
+
+CSS_END = (
+    "    /* DATADARK:RELATED:CSS:END */"
+)
+
+
 REPLACEMENTS = {
     "@@TITLE@@":
         "Computador não liga e não emite nenhum sinal",
@@ -268,6 +285,81 @@ def main() -> int:
                 f"{expected_count} ocorrência(s)"
             ),
         )
+
+
+    for marker, label in (
+        (
+            HTML_START,
+            "marcador HTML START único",
+        ),
+        (
+            HTML_END,
+            "marcador HTML END único",
+        ),
+        (
+            CSS_START,
+            "marcador CSS START único",
+        ),
+        (
+            CSS_END,
+            "marcador CSS END único",
+        ),
+    ):
+
+        require(
+            template_text.count(
+                marker
+            ) == 1,
+            label,
+        )
+
+
+    html_start = template_text.index(
+        HTML_START
+    )
+
+    html_end = template_text.index(
+        HTML_END
+    )
+
+    require(
+        html_start < html_end,
+        "marcadores HTML RELATED em ordem",
+    )
+
+    require(
+        not template_text[
+            html_start
+            + len(HTML_START):
+            html_end
+        ].strip(),
+        "região HTML RELATED do template é vazia",
+    )
+
+
+    css_start = template_text.index(
+        CSS_START
+    )
+
+    css_end = template_text.index(
+        CSS_END
+    )
+
+    require(
+        css_start < css_end,
+        "marcadores CSS RELATED em ordem",
+    )
+
+    require(
+        bool(
+            template_text[
+                css_start
+                + len(CSS_START):
+                css_end
+            ].strip()
+        ),
+        "região CSS RELATED possui estilos",
+    )
 
 
     require(

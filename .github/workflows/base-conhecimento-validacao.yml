@@ -28,6 +28,8 @@ on:
       - "scripts/base-conhecimento/testar-seo-artigos.py"
       - "scripts/base-conhecimento/gerar-relacionados.py"
       - "scripts/base-conhecimento/testar-gerar-relacionados.py"
+      - "scripts/base-conhecimento/renderizar-relacionados.py"
+      - "scripts/base-conhecimento/testar-renderizar-relacionados.py"
       - "scripts/base-conhecimento/editorial/catalogo.json"
       - ".github/workflows/base-conhecimento-validacao.yml"
       - ".github/workflows/base-conhecimento-indexacao.yml"
@@ -59,6 +61,8 @@ on:
       - "scripts/base-conhecimento/testar-seo-artigos.py"
       - "scripts/base-conhecimento/gerar-relacionados.py"
       - "scripts/base-conhecimento/testar-gerar-relacionados.py"
+      - "scripts/base-conhecimento/renderizar-relacionados.py"
+      - "scripts/base-conhecimento/testar-renderizar-relacionados.py"
       - "scripts/base-conhecimento/editorial/catalogo.json"
       - ".github/workflows/base-conhecimento-validacao.yml"
       - ".github/workflows/base-conhecimento-indexacao.yml"
@@ -157,6 +161,8 @@ jobs:
             "scripts/base-conhecimento/testar-seo-artigos.py"
             "scripts/base-conhecimento/gerar-relacionados.py"
             "scripts/base-conhecimento/testar-gerar-relacionados.py"
+            "scripts/base-conhecimento/renderizar-relacionados.py"
+            "scripts/base-conhecimento/testar-renderizar-relacionados.py"
             "scripts/base-conhecimento/testar-categorias.mjs"
             "scripts/base-conhecimento/testar-pesquisa.mjs"
             "scripts/base-conhecimento/testar-consulta.mjs"
@@ -299,7 +305,9 @@ jobs:
             scripts/base-conhecimento/testar-catalogo-editorial.py \
             scripts/base-conhecimento/testar-seo-artigos.py \
             scripts/base-conhecimento/gerar-relacionados.py \
-            scripts/base-conhecimento/testar-gerar-relacionados.py
+            scripts/base-conhecimento/testar-gerar-relacionados.py \
+            scripts/base-conhecimento/renderizar-relacionados.py \
+            scripts/base-conhecimento/testar-renderizar-relacionados.py
 
           echo "OK: sintaxe Python válida."
 
@@ -381,6 +389,13 @@ jobs:
           python3 \
             scripts/base-conhecimento/testar-gerar-relacionados.py
 
+      - name: Executar testes do Renderizador Estático de Artigos Relacionados
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/testar-renderizar-relacionados.py
+
       - name: Executar testes da taxonomia JavaScript
         run: |
           set -Eeuo pipefail
@@ -458,6 +473,16 @@ jobs:
             --check
 
           echo "OK: relacionados.json corresponde ao estado editorial."
+
+      - name: Verificar renderização versionada dos relacionados
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/renderizar-relacionados.py \
+            --check
+
+          echo "OK: artigos versionados correspondem aos relacionados."
 
       - name: Gerar índice de homologação
         run: |
