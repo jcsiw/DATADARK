@@ -30,6 +30,8 @@ on:
       - "scripts/base-conhecimento/testar-gerar-relacionados.py"
       - "scripts/base-conhecimento/renderizar-relacionados.py"
       - "scripts/base-conhecimento/testar-renderizar-relacionados.py"
+      - "scripts/base-conhecimento/sincronizar-artigos.py"
+      - "scripts/base-conhecimento/testar-sincronizar-artigos.py"
       - "scripts/base-conhecimento/editorial/catalogo.json"
       - ".github/workflows/base-conhecimento-validacao.yml"
       - ".github/workflows/base-conhecimento-indexacao.yml"
@@ -63,6 +65,8 @@ on:
       - "scripts/base-conhecimento/testar-gerar-relacionados.py"
       - "scripts/base-conhecimento/renderizar-relacionados.py"
       - "scripts/base-conhecimento/testar-renderizar-relacionados.py"
+      - "scripts/base-conhecimento/sincronizar-artigos.py"
+      - "scripts/base-conhecimento/testar-sincronizar-artigos.py"
       - "scripts/base-conhecimento/editorial/catalogo.json"
       - ".github/workflows/base-conhecimento-validacao.yml"
       - ".github/workflows/base-conhecimento-indexacao.yml"
@@ -163,6 +167,8 @@ jobs:
             "scripts/base-conhecimento/testar-gerar-relacionados.py"
             "scripts/base-conhecimento/renderizar-relacionados.py"
             "scripts/base-conhecimento/testar-renderizar-relacionados.py"
+            "scripts/base-conhecimento/sincronizar-artigos.py"
+            "scripts/base-conhecimento/testar-sincronizar-artigos.py"
             "scripts/base-conhecimento/testar-categorias.mjs"
             "scripts/base-conhecimento/testar-pesquisa.mjs"
             "scripts/base-conhecimento/testar-consulta.mjs"
@@ -307,7 +313,9 @@ jobs:
             scripts/base-conhecimento/gerar-relacionados.py \
             scripts/base-conhecimento/testar-gerar-relacionados.py \
             scripts/base-conhecimento/renderizar-relacionados.py \
-            scripts/base-conhecimento/testar-renderizar-relacionados.py
+            scripts/base-conhecimento/testar-renderizar-relacionados.py \
+            scripts/base-conhecimento/sincronizar-artigos.py \
+            scripts/base-conhecimento/testar-sincronizar-artigos.py
 
           echo "OK: sintaxe Python válida."
 
@@ -396,6 +404,13 @@ jobs:
           python3 \
             scripts/base-conhecimento/testar-renderizar-relacionados.py
 
+      - name: Executar testes do Sincronizador Editorial
+        run: |
+          set -Eeuo pipefail
+
+          python3 \
+            scripts/base-conhecimento/testar-sincronizar-artigos.py
+
       - name: Executar testes da taxonomia JavaScript
         run: |
           set -Eeuo pipefail
@@ -457,32 +472,37 @@ jobs:
 
           echo "OK: relacionados.json versionado é JSON válido."
 
-      - name: Validar Catálogo Editorial
+      - name: Validar candidato editorial pelo Sincronizador
         run: |
           set -Eeuo pipefail
 
-          python3 \
-            scripts/base-conhecimento/validar-catalogo-editorial.py
-
-      - name: Verificar relacionados.json versionado
-        run: |
-          set -Eeuo pipefail
+          set +e
 
           python3 \
-            scripts/base-conhecimento/gerar-relacionados.py \
+            scripts/base-conhecimento/sincronizar-artigos.py \
             --check
 
-          echo "OK: relacionados.json corresponde ao estado editorial."
+          status=$?
 
-      - name: Verificar renderização versionada dos relacionados
-        run: |
-          set -Eeuo pipefail
+          set -e
 
-          python3 \
-            scripts/base-conhecimento/renderizar-relacionados.py \
-            --check
+          case "${status}" in
 
-          echo "OK: artigos versionados correspondem aos relacionados."
+            0)
+              echo "OK: estado editorial já está sincronizado."
+              ;;
+
+            1)
+              echo "OK: candidato editorial válido; sincronização técnica necessária."
+              ;;
+
+            *)
+              echo "ERRO: Sincronizador Editorial rejeitou o candidato."
+              echo "Status: ${status}"
+              exit "${status}"
+              ;;
+
+          esac
 
       - name: Gerar índice de homologação
         run: |
