@@ -1,5 +1,247 @@
 [
   {
+    "slug": "como-preparar-o-computador-antes-de-solicitar-suporte-tecnico",
+    "title": "Como preparar o computador antes de solicitar suporte técnico",
+    "description": "Checklist para organizar informações, proteger dados e preparar um computador antes de um atendimento técnico.",
+    "url": "artigos/como-preparar-o-computador-antes-de-solicitar-suporte-tecnico.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [
+      "preparar computador para suporte",
+      "checklist suporte técnico",
+      "antes da manutenção",
+      "dados para atendimento",
+      "backup antes do suporte"
+    ],
+    "aliases": [
+      "preparação para assistência técnica",
+      "antes de levar computador para manutenção",
+      "informações para suporte técnico"
+    ]
+  },
+  {
+    "slug": "computador-apresenta-erros-ou-reinicia-por-falha-de-memoria",
+    "title": "Computador apresenta erros ou reinicia por falha de memória",
+    "description": "Orientação para identificar sintomas compatíveis com falha ou instabilidade da memória RAM.",
+    "url": "artigos/computador-apresenta-erros-ou-reinicia-por-falha-de-memoria.html",
+    "category_id": "memoria",
+    "category": "Memória",
+    "keywords": [
+      "erro de memória RAM",
+      "computador reinicia sozinho",
+      "falha de memória",
+      "teste de memória",
+      "tela azul"
+    ],
+    "aliases": [
+      "RAM com defeito",
+      "computador reinicia por memória",
+      "erros aleatórios de memória"
+    ]
+  },
+  {
+    "slug": "computador-esta-sem-som",
+    "title": "Computador está sem som",
+    "description": "Procedimento para diagnosticar ausência de áudio no Windows e identificar problemas de saída, volume ou dispositivo.",
+    "url": "artigos/computador-esta-sem-som.html",
+    "category_id": "audio",
+    "category": "Áudio",
+    "keywords": [
+      "computador sem som",
+      "Windows sem áudio",
+      "alto-falante sem som",
+      "saída de áudio",
+      "driver de áudio"
+    ],
+    "aliases": [
+      "PC está sem áudio",
+      "Windows não reproduz som",
+      "caixa de som não funciona"
+    ]
+  },
+  {
+    "slug": "computador-liga-mas-nao-apresenta-imagem",
+    "title": "Computador liga, mas não apresenta imagem",
+    "description": "Diagnóstico inicial para computador que aparenta ligar mas não apresenta imagem no monitor.",
+    "url": "artigos/computador-liga-mas-nao-apresenta-imagem.html",
+    "category_id": "hardware",
+    "category": "Hardware",
+    "keywords": [
+      "computador sem imagem",
+      "computador liga sem vídeo",
+      "sem sinal no monitor",
+      "falha de hardware",
+      "diagnóstico de vídeo"
+    ],
+    "aliases": [
+      "PC liga mas não dá imagem",
+      "computador liga e fica sem vídeo",
+      "computador liga mas monitor fica preto"
+    ]
+  },
+  {
+    "slug": "computador-nao-reconhece-o-disco-na-bios-ou-uefi",
+    "title": "Computador não reconhece o disco na BIOS ou UEFI",
+    "description": "Diagnóstico inicial para SSD ou HD que não é detectado pela BIOS ou UEFI do computador.",
+    "url": "artigos/computador-nao-reconhece-o-disco-na-bios-ou-uefi.html",
+    "category_id": "bios-uefi",
+    "category": "BIOS / UEFI",
+    "keywords": [
+      "BIOS não reconhece disco",
+      "UEFI não reconhece SSD",
+      "HD não aparece na BIOS",
+      "SSD não aparece na BIOS",
+      "disco não detectado"
+    ],
+    "aliases": [
+      "disco não aparece na BIOS",
+      "SSD não detectado na UEFI",
+      "HD não reconhecido pela placa-mãe"
+    ]
+  },
+  {
+    "slug": "dispositivo-usb-nao-e-reconhecido",
+    "title": "Dispositivo USB não é reconhecido",
+    "description": "Procedimento para identificar falhas de reconhecimento de dispositivos USB no Windows.",
+    "url": "artigos/dispositivo-usb-nao-e-reconhecido.html",
+    "category_id": "perifericos",
+    "category": "Periféricos",
+    "keywords": [
+      "USB não reconhecido",
+      "dispositivo USB",
+      "porta USB",
+      "periférico não reconhecido",
+      "erro USB Windows"
+    ],
+    "aliases": [
+      "USB não funciona",
+      "Windows não reconhece USB",
+      "periférico USB não aparece"
+    ]
+  },
+  {
+    "slug": "monitor-sem-sinal-ou-com-tela-preta",
+    "title": "Monitor sem sinal ou com tela preta",
+    "description": "Procedimento para diferenciar falha de monitor, cabo, entrada de vídeo e ausência de sinal do computador.",
+    "url": "artigos/monitor-sem-sinal-ou-com-tela-preta.html",
+    "category_id": "video",
+    "category": "Vídeo",
+    "keywords": [
+      "monitor sem sinal",
+      "monitor tela preta",
+      "sem vídeo",
+      "cabo de vídeo",
+      "entrada HDMI"
+    ],
+    "aliases": [
+      "monitor não mostra imagem",
+      "tela fica preta",
+      "monitor mostra sem sinal"
+    ]
+  },
+  {
+    "slug": "notebook-nao-liga-mesmo-conectado-ao-carregador",
+    "title": "Notebook não liga mesmo conectado ao carregador",
+    "description": "Diagnóstico inicial para notebook que não apresenta sinais normais de inicialização mesmo conectado à fonte de alimentação.",
+    "url": "artigos/notebook-nao-liga-mesmo-conectado-ao-carregador.html",
+    "category_id": "notebook",
+    "category": "Notebook",
+    "keywords": [
+      "notebook não liga",
+      "notebook sem energia",
+      "carregador de notebook",
+      "notebook não inicia",
+      "falha de alimentação"
+    ],
+    "aliases": [
+      "notebook não dá sinal",
+      "notebook não liga no carregador",
+      "notebook sem sinal de energia"
+    ]
+  },
+  {
+    "slug": "rede-cabeada-conecta-mas-fica-sem-internet",
+    "title": "Rede cabeada conecta, mas fica sem internet",
+    "description": "Procedimento para diagnosticar uma conexão Ethernet ativa que não consegue acessar a internet.",
+    "url": "artigos/rede-cabeada-conecta-mas-fica-sem-internet.html",
+    "category_id": "rede",
+    "category": "Rede",
+    "keywords": [
+      "rede cabeada sem internet",
+      "Ethernet sem internet",
+      "cabo de rede sem acesso",
+      "gateway de rede",
+      "DNS"
+    ],
+    "aliases": [
+      "Ethernet conecta mas não navega",
+      "cabo de rede conecta mas não tem internet",
+      "rede local sem internet"
+    ]
+  },
+  {
+    "slug": "ssd-ou-hd-nao-aparece-no-windows",
+    "title": "SSD ou HD não aparece no Windows",
+    "description": "Procedimento para identificar por que um SSD ou HD detectado pelo computador não aparece normalmente no Windows.",
+    "url": "artigos/ssd-ou-hd-nao-aparece-no-windows.html",
+    "category_id": "armazenamento",
+    "category": "SSD / HD",
+    "keywords": [
+      "SSD não aparece no Windows",
+      "HD não aparece no Windows",
+      "disco sem letra",
+      "Gerenciamento de Disco",
+      "unidade não reconhecida"
+    ],
+    "aliases": [
+      "disco não aparece no Explorador",
+      "SSD sumiu do Windows",
+      "HD não aparece no computador"
+    ]
+  },
+  {
+    "slug": "wifi-conecta-mas-fica-sem-internet",
+    "title": "Wi-Fi conecta, mas fica sem internet",
+    "description": "Procedimento técnico para diagnosticar conexões Wi-Fi estabelecidas que não conseguem acessar a internet.",
+    "url": "artigos/wifi-conecta-mas-fica-sem-internet.html",
+    "category_id": "wifi",
+    "category": "Wi-Fi",
+    "keywords": [
+      "wifi",
+      "wireless",
+      "sem internet",
+      "dns",
+      "gateway",
+      "dhcp",
+      "rede"
+    ],
+    "aliases": [
+      "wifi conectado sem internet",
+      "wifi conecta mas não navega",
+      "wireless sem internet"
+    ]
+  },
+  {
+    "slug": "windows-inicia-muito-lento",
+    "title": "Windows inicia muito lento",
+    "description": "Procedimento para identificar as causas mais comuns de inicialização lenta do Windows e verificar se o desempenho voltou ao normal após os ajustes.",
+    "url": "artigos/windows-inicia-muito-lento.html",
+    "category_id": "windows",
+    "category": "Windows",
+    "keywords": [
+      "Windows lento",
+      "inicialização lenta",
+      "boot lento",
+      "desempenho do Windows",
+      "programas de inicialização"
+    ],
+    "aliases": [
+      "Windows demora para iniciar",
+      "computador demora para entrar no Windows",
+      "Windows demora para carregar"
+    ]
+  },
+  {
     "slug": "arquivo-corrompido-com-erro-de-leitura",
     "title": "Arquivo Corrompido Com Erro De Leitura - DATADARK",
     "description": "Arquivo Corrompido Com Erro De Leitura - DATADARK",

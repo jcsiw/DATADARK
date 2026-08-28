@@ -1,0 +1,161 @@
+name: Base de Conhecimento - HTMLs Importados
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "base-conhecimento/artigos/importados/**/*.html"
+      - "base-conhecimento/data/indice.json"
+      - "scripts/base-conhecimento/gerar-indice-importados.py"
+      - "scripts/base-conhecimento/gerar-indice-pesquisa.py"
+      - ".github/workflows/base-conhecimento-importados.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: base-conhecimento-importados-main
+  cancel-in-progress: false
+
+jobs:
+  atualizar-indice:
+    name: Atualizar pesquisa de HTMLs importados
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obter repositório
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validar scripts
+        run: |
+          set -Eeuo pipefail
+
+          test -x \
+            scripts/base-conhecimento/gerar-indice-importados.py
+
+          test -x \
+            scripts/base-conhecimento/gerar-indice-pesquisa.py
+
+          PYTHONDONTWRITEBYTECODE=1 \
+          python3 -m py_compile \
+            scripts/base-conhecimento/gerar-indice-importados.py \
+            scripts/base-conhecimento/gerar-indice-pesquisa.py
+
+      - name: Gerar índices de pesquisa
+        run: |
+          set -Eeuo pipefail
+
+          PYTHONDONTWRITEBYTECODE=1 \
+          python3 \
+            scripts/base-conhecimento/gerar-indice-importados.py
+
+          PYTHONDONTWRITEBYTECODE=1 \
+          python3 \
+            scripts/base-conhecimento/gerar-indice-pesquisa.py
+
+      - name: Validar índices
+        run: |
+          set -Eeuo pipefail
+
+          python3 -m json.tool \
+            base-conhecimento/data/indice-importados.json \
+            > /dev/null
+
+          python3 -m json.tool \
+            base-conhecimento/data/indice-pesquisa.json \
+            > /dev/null
+
+          PYTHONDONTWRITEBYTECODE=1 \
+          python3 \
+            scripts/base-conhecimento/gerar-indice-importados.py \
+            --check
+
+          PYTHONDONTWRITEBYTECODE=1 \
+          python3 \
+            scripts/base-conhecimento/gerar-indice-pesquisa.py \
+            --check
+
+      - name: Controlar alterações
+        id: indice
+        run: |
+          set -Eeuo pipefail
+
+          git diff --check
+
+          modificados="$(
+            git diff \
+              --name-only \
+            | sort -u
+          )"
+
+          if [[ -z "${modificados}" ]]; then
+            echo "Nenhuma alteração."
+            echo "changed=false" \
+              >> "${GITHUB_OUTPUT}"
+          else
+            printf '%s\n' "${modificados}"
+
+            inesperados="$(
+              printf '%s\n' "${modificados}" \
+              | grep -Ev \
+                '^(base-conhecimento/data/indice-importados\.json|base-conhecimento/data/indice-pesquisa\.json)$' \
+              || true
+            )"
+
+            if [[ -n "${inesperados}" ]]; then
+              echo "ERRO: alteração inesperada:"
+              printf '%s\n' "${inesperados}"
+              false
+            fi
+
+            echo "changed=true" \
+              >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Publicar índices derivados
+        if: steps.indice.outputs.changed == 'true'
+        run: |
+          set -Eeuo pipefail
+
+          git add -- \
+            base-conhecimento/data/indice-importados.json \
+            base-conhecimento/data/indice-pesquisa.json
+
+          git diff --cached --check
+
+          git fetch origin main
+
+          if [[ \
+            "$(git rev-parse HEAD)" \
+            != \
+            "$(git rev-parse origin/main)" \
+          ]]; then
+            echo "ERRO: main mudou durante a geração."
+            false
+          fi
+
+          git config \
+            user.name \
+            "github-actions[bot]"
+
+          git config \
+            user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git commit \
+            -m "Atualiza índice de HTMLs importados"
+
+          git push \
+            origin \
+            HEAD:main

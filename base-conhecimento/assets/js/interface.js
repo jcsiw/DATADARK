@@ -38,7 +38,7 @@ import {
 
 
 const CONFIG = Object.freeze({
-  indexUrl: "data/indice.json",
+  indexUrl: "data/indice-pesquisa.json",
 
   categoriesUrl:
     "data/categorias.json",
