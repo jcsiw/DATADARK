@@ -20,6 +20,26 @@
     "aliases": []
   },
   {
+    "slug": "bateria-descarrega-muito-rapido",
+    "title": "Bateria descarrega muito rápido - DATADARK Tecnologia",
+    "description": "Bateria descarrega muito rápido - DATADARK Tecnologia",
+    "url": "artigos/importados/Bateria-descarrega-muito-r%C3%A1pido.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "bateria-estufada-empenando-a-carcaca",
+    "title": "Bateria estufada empenando a carcaça - DATADARK Tecnologia",
+    "description": "Bateria estufada empenando a carcaça - DATADARK Tecnologia",
+    "url": "artigos/importados/Bateria-estufada-empenando-a-carca%C3%A7a.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
     "slug": "beeps-continuos-e-sem-parar-ao-ligar",
     "title": "Beeps Contínuos E Sem Parar Ao Ligar - DATADARK",
     "description": "Beeps Contínuos E Sem Parar Ao Ligar - DATADARK",
@@ -44,6 +64,26 @@
     "title": "Bios Não Salva A Ordem De Boot - DATADARK",
     "description": "Bios Não Salva A Ordem De Boot - DATADARK",
     "url": "artigos/importados/BIOS-n%C3%A3o-salva-a-ordem-de-boot.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "bluetooth-nao-aparece-no-sistema",
+    "title": "Bluetooth não aparece no sistema - DATADARK Tecnologia",
+    "description": "Bluetooth não aparece no sistema - DATADARK Tecnologia",
+    "url": "artigos/importados/Bluetooth-n%C3%A3o-aparece-no-sistema.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "brilho-da-tela-nao-ajusta",
+    "title": "Brilho da tela não ajusta - DATADARK Tecnologia",
+    "description": "Brilho da tela não ajusta - DATADARK Tecnologia",
+    "url": "artigos/importados/Brilho-da-tela-n%C3%A3o-ajusta.html",
     "category_id": "documentos",
     "category": "Documentos",
     "keywords": [],
@@ -200,10 +240,30 @@
     "aliases": []
   },
   {
+    "slug": "conector-de-energia-folgado-no-notebook",
+    "title": "Conector de energia folgado no notebook - DATADARK Tecnologia",
+    "description": "Conector de energia folgado no notebook - DATADARK Tecnologia",
+    "url": "artigos/importados/Conector-de-energia-folgado-no-notebook.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
     "slug": "conta-abre-com-perfil-temporario",
     "title": "Conta Abre Com Perfil Temporário - DATADARK",
     "description": "Conta Abre Com Perfil Temporário - DATADARK",
     "url": "artigos/importados/Conta-abre-com-perfil-tempor%C3%A1rio.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "cooler-nao-gira-e-o-notebook-aquece",
+    "title": "Cooler não gira e o notebook aquece - DATADARK Tecnologia",
+    "description": "Cooler não gira e o notebook aquece - DATADARK Tecnologia",
+    "url": "artigos/importados/Cooler-n%C3%A3o-gira-e-o-notebook-aquece.html",
     "category_id": "documentos",
     "category": "Documentos",
     "keywords": [],
@@ -340,6 +400,1166 @@
     "aliases": []
   },
   {
+    "slug": "dispositivo-funciona-com-desempenho-reduzido",
+    "title": "Dispositivo Funciona Com Desempenho Reduzido - DATADARK",
+    "description": "Dispositivo Funciona Com Desempenho Reduzido - DATADARK",
+    "url": "artigos/importados/Dispositivo-funciona-com-desempenho-reduzido.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "dobradica-solta-e-carcaca-trincando",
+    "title": "Dobradiça solta e carcaça trincando - DATADARK Tecnologia",
+    "description": "Dobradiça solta e carcaça trincando - DATADARK Tecnologia",
+    "url": "artigos/importados/Dobradi%C3%A7a-solta-e-carca%C3%A7a-trincando.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "driver-volta-sozinho-para-a-versao-antiga",
+    "title": "Driver Volta Sozinho Para A Versão Antiga - DATADARK",
+    "description": "Driver Volta Sozinho Para A Versão Antiga - DATADARK",
+    "url": "artigos/importados/Driver-volta-sozinho-para-a-vers%C3%A3o-antiga.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "ficou-lento-depois-de-uma-atualizacao",
+    "title": "Ficou Lento Depois De Uma Atualização - DATADARK",
+    "description": "Ficou Lento Depois De Uma Atualização - DATADARK",
+    "url": "artigos/importados/Ficou-lento-depois-de-uma-atualiza%C3%A7%C3%A3o.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "fonte-com-ruido-alto-ou-assobio",
+    "title": "Fonte Com Ruído Alto Ou Assobio - DATADARK",
+    "description": "Fonte Com Ruído Alto Ou Assobio - DATADARK",
+    "url": "artigos/importados/Fonte-com-ru%C3%ADdo-alto-ou-assobio.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "fonte-liga-e-desliga-em-ciclo-curto",
+    "title": "Fonte Liga E Desliga Em Ciclo Curto - DATADARK",
+    "description": "Fonte Liga E Desliga Em Ciclo Curto - DATADARK",
+    "url": "artigos/importados/Fonte-liga-e-desliga-em-ciclo-curto.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "fonte-nao-sustenta-o-computador-sob-carga",
+    "title": "Fonte Não Sustenta O Computador Sob Carga - DATADARK",
+    "description": "Fonte Não Sustenta O Computador Sob Carga - DATADARK",
+    "url": "artigos/importados/Fonte-n%C3%A3o-sustenta-o-computador-sob-carga.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "gabinete-quente-e-ventoinhas-sempre-no-maximo",
+    "title": "Gabinete Quente E Ventoinhas Sempre No Máximo - DATADARK",
+    "description": "Gabinete Quente E Ventoinhas Sempre No Máximo - DATADARK",
+    "url": "artigos/importados/Gabinete-quente-e-ventoinhas-sempre-no-m%C3%A1ximo.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "gestos-do-touchpad-pararam-de-funcionar",
+    "title": "Gestos do touchpad pararam de funcionar - DATADARK Tecnologia",
+    "description": "Gestos do touchpad pararam de funcionar - DATADARK Tecnologia",
+    "url": "artigos/importados/Gestos-do-touchpad-pararam-de-funcionar.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "hd-faz-cliques-e-some-do-sistema",
+    "title": "Hd Faz Cliques E Some Do Sistema - DATADARK",
+    "description": "Hd Faz Cliques E Some Do Sistema - DATADARK",
+    "url": "artigos/importados/HD-faz-cliques-e-some-do-sistema.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "imagem-aparece-so-no-monitor-externo",
+    "title": "Imagem aparece só no monitor externo - DATADARK Tecnologia",
+    "description": "Imagem aparece só no monitor externo - DATADARK Tecnologia",
+    "url": "artigos/importados/Imagem-aparece-s%C3%B3-no-monitor-externo.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "imagem-com-faixas-e-quadrados-na-tela",
+    "title": "Imagem Com Faixas E Quadrados Na Tela - DATADARK",
+    "description": "Imagem Com Faixas E Quadrados Na Tela - DATADARK",
+    "url": "artigos/importados/Imagem-com-faixas-e-quadrados-na-tela.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "imagem-so-aparece-depois-de-varios-minutos",
+    "title": "Imagem Só Aparece Depois De Vários Minutos - DATADARK",
+    "description": "Imagem Só Aparece Depois De Vários Minutos - DATADARK",
+    "url": "artigos/importados/Imagem-s%C3%B3-aparece-depois-de-v%C3%A1rios-minutos.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "impressora-usb-nao-e-reconhecida",
+    "title": "Impressora Usb Não É Reconhecida - DATADARK",
+    "description": "Impressora Usb Não É Reconhecida - DATADARK",
+    "url": "artigos/importados/Impressora-USB-n%C3%A3o-%C3%A9-reconhecida.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "inicia-direto-no-setup-da-bios",
+    "title": "Inicia Direto No Setup Da Bios - DATADARK",
+    "description": "Inicia Direto No Setup Da Bios - DATADARK",
+    "url": "artigos/importados/Inicia-direto-no-setup-da-BIOS.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "instavel-depois-de-adicionar-um-pente",
+    "title": "Instável Depois De Adicionar Um Pente - DATADARK",
+    "description": "Instável Depois De Adicionar Um Pente - DATADARK",
+    "url": "artigos/importados/Inst%C3%A1vel-depois-de-adicionar-um-pente.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "internet-cai-em-horarios-aleatorios",
+    "title": "Internet Cai Em Horários Aleatórios - DATADARK",
+    "description": "Internet Cai Em Horários Aleatórios - DATADARK",
+    "url": "artigos/importados/Internet-cai-em-hor%C3%A1rios-aleat%C3%B3rios.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "led-da-placa-acende-e-nada-acontece",
+    "title": "Led Da Placa Acende E Nada Acontece - DATADARK",
+    "description": "Led Da Placa Acende E Nada Acontece - DATADARK",
+    "url": "artigos/importados/LED-da-placa-acende-e-nada-acontece.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "led-de-carga-pisca-sem-avancar-a-carga",
+    "title": "LED de carga pisca sem avançar a carga - DATADARK Tecnologia",
+    "description": "LED de carga pisca sem avançar a carga - DATADARK Tecnologia",
+    "url": "artigos/importados/LED-de-carga-pisca-sem-avan%C3%A7ar-a-carga.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "leitor-nao-le-nenhum-cartao",
+    "title": "Leitor Não Lê Nenhum Cartão - DATADARK",
+    "description": "Leitor Não Lê Nenhum Cartão - DATADARK",
+    "url": "artigos/importados/Leitor-n%C3%A3o-l%C3%AA-nenhum-cart%C3%A3o.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "lentidao-com-o-disco-sempre-em-uso",
+    "title": "Lentidão Com O Disco Sempre Em Uso - DATADARK",
+    "description": "Lentidão Com O Disco Sempre Em Uso - DATADARK",
+    "url": "artigos/importados/Lentid%C3%A3o-com-o-disco-sempre-em-uso.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "lento-so-com-arquivos-grandes",
+    "title": "Lento Só Com Arquivos Grandes - DATADARK",
+    "description": "Lento Só Com Arquivos Grandes - DATADARK",
+    "url": "artigos/importados/Lento-s%C3%B3-com-arquivos-grandes.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "liga-gira-as-ventoinhas-e-desliga",
+    "title": "Liga Gira As Ventoinhas E Desliga - DATADARK",
+    "description": "Liga Gira As Ventoinhas E Desliga - DATADARK",
+    "url": "artigos/importados/Liga-gira-as-ventoinhas-e-desliga.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "memoria-nao-roda-na-frequencia-anunciada",
+    "title": "Memória Não Roda Na Frequência Anunciada - DATADARK",
+    "description": "Memória Não Roda Na Frequência Anunciada - DATADARK",
+    "url": "artigos/importados/Mem%C3%B3ria-n%C3%A3o-roda-na-frequ%C3%AAncia-anunciada.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "microfone-nao-capta-som",
+    "title": "Microfone Não Capta Som - DATADARK",
+    "description": "Microfone Não Capta Som - DATADARK",
+    "url": "artigos/importados/Microfone-n%C3%A3o-capta-som.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "monitor-externo-nao-e-detectado",
+    "title": "Monitor Externo Não É Detectado - DATADARK",
+    "description": "Monitor Externo Não É Detectado - DATADARK",
+    "url": "artigos/importados/Monitor-externo-n%C3%A3o-%C3%A9-detectado.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "monitor-pisca-e-perde-o-sinal",
+    "title": "Monitor Pisca E Perde O Sinal - DATADARK",
+    "description": "Monitor Pisca E Perde O Sinal - DATADARK",
+    "url": "artigos/importados/Monitor-pisca-e-perde-o-sinal.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "nenhum-slot-pci-express-responde",
+    "title": "Nenhum Slot Pci Express Responde - DATADARK",
+    "description": "Nenhum Slot Pci Express Responde - DATADARK",
+    "url": "artigos/importados/Nenhum-slot-PCI-Express-responde.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-desliga-ao-mover-a-tela",
+    "title": "Notebook desliga ao mover a tela - DATADARK Tecnologia",
+    "description": "Notebook desliga ao mover a tela - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-desliga-ao-mover-a-tela.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-desliga-ao-tirar-a-fonte",
+    "title": "Notebook desliga ao tirar a fonte - DATADARK Tecnologia",
+    "description": "Notebook desliga ao tirar a fonte - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-desliga-ao-tirar-a-fonte.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-desliga-com-bateria-pela-metade",
+    "title": "Notebook Desliga Com Bateria Pela Metade - DATADARK",
+    "description": "Notebook Desliga Com Bateria Pela Metade - DATADARK",
+    "url": "artigos/importados/Notebook-desliga-com-bateria-pela-metade.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-esquenta-e-desliga-sozinho",
+    "title": "Notebook esquenta e desliga sozinho - DATADARK Tecnologia",
+    "description": "Notebook esquenta e desliga sozinho - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-esquenta-e-desliga-sozinho.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-esquenta-e-trava-em-minutos",
+    "title": "Notebook Esquenta E Trava Em Minutos - DATADARK",
+    "description": "Notebook Esquenta E Trava Em Minutos - DATADARK",
+    "url": "artigos/importados/Notebook-esquenta-e-trava-em-minutos.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-extremamente-lento-apos-ligar",
+    "title": "Notebook extremamente lento após ligar - DATADARK Tecnologia",
+    "description": "Notebook extremamente lento após ligar - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-extremamente-lento-ap%C3%B3s-ligar.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-liga-e-a-tela-fica-preta",
+    "title": "Notebook liga e a tela fica preta - DATADARK Tecnologia",
+    "description": "Notebook liga e a tela fica preta - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-liga-e-a-tela-fica-preta.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-liga-mas-nao-carrega-a-bateria",
+    "title": "Notebook liga mas não carrega a bateria - DATADARK Tecnologia",
+    "description": "Notebook liga mas não carrega a bateria - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-liga-mas-n%C3%A3o-carrega-a-bateria.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-nao-da-boot-pelo-pendrive",
+    "title": "Notebook não dá boot pelo pendrive - DATADARK Tecnologia",
+    "description": "Notebook não dá boot pelo pendrive - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-n%C3%A3o-d%C3%A1-boot-pelo-pendrive.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-nao-entra-no-setup-da-bios",
+    "title": "Notebook não entra no setup da BIOS - DATADARK Tecnologia",
+    "description": "Notebook não entra no setup da BIOS - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-n%C3%A3o-entra-no-setup-da-BIOS.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-nao-enxerga-nenhuma-rede-wi-fi",
+    "title": "Notebook Não Enxerga Nenhuma Rede Wi Fi - DATADARK",
+    "description": "Notebook Não Enxerga Nenhuma Rede Wi Fi - DATADARK",
+    "url": "artigos/importados/Notebook-n%C3%A3o-enxerga-nenhuma-rede-Wi-Fi.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-nao-liga-com-a-fonte-conectada",
+    "title": "Notebook não liga com a fonte conectada - DATADARK Tecnologia",
+    "description": "Notebook não liga com a fonte conectada - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-n%C3%A3o-liga-com-a-fonte-conectada.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-nao-liga-com-bateria-so-na-tomada",
+    "title": "Notebook Não Liga Com Bateria Só Na Tomada - DATADARK",
+    "description": "Notebook Não Liga Com Bateria Só Na Tomada - DATADARK",
+    "url": "artigos/importados/Notebook-n%C3%A3o-liga-com-bateria-s%C3%B3-na-tomada.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-nao-reconhece-o-carregador-original",
+    "title": "Notebook não reconhece o carregador original - DATADARK Tecnologia",
+    "description": "Notebook não reconhece o carregador original - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-n%C3%A3o-reconhece-o-carregador-original.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-nao-reconhece-o-segundo-pente",
+    "title": "Notebook não reconhece o segundo pente - DATADARK Tecnologia",
+    "description": "Notebook não reconhece o segundo pente - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-n%C3%A3o-reconhece-o-segundo-pente.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-nao-sai-da-suspensao",
+    "title": "Notebook não sai da suspensão - DATADARK Tecnologia",
+    "description": "Notebook não sai da suspensão - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-n%C3%A3o-sai-da-suspens%C3%A3o.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-reinicia-sozinho-durante-o-uso",
+    "title": "Notebook reinicia sozinho durante o uso - DATADARK Tecnologia",
+    "description": "Notebook reinicia sozinho durante o uso - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-reinicia-sozinho-durante-o-uso.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-sem-som-nos-alto-falantes",
+    "title": "Notebook sem som nos alto falantes - DATADARK Tecnologia",
+    "description": "Notebook sem som nos alto falantes - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-sem-som-nos-alto-falantes.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "notebook-trava-na-tela-do-fabricante",
+    "title": "Notebook trava na tela do fabricante - DATADARK Tecnologia",
+    "description": "Notebook trava na tela do fabricante - DATADARK Tecnologia",
+    "url": "artigos/importados/Notebook-trava-na-tela-do-fabricante.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "nao-liga-depois-da-limpeza-ou-remontagem",
+    "title": "Não Liga Depois Da Limpeza Ou Remontagem - DATADARK",
+    "description": "Não Liga Depois Da Limpeza Ou Remontagem - DATADARK",
+    "url": "artigos/importados/N%C3%A3o-liga-depois-da-limpeza-ou-remontagem.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "nao-liga-depois-de-queda-de-energia",
+    "title": "Não Liga Depois De Queda De Energia - DATADARK",
+    "description": "Não Liga Depois De Queda De Energia - DATADARK",
+    "url": "artigos/importados/N%C3%A3o-liga-depois-de-queda-de-energia.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "painel-frontal-do-gabinete-nao-responde",
+    "title": "Painel Frontal Do Gabinete Não Responde - DATADARK",
+    "description": "Painel Frontal Do Gabinete Não Responde - DATADARK",
+    "url": "artigos/importados/Painel-frontal-do-gabinete-n%C3%A3o-responde.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "pede-escolher-entre-dois-sistemas-ao-ligar",
+    "title": "Pede Escolher Entre Dois Sistemas Ao Ligar - DATADARK",
+    "description": "Pede Escolher Entre Dois Sistemas Ao Ligar - DATADARK",
+    "url": "artigos/importados/Pede-escolher-entre-dois-sistemas-ao-ligar.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "placa-de-video-como-dispositivo-basico",
+    "title": "Placa De Vídeo Como Dispositivo Básico - DATADARK",
+    "description": "Placa De Vídeo Como Dispositivo Básico - DATADARK",
+    "url": "artigos/importados/Placa-de-v%C3%ADdeo-como-dispositivo-b%C3%A1sico.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "placa-de-video-esquenta-e-o-jogo-engasga",
+    "title": "Placa De Vídeo Esquenta E O Jogo Engasga - DATADARK",
+    "description": "Placa De Vídeo Esquenta E O Jogo Engasga - DATADARK",
+    "url": "artigos/importados/Placa-de-v%C3%ADdeo-esquenta-e-o-jogo-engasga.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "placa-emite-beeps-no-post-e-nao-inicia",
+    "title": "Placa Emite Beeps No Post E Não Inicia - DATADARK",
+    "description": "Placa Emite Beeps No Post E Não Inicia - DATADARK",
+    "url": "artigos/importados/Placa-emite-beeps-no-POST-e-n%C3%A3o-inicia.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "placa-mostra-codigo-de-erro-e-trava",
+    "title": "Placa Mostra Código De Erro E Trava - DATADARK",
+    "description": "Placa Mostra Código De Erro E Trava - DATADARK",
+    "url": "artigos/importados/Placa-mostra-c%C3%B3digo-de-erro-e-trava.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "placa-nao-aceita-a-atualizacao-da-bios",
+    "title": "Placa Não Aceita A Atualização Da Bios - DATADARK",
+    "description": "Placa Não Aceita A Atualização Da Bios - DATADARK",
+    "url": "artigos/importados/Placa-n%C3%A3o-aceita-a-atualiza%C3%A7%C3%A3o-da-BIOS.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "placa-nao-aceita-a-memoria-nova",
+    "title": "Placa Não Aceita A Memória Nova - DATADARK",
+    "description": "Placa Não Aceita A Memória Nova - DATADARK",
+    "url": "artigos/importados/Placa-n%C3%A3o-aceita-a-mem%C3%B3ria-nova.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "placa-nao-reconhece-nenhum-dispositivo-sata",
+    "title": "Placa Não Reconhece Nenhum Dispositivo Sata - DATADARK",
+    "description": "Placa Não Reconhece Nenhum Dispositivo Sata - DATADARK",
+    "url": "artigos/importados/Placa-n%C3%A3o-reconhece-nenhum-dispositivo-SATA.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "placa-nao-reconhece-o-processador-novo",
+    "title": "Placa Não Reconhece O Processador Novo - DATADARK",
+    "description": "Placa Não Reconhece O Processador Novo - DATADARK",
+    "url": "artigos/importados/Placa-n%C3%A3o-reconhece-o-processador-novo.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "placa-oxidada-apos-contato-com-liquido",
+    "title": "Placa Oxidada Após Contato Com Líquido - DATADARK",
+    "description": "Placa Oxidada Após Contato Com Líquido - DATADARK",
+    "url": "artigos/importados/Placa-oxidada-ap%C3%B3s-contato-com-l%C3%ADquido.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "porta-usb-frontal-sem-energia",
+    "title": "Porta Usb Frontal Sem Energia - DATADARK",
+    "description": "Porta Usb Frontal Sem Energia - DATADARK",
+    "url": "artigos/importados/Porta-USB-frontal-sem-energia.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "portas-usb-do-notebook-sem-resposta",
+    "title": "Portas USB do notebook sem resposta - DATADARK Tecnologia",
+    "description": "Portas USB do notebook sem resposta - DATADARK Tecnologia",
+    "url": "artigos/importados/Portas-USB-do-notebook-sem-resposta.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "portas-usb-pararam-de-reconhecer-dispositivos",
+    "title": "Portas Usb Pararam De Reconhecer Dispositivos - DATADARK",
+    "description": "Portas Usb Pararam De Reconhecer Dispositivos - DATADARK",
+    "url": "artigos/importados/Portas-USB-pararam-de-reconhecer-dispositivos.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "processador-com-frequencia-errada-no-sistema",
+    "title": "Processador Com Frequência Errada No Sistema - DATADARK",
+    "description": "Processador Com Frequência Errada No Sistema - DATADARK",
+    "url": "artigos/importados/Processador-com-frequ%C3%AAncia-errada-no-sistema.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "processador-com-pino-torto-no-soquete",
+    "title": "Processador Com Pino Torto No Soquete - DATADARK",
+    "description": "Processador Com Pino Torto No Soquete - DATADARK",
+    "url": "artigos/importados/Processador-com-pino-torto-no-soquete.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "processador-quente-mesmo-em-repouso",
+    "title": "Processador Quente Mesmo Em Repouso - DATADARK",
+    "description": "Processador Quente Mesmo Em Repouso - DATADARK",
+    "url": "artigos/importados/Processador-quente-mesmo-em-repouso.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "programas-demoram-e-ficam-sem-resposta",
+    "title": "Programas Demoram E Ficam Sem Resposta - DATADARK",
+    "description": "Programas Demoram E Ficam Sem Resposta - DATADARK",
+    "url": "artigos/importados/Programas-demoram-e-ficam-sem-resposta.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "rede-funciona-no-cabo-mas-nao-no-wi-fi",
+    "title": "Rede Funciona No Cabo Mas Não No Wi Fi - DATADARK",
+    "description": "Rede Funciona No Cabo Mas Não No Wi Fi - DATADARK",
+    "url": "artigos/importados/Rede-funciona-no-cabo-mas-n%C3%A3o-no-Wi-Fi.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "rede-some-depois-de-suspender",
+    "title": "Rede Some Depois De Suspender - DATADARK",
+    "description": "Rede Some Depois De Suspender - DATADARK",
+    "url": "artigos/importados/Rede-some-depois-de-suspender.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "reinicia-ao-abrir-jogos-e-programas-pesados",
+    "title": "Reinicia Ao Abrir Jogos E Programas Pesados - DATADARK",
+    "description": "Reinicia Ao Abrir Jogos E Programas Pesados - DATADARK",
+    "url": "artigos/importados/Reinicia-ao-abrir-jogos-e-programas-pesados.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "reinicia-ao-conectar-um-dispositivo-usb",
+    "title": "Reinicia Ao Conectar Um Dispositivo Usb - DATADARK",
+    "description": "Reinicia Ao Conectar Um Dispositivo Usb - DATADARK",
+    "url": "artigos/importados/Reinicia-ao-conectar-um-dispositivo-USB.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "reinicia-depois-da-atualizacao-do-sistema",
+    "title": "Reinicia Depois Da Atualização Do Sistema - DATADARK",
+    "description": "Reinicia Depois Da Atualização Do Sistema - DATADARK",
+    "url": "artigos/importados/Reinicia-depois-da-atualiza%C3%A7%C3%A3o-do-sistema.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "reinicia-em-ciclo-antes-de-carregar-o-sistema",
+    "title": "Reinicia Em Ciclo Antes De Carregar O Sistema - DATADARK",
+    "description": "Reinicia Em Ciclo Antes De Carregar O Sistema - DATADARK",
+    "url": "artigos/importados/Reinicia-em-ciclo-antes-de-carregar-o-sistema.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "reinicia-quando-o-disco-e-acessado",
+    "title": "Reinicia Quando O Disco É Acessado - DATADARK",
+    "description": "Reinicia Quando O Disco É Acessado - DATADARK",
+    "url": "artigos/importados/Reinicia-quando-o-disco-%C3%A9-acessado.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "reparo-automatico-em-ciclo-sem-sair",
+    "title": "Reparo Automático Em Ciclo Sem Sair - DATADARK",
+    "description": "Reparo Automático Em Ciclo Sem Sair - DATADARK",
+    "url": "artigos/importados/Reparo-autom%C3%A1tico-em-ciclo-sem-sair.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "ruido-de-clique-vindo-do-disco",
+    "title": "Ruído de clique vindo do disco - DATADARK Tecnologia",
+    "description": "Ruído de clique vindo do disco - DATADARK Tecnologia",
+    "url": "artigos/importados/Ru%C3%ADdo-de-clique-vindo-do-disco.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "saida-hdmi-sem-imagem-no-televisor",
+    "title": "Saída HDMI sem imagem no televisor - DATADARK Tecnologia",
+    "description": "Saída HDMI sem imagem no televisor - DATADARK Tecnologia",
+    "url": "artigos/importados/Sa%C3%ADda-HDMI-sem-imagem-no-televisor.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "secure-boot-impede-a-instalacao",
+    "title": "Secure Boot Impede A Instalação - DATADARK",
+    "description": "Secure Boot Impede A Instalação - DATADARK",
+    "url": "artigos/importados/Secure-Boot-impede-a-instala%C3%A7%C3%A3o.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "sem-video-apos-instalar-a-placa-dedicada",
+    "title": "Sem Vídeo Após Instalar A Placa Dedicada - DATADARK",
+    "description": "Sem Vídeo Após Instalar A Placa Dedicada - DATADARK",
+    "url": "artigos/importados/Sem-v%C3%ADdeo-ap%C3%B3s-instalar-a-placa-dedicada.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "sistema-abre-lento-com-erro-de-servico",
+    "title": "Sistema Abre Lento Com Erro De Serviço - DATADARK",
+    "description": "Sistema Abre Lento Com Erro De Serviço - DATADARK",
+    "url": "artigos/importados/Sistema-abre-lento-com-erro-de-servi%C3%A7o.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "sistema-nao-inicia-e-exibe-erro-de-boot",
+    "title": "Sistema Não Inicia E Exibe Erro De Boot - DATADARK",
+    "description": "Sistema Não Inicia E Exibe Erro De Boot - DATADARK",
+    "url": "artigos/importados/Sistema-n%C3%A3o-inicia-e-exibe-erro-de-boot.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "sistema-pede-ativacao-apos-troca-de-peca",
+    "title": "Sistema Pede Ativação Após Troca De Peça - DATADARK",
+    "description": "Sistema Pede Ativação Após Troca De Peça - DATADARK",
+    "url": "artigos/importados/Sistema-pede-ativa%C3%A7%C3%A3o-ap%C3%B3s-troca-de-pe%C3%A7a.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "sistema-reconhece-menos-memoria-que-a-instalada",
+    "title": "Sistema Reconhece Menos Memória Que A Instalada - DATADARK",
+    "description": "Sistema Reconhece Menos Memória Que A Instalada - DATADARK",
+    "url": "artigos/importados/Sistema-reconhece-menos-mem%C3%B3ria-que-a-instalada.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "som-sai-distorcido-e-com-chiado",
+    "title": "Som Sai Distorcido E Com Chiado - DATADARK",
+    "description": "Som Sai Distorcido E Com Chiado - DATADARK",
+    "url": "artigos/importados/Som-sai-distorcido-e-com-chiado.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "som-some-ao-ligar-o-monitor-por-hdmi",
+    "title": "Som Some Ao Ligar O Monitor Por Hdmi - DATADARK",
+    "description": "Som Some Ao Ligar O Monitor Por Hdmi - DATADARK",
+    "url": "artigos/importados/Som-some-ao-ligar-o-monitor-por-HDMI.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "som-so-sai-de-um-lado",
+    "title": "Som Só Sai De Um Lado - DATADARK",
+    "description": "Som Só Sai De Um Lado - DATADARK",
+    "url": "artigos/importados/Som-s%C3%B3-sai-de-um-lado.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "ssd-com-capacidade-errada-no-sistema",
+    "title": "Ssd Com Capacidade Errada No Sistema - DATADARK",
+    "description": "Ssd Com Capacidade Errada No Sistema - DATADARK",
+    "url": "artigos/importados/SSD-com-capacidade-errada-no-sistema.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "ssd-com-desempenho-muito-abaixo-do-esperado",
+    "title": "Ssd Com Desempenho Muito Abaixo Do Esperado - DATADARK",
+    "description": "Ssd Com Desempenho Muito Abaixo Do Esperado - DATADARK",
+    "url": "artigos/importados/SSD-com-desempenho-muito-abaixo-do-esperado.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "ssd-m-2-nao-e-reconhecido-no-notebook",
+    "title": "SSD M 2 não é reconhecido no notebook - DATADARK Tecnologia",
+    "description": "SSD M 2 não é reconhecido no notebook - DATADARK Tecnologia",
+    "url": "artigos/importados/SSD-M-2-n%C3%A3o-%C3%A9-reconhecido-no-notebook.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "ssd-nao-aparece-na-bios-nem-no-sistema",
+    "title": "Ssd Não Aparece Na Bios Nem No Sistema - DATADARK",
+    "description": "Ssd Não Aparece Na Bios Nem No Sistema - DATADARK",
+    "url": "artigos/importados/SSD-n%C3%A3o-aparece-na-BIOS-nem-no-sistema.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "so-liga-com-a-placa-fora-do-gabinete",
+    "title": "Só Liga Com A Placa Fora Do Gabinete - DATADARK",
+    "description": "Só Liga Com A Placa Fora Do Gabinete - DATADARK",
+    "url": "artigos/importados/S%C3%B3-liga-com-a-placa-fora-do-gabinete.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "teclado-digita-caracteres-errados",
+    "title": "Teclado digita caracteres errados - DATADARK Tecnologia",
+    "description": "Teclado digita caracteres errados - DATADARK Tecnologia",
+    "url": "artigos/importados/Teclado-digita-caracteres-errados.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "teclado-e-mouse-param-apos-o-post",
+    "title": "Teclado E Mouse Param Após O Post - DATADARK",
+    "description": "Teclado E Mouse Param Após O Post - DATADARK",
+    "url": "artigos/importados/Teclado-e-mouse-param-ap%C3%B3s-o-POST.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "teclas-do-teclado-nao-respondem",
+    "title": "Teclas do teclado não respondem - DATADARK Tecnologia",
+    "description": "Teclas do teclado não respondem - DATADARK Tecnologia",
+    "url": "artigos/importados/Teclas-do-teclado-n%C3%A3o-respondem.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-azul-aleatoria-sem-padrao",
+    "title": "Tela Azul Aleatória Sem Padrão - DATADARK",
+    "description": "Tela Azul Aleatória Sem Padrão - DATADARK",
+    "url": "artigos/importados/Tela-azul-aleat%C3%B3ria-sem-padr%C3%A3o.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-azul-ao-conectar-um-dispositivo-usb",
+    "title": "Tela Azul Ao Conectar Um Dispositivo Usb - DATADARK",
+    "description": "Tela Azul Ao Conectar Um Dispositivo Usb - DATADARK",
+    "url": "artigos/importados/Tela-azul-ao-conectar-um-dispositivo-USB.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-azul-ao-usar-a-placa-de-video",
+    "title": "Tela Azul Ao Usar A Placa De Vídeo - DATADARK",
+    "description": "Tela Azul Ao Usar A Placa De Vídeo - DATADARK",
+    "url": "artigos/importados/Tela-azul-ao-usar-a-placa-de-v%C3%ADdeo.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-azul-aparece-logo-apos-iniciar-o-sistema",
+    "title": "Tela Azul Aparece Logo Após Iniciar O Sistema - DATADARK",
+    "description": "Tela Azul Aparece Logo Após Iniciar O Sistema - DATADARK",
+    "url": "artigos/importados/Tela-azul-aparece-logo-ap%C3%B3s-iniciar-o-sistema.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-azul-com-erro-de-disco-de-boot",
+    "title": "Tela Azul Com Erro De Disco De Boot - DATADARK",
+    "description": "Tela Azul Com Erro De Disco De Boot - DATADARK",
+    "url": "artigos/importados/Tela-azul-com-erro-de-disco-de-boot.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-azul-com-erro-de-memoria",
+    "title": "Tela Azul Com Erro De Memória - DATADARK",
+    "description": "Tela Azul Com Erro De Memória - DATADARK",
+    "url": "artigos/importados/Tela-azul-com-erro-de-mem%C3%B3ria.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-azul-depois-de-instalar-um-programa",
+    "title": "Tela Azul Depois De Instalar Um Programa - DATADARK",
+    "description": "Tela Azul Depois De Instalar Um Programa - DATADARK",
+    "url": "artigos/importados/Tela-azul-depois-de-instalar-um-programa.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-com-listras-manchas-ou-linhas-verticais",
+    "title": "Tela com listras manchas ou linhas verticais - DATADARK Tecnologia",
+    "description": "Tela com listras manchas ou linhas verticais - DATADARK Tecnologia",
+    "url": "artigos/importados/Tela-com-listras-manchas-ou-linhas-verticais.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-escura-com-imagem-visivel-contra-a-luz",
+    "title": "Tela escura com imagem visível contra a luz - DATADARK Tecnologia",
+    "description": "Tela escura com imagem visível contra a luz - DATADARK Tecnologia",
+    "url": "artigos/importados/Tela-escura-com-imagem-vis%C3%ADvel-contra-a-luz.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "tela-piscando-ou-com-brilho-oscilando",
+    "title": "Tela piscando ou com brilho oscilando - DATADARK Tecnologia",
+    "description": "Tela piscando ou com brilho oscilando - DATADARK Tecnologia",
+    "url": "artigos/importados/Tela-piscando-ou-com-brilho-oscilando.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "touchpad-nao-responde-ao-toque",
+    "title": "Touchpad não responde ao toque - DATADARK Tecnologia",
+    "description": "Touchpad não responde ao toque - DATADARK Tecnologia",
+    "url": "artigos/importados/Touchpad-n%C3%A3o-responde-ao-toque.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "trava-na-tela-de-boas-vindas",
+    "title": "Trava Na Tela De Boas Vindas - DATADARK",
+    "description": "Trava Na Tela De Boas Vindas - DATADARK",
+    "url": "artigos/importados/Trava-na-tela-de-boas-vindas.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "travamentos-com-erro-apontando-a-memoria",
+    "title": "Travamentos Com Erro Apontando A Memória - DATADARK",
+    "description": "Travamentos Com Erro Apontando A Memória - DATADARK",
+    "url": "artigos/importados/Travamentos-com-erro-apontando-a-mem%C3%B3ria.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "trilha-ou-solda-rompida-na-placa",
+    "title": "Trilha Ou Solda Rompida Na Placa - DATADARK",
+    "description": "Trilha Ou Solda Rompida Na Placa - DATADARK",
+    "url": "artigos/importados/Trilha-ou-solda-rompida-na-placa.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "um-beep-longo-e-dois-curtos-ao-ligar",
+    "title": "Um Beep Longo E Dois Curtos Ao Ligar - DATADARK",
+    "description": "Um Beep Longo E Dois Curtos Ao Ligar - DATADARK",
+    "url": "artigos/importados/Um-beep-longo-e-dois-curtos-ao-ligar.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "velocidade-de-rede-abaixo-da-contratada",
+    "title": "Velocidade De Rede Abaixo Da Contratada - DATADARK",
+    "description": "Velocidade De Rede Abaixo Da Contratada - DATADARK",
+    "url": "artigos/importados/Velocidade-de-rede-abaixo-da-contratada.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "ventoinha-com-ruido-alto-ou-raspando",
+    "title": "Ventoinha com ruído alto ou raspando - DATADARK Tecnologia",
+    "description": "Ventoinha com ruído alto ou raspando - DATADARK Tecnologia",
+    "url": "artigos/importados/Ventoinha-com-ru%C3%ADdo-alto-ou-raspando.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "video-integrado-parou-de-funcionar",
+    "title": "Vídeo Integrado Parou De Funcionar - DATADARK",
+    "description": "Vídeo Integrado Parou De Funcionar - DATADARK",
+    "url": "artigos/importados/V%C3%ADdeo-integrado-parou-de-funcionar.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "webcam-nao-e-detectada-pelo-sistema",
+    "title": "Webcam não é detectada pelo sistema - DATADARK Tecnologia",
+    "description": "Webcam não é detectada pelo sistema - DATADARK Tecnologia",
+    "url": "artigos/importados/Webcam-n%C3%A3o-%C3%A9-detectada-pelo-sistema.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "wi-fi-conecta-e-cai-constantemente",
+    "title": "Wi Fi conecta e cai constantemente - DATADARK Tecnologia",
+    "description": "Wi Fi conecta e cai constantemente - DATADARK Tecnologia",
+    "url": "artigos/importados/Wi-Fi-conecta-e-cai-constantemente.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "wi-fi-conecta-mas-fica-sem-internet",
+    "title": "Wi Fi Conecta Mas Fica Sem Internet - DATADARK",
+    "description": "Wi Fi Conecta Mas Fica Sem Internet - DATADARK",
+    "url": "artigos/importados/Wi-Fi-conecta-mas-fica-sem-internet.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "wi-fi-nao-encontra-nenhuma-rede",
+    "title": "Wi Fi não encontra nenhuma rede - DATADARK Tecnologia",
+    "description": "Wi Fi não encontra nenhuma rede - DATADARK Tecnologia",
+    "url": "artigos/importados/Wi-Fi-n%C3%A3o-encontra-nenhuma-rede.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
     "slug": "audio-fica-mudo-ao-tirar-o-fone",
     "title": "Áudio Fica Mudo Ao Tirar O Fone - DATADARK",
     "description": "Áudio Fica Mudo Ao Tirar O Fone - DATADARK",
@@ -354,6 +1574,26 @@
     "title": "Áudio Parou Depois De Atualização - DATADARK",
     "description": "Áudio Parou Depois De Atualização - DATADARK",
     "url": "artigos/importados/%C3%81udio-parou-depois-de-atualiza%C3%A7%C3%A3o.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "audio-sai-apenas-pelo-fone-de-ouvido",
+    "title": "Áudio sai apenas pelo fone de ouvido - DATADARK Tecnologia",
+    "description": "Áudio sai apenas pelo fone de ouvido - DATADARK Tecnologia",
+    "url": "artigos/importados/%C3%81udio-sai-apenas-pelo-fone-de-ouvido.html",
+    "category_id": "documentos",
+    "category": "Documentos",
+    "keywords": [],
+    "aliases": []
+  },
+  {
+    "slug": "icones-sumiram-da-area-de-trabalho",
+    "title": "Ícones Sumiram Da Área De Trabalho - DATADARK",
+    "description": "Ícones Sumiram Da Área De Trabalho - DATADARK",
+    "url": "artigos/importados/%C3%8Dcones-sumiram-da-%C3%A1rea-de-trabalho.html",
     "category_id": "documentos",
     "category": "Documentos",
     "keywords": [],
