@@ -666,9 +666,130 @@ function safeArticleUrl(value) {
     value.trim();
 
 
+  /*
+   * Artigos editoriais DATADARK.
+   *
+   * Mantém o contrato V1 já existente:
+   * artigos/slug-ascii-minusculo.html
+   */
   if (
-    !/^artigos\/[a-z0-9]+(?:-[a-z0-9]+)*\.html$/
+    /^artigos\/[a-z0-9]+(?:-[a-z0-9]+)*\.html$/
       .test(url)
+  ) {
+
+    return url;
+
+  }
+
+
+  /*
+   * HTMLs importados.
+   *
+   * Aceita:
+   * - letras maiúsculas/minúsculas;
+   * - números;
+   * - hífen, ponto, underscore e til;
+   * - caracteres UTF-8 codificados como %HH;
+   * - subdiretórios internos de importados/.
+   *
+   * Continua bloqueando:
+   * - URL externa;
+   * - caminhos relativos "." e "..";
+   * - barras codificadas;
+   * - backslash;
+   * - byte NUL.
+   */
+  const importedPrefix =
+    "artigos/importados/";
+
+
+  if (
+    !url.startsWith(
+      importedPrefix
+    )
+  ) {
+
+    return null;
+
+  }
+
+
+  const relative =
+    url.slice(
+      importedPrefix.length
+    );
+
+
+  if (!relative) {
+
+    return null;
+
+  }
+
+
+  const parts =
+    relative.split("/");
+
+
+  for (
+    const part
+    of parts
+  ) {
+
+    if (
+      !part
+      || !/^(?:[A-Za-z0-9._~-]|%[0-9A-Fa-f]{2})+$/
+        .test(part)
+    ) {
+
+      return null;
+
+    }
+
+
+    let decoded;
+
+
+    try {
+
+      decoded =
+        decodeURIComponent(
+          part
+        );
+
+    } catch {
+
+      return null;
+
+    }
+
+
+    if (
+      !decoded
+      || decoded === "."
+      || decoded === ".."
+      || decoded.includes("/")
+      || decoded.includes("\\")
+      || decoded.includes("\0")
+    ) {
+
+      return null;
+
+    }
+
+  }
+
+
+  const filename =
+    parts[
+      parts.length - 1
+    ];
+
+
+  if (
+    !filename
+      .toLowerCase()
+      .endsWith(".html")
   ) {
 
     return null;
@@ -677,6 +798,7 @@ function safeArticleUrl(value) {
 
 
   return url;
+
 }
 
 
