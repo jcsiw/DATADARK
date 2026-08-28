@@ -1395,3 +1395,9 @@ svg {
   outline-offset:
     3px;
 }
+
+/* Faixa de categorias ocultada visualmente.
+   Mantida no DOM para preservar a interface categorial. */
+#kb-category-strip {
+  display: none;
+}
